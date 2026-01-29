@@ -6,9 +6,12 @@ import io
 import os
 import sys
 from typing import Optional
-
-import pythoncom
-import win32com.client as win32
+if sys.platform == 'win32':
+    import pythoncom
+    import win32com.client as win32
+else:
+    pythoncom = None
+    win32 = None
 from docx import Document
 
 

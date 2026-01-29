@@ -1,0 +1,30 @@
+[ui]
+hideTopBar = true
+
+[theme]
+base = "light"
+primaryColor = "#0066CC"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+[server]
+port = 8501
+enableCORS = false  # Desabilite para self-hosted (evita erros CORS)
+enableXsrfProtection = false
+headless = true
+fileWatcherType = "poll"  # Mais confiável em nuvem que watchdog
+maxUploadSize = 5000  # 5000MB (5GB) - aumentado para suportar múltiplos arquivos grandes
+enableStaticServing = true  # Para assets como CSS/JS
+maxMessageSize = 5000  # Para mensagens grandes (widgets) - aumentado proporcionalmente
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = false  # Mude para false em prod (segurança)
+
+[runner]
+fastReruns = true
+
+[browser]
+gatherUsageStats = false
