@@ -1,6 +1,6 @@
 """
 Comparar dois DOCX (problemas x solução) e salvar o documento de comparação.
-Versão multiplataforma usando Python-Redlines.
+Versão multiplataforma com tracked changes NATIVOS.
 """
 import io
 import os
@@ -16,14 +16,6 @@ else:
     win32 = None
 
 from docx import Document
-
-# Importar biblioteca de comparação multiplataforma
-try:
-    from redlines import Redlines
-    REDLINES_DISPONIVEL = True
-except ImportError:
-    REDLINES_DISPONIVEL = False
-    print("Aviso: biblioteca 'redlines' não instalada. Funcionalidade de comparação limitada.")
 
 
 def gerar_doc_comparado(doc_problemas_bytes: bytes, doc_solucao_bytes: bytes) -> Optional[bytes]:
@@ -57,49 +49,88 @@ def gerar_doc_comparado(doc_problemas_bytes: bytes, doc_solucao_bytes: bytes) ->
     return buffer.getvalue()
 
 
-def comparar_docx_redlines(original_path, revisado_path, saida_path):
+def comparar_docx_libreoffice(original_path, revisado_path, saida_path):
     """
-    Compara dois documentos DOCX usando Python-Redlines (multiplataforma).
-    Gera um documento com tracked changes igual ao Word.
+    Compara documentos usando LibreOffice com tracked changes NATIVOS.
+    Os tracked changes funcionarão no Microsoft Word.
     """
-    if not REDLINES_DISPONIVEL:
-        raise ImportError("Biblioteca 'redlines' não instalada. Execute: pip install redlines")
-    
     try:
-        # Ler os documentos como texto
-        doc_original = Document(original_path)
-        doc_revisado = Document(revisado_path)
+        import uno
+        from com.sun.star.beans import PropertyValue
         
-        # Extrair texto completo
-        texto_original = '\n'.join([para.text for para in doc_original.paragraphs])
-        texto_revisado = '\n'.join([para.text for para in doc_revisado.paragraphs])
+        # Conectar ao LibreOffice
+        local_context = uno.getComponentContext()
+        resolver = local_context.ServiceManager.createInstanceWithContext(
+            "com.sun.star.bridge.UnoUrlResolver", local_context
+        )
         
-        # Criar comparação com tracked changes
-        redline = Redlines(texto_original, texto_revisado)
-        resultado_html = redline.output_markdown  # ou output_html
+        # Tentar conectar ao LibreOffice
+        try:
+            ctx = resolver.resolve(
+                "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"
+            )
+        except:
+            # Iniciar LibreOffice em background
+            import subprocess
+            subprocess.Popen([
+                'soffice',
+                '--headless',
+                '--accept=socket,host=localhost,port=2002;urp;',
+                '--nofirststartwizard'
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            import time
+            time.sleep(3)
+            ctx = resolver.resolve(
+                "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"
+            )
         
-        # Criar documento de saída com as mudanças marcadas
-        doc_saida = Document()
-        doc_saida.add_heading("Documento Comparado - Track Changes", 0)
+        smgr = ctx.ServiceManager
+        desktop = smgr.createInstanceWithContext("com.sun.star.frame.Desktop", ctx)
         
-        # Processar o resultado e adicionar ao documento
-        # (simplificado - você pode melhorar o parsing)
-        for linha in resultado_html.split('\n'):
-            doc_saida.add_paragraph(linha)
+        # Converter caminhos para URLs
+        def path_to_url(path):
+            return uno.systemPathToFileUrl(os.path.abspath(path))
         
-        doc_saida.save(saida_path)
+        original_url = path_to_url(original_path)
+        revisado_url = path_to_url(revisado_path)
+        saida_url = path_to_url(saida_path)
+        
+        # Abrir documento original
+        doc_original = desktop.loadComponentFromURL(original_url, "_blank", 0, ())
+        
+        # Ativar tracked changes
+        doc_original.recordChanges = True
+        
+        # Comparar com documento revisado usando a função nativa do LibreOffice
+        doc_original.compareDocuments(revisado_url)
+        
+        # Salvar com tracked changes no formato Word
+        store_props = (
+            PropertyValue("FilterName", 0, "MS Word 2007 XML", 0),
+            PropertyValue("Overwrite", 0, True, 0),
+        )
+        doc_original.storeToURL(saida_url, store_props)
+        
+        # Fechar documento
+        doc_original.close(True)
+        
+        print("✓ Comparação com tracked changes nativos concluída (LibreOffice)")
         return True
         
+    except ImportError:
+        print("❌ LibreOffice não está instalado ou python3-uno não disponível")
+        print("   Instale com: sudo apt-get install libreoffice python3-uno")
+        return False
     except Exception as e:
-        print(f"Erro ao comparar documentos: {e}")
+        print(f"❌ Erro ao usar LibreOffice: {e}")
         return False
 
 
 def comparar_docx(original_path, revisado_path, saida_path):
     """
-    Compara dois documentos DOCX.
-    - No Windows: usa Word se disponível
-    - No Linux: usa Python-Redlines
+    Compara dois documentos DOCX com tracked changes NATIVOS.
+    - No Windows: usa Microsoft Word
+    - No Linux: usa LibreOffice
     """
     original_path = os.path.abspath(original_path)
     revisado_path = os.path.abspath(revisado_path)
@@ -126,6 +157,8 @@ def comparar_docx(original_path, revisado_path, saida_path):
                     )
 
                     word.ActiveDocument.SaveAs(saida_path)
+                    print("✓ Comparação com Microsoft Word concluída")
+                    return True
 
                 finally:
                     try:
@@ -136,12 +169,14 @@ def comparar_docx(original_path, revisado_path, saida_path):
                     word.Quit()
             finally:
                 pythoncom.CoUninitialize()
-            return True
+                return True
         except Exception as e:
-            print(f"Erro ao usar Word: {e}. Tentando método alternativo...")
+            print(f"❌ Erro ao usar Word: {e}")
+            return False
     
-    # Usar Python-Redlines como fallback
-    return comparar_docx_redlines(original_path, revisado_path, saida_path)
+    # Usar LibreOffice no Linux
+    else:
+        return comparar_docx_libreoffice(original_path, revisado_path, saida_path)
 
 
 if __name__ == "__main__":
@@ -160,8 +195,8 @@ if __name__ == "__main__":
             saida = os.path.join(docs_dir, saida)
         
         if comparar_docx(problema, solucao, saida):
-            print(f"Comparação concluída: {saida}")
+            print(f"✓ Arquivo gerado: {saida}")
         else:
-            print("Erro na comparação")
+            print("❌ Erro na comparação")
     else:
         print("Uso: python comparar_docx.py <problemas_xxx.docx> <solucao_xxx.docx> <saida.docx>")
