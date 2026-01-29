@@ -1,0 +1,1000 @@
+import streamlit as st
+from pathlib import Path
+import json
+import hashlib
+
+# ========= Upload =========
+def upload_docx(label: str, key: str = "upload_docx"):
+    """
+    Mostra um file_uploader para .docx e retorna o arquivo enviado ou None.
+    """
+    arquivo = st.file_uploader(
+        label,
+        type=["docx"],
+        key=key,
+    )
+    return arquivo
+
+# ========= DB local =========
+DB_DIR = Path("db")
+DB_DIR.mkdir(exist_ok=True)
+
+def carregar_clausulas(tipo: str, idioma: str = None):
+    """
+    Carrega cláusulas do arquivo JSON correspondente ao tipo.
+    Normaliza o tipo para minúsculas para compatibilidade cross-platform.
+    
+    Args:
+        tipo: Nome do tipo de contrato (ex: "NDA")
+        idioma: Idioma do contrato ("pt" ou "en"). Se None, tenta "pt" primeiro, depois formato antigo.
+    
+    Returns:
+        Lista de cláusulas do arquivo JSON. Lista vazia se arquivo não existir.
+    """
+    tipo_normalizado = tipo.lower()
+    
+    # Sempre tentar primeiro o formato com sufixo de idioma (padrão: "pt")
+    idioma_para_buscar = idioma if idioma else "pt"
+    path_com_sufixo = DB_DIR / f"{tipo_normalizado}_clausulas_{idioma_para_buscar}.json"
+    
+    if path_com_sufixo.exists():
+        return json.loads(path_com_sufixo.read_text(encoding="utf-8"))
+    
+    # Fallback: formato antigo sem sufixo (retrocompatibilidade)
+    path_sem_sufixo = DB_DIR / f"{tipo_normalizado}_clausulas.json"
+    if path_sem_sufixo.exists():
+        return json.loads(path_sem_sufixo.read_text(encoding="utf-8"))
+    
+    return []
+
+def salvar_clausulas(tipo: str, clausulas: list, idioma: str = None):
+    """
+    Salva cláusulas no arquivo JSON correspondente ao tipo.
+    Normaliza o tipo para minúsculas para compatibilidade cross-platform.
+    Sempre usa formato com sufixo de idioma (padrão: "pt").
+    
+    Args:
+        tipo: Nome do tipo de contrato (ex: "NDA")
+        clausulas: Lista de cláusulas a salvar
+        idioma: Idioma do contrato ("pt" ou "en"). Se None, usa "pt" como padrão.
+    """
+    tipo_normalizado = tipo.lower()
+    idioma_para_salvar = idioma if idioma else "pt"
+    path = DB_DIR / f"{tipo_normalizado}_clausulas_{idioma_para_salvar}.json"
+    path.write_text(
+        json.dumps(clausulas, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+# ========= Sidebar - Informações =========
+def sidebar_informacoes(tipo_nome: str):
+    """
+    Exibe botão de informação com guias sobre edição de prompts e estrutura JSON.
+    """
+    from analise.agent import AGENTES, VARIAVEIS_POR_AGENTE, DESCRICOES_AGENTES
+    
+    with st.sidebar:
+        with st.expander("ℹ️ Guia: Como editar Prompts e Cláusulas", expanded=False):
+            st.markdown("### 📝 Como Editar Prompts dos Agentes")
+            
+            st.markdown("Os prompts são as instruções que os agentes de IA seguem para analisar os contratos. Você pode personalizá-los por tipo de contrato (NDA, SPA, etc.).")
+            
+            st.markdown("**Passo a passo:**")
+            st.markdown("1. Na sidebar, clique em **'Editar Prompts dos Agentes'**")
+            st.markdown("2. Digite a **senha de administrador** quando solicitado (para Salvar ou Reset)")
+            st.markdown("3. O editor abre com **uma aba por agente** (Verificador e Reescritor)")
+            st.markdown("4. Em cada aba, edite **Mensagem System** e **Mensagem User** conforme necessário")
+            st.markdown("5. Clique em **'Salvar Todos'** para aplicar as alterações (ou **'Fechar'** para sair sem salvar)")
+            
+            st.markdown("**Agentes com prompts editáveis:**")
+            for agent in AGENTES:
+                vars_agente = VARIAVEIS_POR_AGENTE.get(agent, [])
+                vars_str = ", ".join([f"`{v}`" for v in vars_agente])
+                st.markdown(f"- **{agent}** — {DESCRICOES_AGENTES.get(agent, '')}")
+                if vars_agente:
+                    st.caption(f"  Variáveis obrigatórias no template User: {vars_str}")
+            
+            st.markdown("**Tipos de prompts:**")
+            st.markdown("- **Mensagem System**: Comportamento geral do agente")
+            st.markdown("- **Mensagem User**: Template com variáveis que recebe os dados do documento")
+            
+            st.markdown("**Importante:**")
+            st.markdown("- O sistema valida se todas as variáveis obrigatórias estão no template User")
+            st.markdown("- Se faltar alguma variável, um erro será exibido e o salvamento bloqueado")
+            st.markdown("- Use **'Reset Todos'** para restaurar os prompts padrão do tipo de contrato")
+            
+            st.markdown("---")
+            
+            st.markdown("### 📄 Como Gerenciar Cláusulas de Referência")
+            
+            st.markdown("As cláusulas de referência definem as regras que a IA verifica no contrato (busca por similaridade e análise de conformidade).")
+            
+            st.markdown("**Adicionar nova cláusula:**")
+            st.markdown("1. Na sidebar, em **Configurações**, clique em **'Adicionar cláusula'**")
+            st.markdown("2. Preencha os campos:")
+            st.markdown("   - **Nome da cláusula** (obrigatório): Identificador da regra. Ex.: _Confidencialidade de dados_, _Prazo de vigência_.")
+            st.markdown("   - **Descrição** (obrigatório): O que a IA deve verificar — critério de conformidade. Ex.: _Garante que dados confidenciais não podem ser divulgados a terceiros sem autorização._")
+            st.markdown("   - **Buscar em** (obrigatório): Palavras-chave para busca por similaridade. Ex.: _vigência_, _prazo_, _confidencialidade_.")
+            st.markdown("   - **Como corrigir** (opcional): Sugestão de redação para correção.")
+            st.markdown("   - **Cláusula ativa**: Marque para incluir a regra na análise; desmarque para desativar sem excluir.")
+            st.markdown("3. Clique em **'Salvar Cláusula'** — a cláusula é salva e a base vetorial é atualizada automaticamente")
+            
+            st.markdown("**Editar cláusulas existentes:**")
+            st.markdown("1. Na lista de cláusulas na sidebar, clique no botão **✏️** ao lado da cláusula")
+            st.markdown("2. Altere os campos desejados e clique em **'Salvar'** (ou **'Cancelar'** para desistir)")
+            
+            st.markdown("**Excluir cláusulas:**")
+            st.markdown("1. Na lista de cláusulas, clique no botão **❌** ao lado da cláusula")
+            st.markdown("2. Confirme em **'Confirmar Exclusão'** (ou **'Cancelar'** para desistir)")
+            
+            st.markdown("**Estrutura de uma cláusula (JSON):**")
+            st.code("""{
+  "ativa": true,
+  "titulo": "Nome da cláusula",
+  "regra_spectra": "Descrição do que deve ser verificado",
+  "buscar_em": "Palavras-chave para busca por similaridade (obrigatório)",
+  "como_corrigir": "Sugestão de redação (opcional)"
+}""", language="json")
+            
+            st.markdown("**Campos explicados:**")
+            st.markdown("- **ativa**: Se a regra entra na análise (true) ou fica desativada (false)")
+            st.markdown("- **titulo**: Identificador da regra na plataforma e nos relatórios (obrigatório)")
+            st.markdown("- **regra_spectra**: O que a IA deve verificar no contrato — critério de conformidade (obrigatório)")
+            st.markdown("- **buscar_em**: Palavras-chave para busca por similaridade (obrigatório)")
+            st.markdown("- **como_corrigir**: Sugestão de redação para correção (opcional)")
+            
+            st.markdown("**Reindexação:**")
+            st.markdown("- Ao **adicionar**, **editar** ou **excluir** cláusulas, a base vetorial (Vector Store) é atualizada automaticamente.")
+            st.markdown("- Use o botão **'Reindexar Vector Store'** quando trocar o **modelo de embedding**, o **idioma do contrato** ou para forçar a atualização da base.")
+            
+            st.markdown("**Visualizar cláusulas:**")
+            st.markdown("- As cláusulas do tipo de contrato atual aparecem na sidebar, com opção de editar (✏️) ou excluir (❌).")
+
+# ========= Sidebar - Botões de Ação =========
+def sidebar_botoes(tipo_nome: str):
+    """
+    Sidebar com botões de ação para gerenciamento de cláusulas.
+    Usa o embedding do session_state para reindexação.
+    
+    Args:
+        tipo_nome: Nome do tipo de contrato (NDA, TIPO 2, etc)
+    """
+    from analise.embeddings.clausulas import GerenciadorClausulasReferencia
+    from analise.agent.escolha_modelo import GerenciadorEmbeddings
+    
+    # Garantir que embedding_selecionado exista no session_state
+    if 'embedding_selecionado' not in st.session_state:
+        st.session_state.embedding_selecionado = "openai-small"  # Padrão
+    
+    # Obter idioma do session_state (padrão: pt)
+    idioma = st.session_state.get('idioma_contrato', 'pt')
+    
+    clausulas = carregar_clausulas(tipo_nome, idioma=idioma)
+    adicionar_clausula = st.session_state.get(f"adicionar_clausula_{tipo_nome}", False)
+
+    def _reindexar_clausulas(clausulas_lista: list, idioma_param: str = None) -> bool:
+        """
+        Reindexa as cláusulas no ChromaDB após alterações.
+        
+        Args:
+            clausulas_lista: Lista de cláusulas para indexar
+            idioma_param: Idioma explícito para indexação. Se None, usa o idioma atual do session_state.
+        """
+        # Pegar embedding do session_state
+        embedding_id = st.session_state.get('embedding_selecionado')
+        if not embedding_id:
+            st.warning("Selecione um modelo de embedding para reindexar.")
+            return False
+        
+        try:
+            embedding_config = GerenciadorEmbeddings.obter_embedding(embedding_id)
+            if not embedding_config:
+                st.error(f"Modelo de embedding '{embedding_id}' não encontrado.")
+                return False
+            
+            embedding_function = GerenciadorEmbeddings.criar_embedding_function(embedding_config)
+            gerenciador = GerenciadorClausulasReferencia()
+            
+            # Usar idioma explícito se fornecido, senão obter do session_state
+            idioma_indexacao = idioma_param if idioma_param else st.session_state.get('idioma_contrato', 'pt')
+            
+            total = gerenciador.indexar_clausulas(tipo_nome, clausulas_lista, embedding_function, idioma=idioma_indexacao)
+            st.success(f"Vector store atualizada com {total} cláusulas (idioma: {idioma_indexacao}).")
+            return True
+        except Exception as e:
+            st.error(f"Erro ao reindexar: {e}")
+            return False
+
+    with st.sidebar:
+        st.subheader(f"Configurações {tipo_nome}")
+
+        # Botão para adicionar nova cláusula (sempre disponível)
+        if not adicionar_clausula:
+            if st.button("Adicionar cláusula", key=f"btn_adicionar_clausula_{tipo_nome}"):
+                st.session_state[f"adicionar_clausula_{tipo_nome}"] = True
+                st.rerun()
+        else:
+            st.markdown("### Nova Cláusula")
+            nome = st.text_input(
+                "Nome da cláusula",
+                key=f"novo_nome_{tipo_nome}",
+                help="Identificador da regra na plataforma e nos relatórios. Ex.: Confidencialidade de dados, Prazo de vigência."
+            )
+            descricao = st.text_area(
+                "Descrição",
+                key=f"nova_desc_{tipo_nome}",
+                help="O que a IA deve verificar no contrato — critério de conformidade. Ex.: Garante que dados confidenciais não podem ser divulgados a terceiros sem autorização."
+            )
+            buscar_em = st.text_input(
+                "Buscar em (palavras-chave para similaridade)",
+                key=f"novo_buscar_em_{tipo_nome}",
+                help="Termos usados na busca semântica. Ex.: vigência, prazo, confidencialidade. Obrigatório para a análise."
+            )
+            como_corrigir = st.text_area(
+                "Como corrigir",
+                key=f"novo_como_corrigir_{tipo_nome}",
+                help="Sugestão de redação para correção (opcional)."
+            )
+            ativa_nova = st.checkbox(
+                "Cláusula ativa",
+                value=True,
+                key=f"novo_ativa_{tipo_nome}",
+                help="Se desmarcada, esta regra não será usada na análise de similaridade."
+            )
+            
+            cols_add = st.columns(2)
+            with cols_add[0]:
+                if st.button("Salvar Cláusula", key=f"btn_salvar_clausula_{tipo_nome}"):
+                    if not nome.strip():
+                        st.error("O nome da cláusula é obrigatório.")
+                    elif not descricao.strip():
+                        st.error("A descrição é obrigatória.")
+                    elif not buscar_em.strip():
+                        st.error("O campo 'Buscar em' é obrigatório para a análise de similaridade.")
+                    else:
+                        nova_clausula = {
+                            "ativa": ativa_nova,
+                            "titulo": nome.strip(),
+                            "regra_spectra": descricao.strip(),
+                            "buscar_em": buscar_em.strip(),
+                        }
+                        if como_corrigir.strip():
+                            nova_clausula["como_corrigir"] = como_corrigir.strip()
+                        
+                        clausulas.append(nova_clausula)
+                        salvar_clausulas(tipo_nome, clausulas, idioma=idioma)
+                        _reindexar_clausulas(clausulas, idioma_param=idioma)
+                        st.success(f"Cláusula '{nome}' adicionada com sucesso!")
+                        st.session_state[f"adicionar_clausula_{tipo_nome}"] = False
+                        st.rerun()
+            with cols_add[1]:
+                if st.button("Cancelar", key=f"btn_cancelar_clausula_{tipo_nome}"):
+                    st.session_state[f"adicionar_clausula_{tipo_nome}"] = False
+                    st.rerun()
+
+        # Botão para forçar reindexação
+        if st.button(
+            "Reindexar Vector Store",
+            key=f"btn_reindexar_{tipo_nome}",
+            help="Atualiza a base vetorial (ChromaDB) com as cláusulas atuais. Use após editar, adicionar ou excluir cláusulas; ao trocar o modelo de embedding; ou ao mudar o idioma do contrato. Garante que as análises usem as regras mais recentes."
+        ):
+            clausulas_atuais = carregar_clausulas(tipo_nome, idioma=idioma)
+            # Reindexar com o idioma correto
+            _reindexar_clausulas(clausulas_atuais, idioma_param=idioma)
+
+
+# ========= Sidebar - Lista de Cláusulas =========
+def sidebar_lista_clausulas(tipo_nome: str):
+    """
+    Exibe a lista de cláusulas existentes na sidebar com botões de edição e exclusão.
+    
+    Args:
+        tipo_nome: Nome do tipo de contrato (NDA, TIPO 2, etc)
+    """
+    from analise.embeddings.clausulas import GerenciadorClausulasReferencia
+    from analise.agent.escolha_modelo import GerenciadorEmbeddings
+    
+    # Obter idioma do session_state (padrão: pt)
+    idioma = st.session_state.get('idioma_contrato', 'pt')
+    
+    def _reindexar_clausulas_lista(clausulas_lista: list, idioma_param: str = None) -> bool:
+        """
+        Reindexa as cláusulas no ChromaDB após alterações.
+        """
+        embedding_id = st.session_state.get('embedding_selecionado')
+        if not embedding_id:
+            st.warning("Selecione um modelo de embedding para reindexar.")
+            return False
+        
+        try:
+            embedding_config = GerenciadorEmbeddings.obter_embedding(embedding_id)
+            if not embedding_config:
+                st.error(f"Modelo de embedding '{embedding_id}' não encontrado.")
+                return False
+            
+            embedding_function = GerenciadorEmbeddings.criar_embedding_function(embedding_config)
+            gerenciador = GerenciadorClausulasReferencia()
+            
+            idioma_indexacao = idioma_param if idioma_param else st.session_state.get('idioma_contrato', 'pt')
+            
+            total = gerenciador.indexar_clausulas(tipo_nome, clausulas_lista, embedding_function, idioma=idioma_indexacao)
+            st.success(f"Vector store atualizada com {total} cláusulas (idioma: {idioma_indexacao}).")
+            return True
+        except Exception as e:
+            st.error(f"Erro ao reindexar: {e}")
+            return False
+    
+    with st.sidebar:
+        clausulas = carregar_clausulas(tipo_nome, idioma=idioma)
+        if clausulas:
+            for i, c in enumerate(clausulas):
+                # Verificar se esta cláusula está sendo editada
+                editando_idx = st.session_state.get(f"editando_clausula_{tipo_nome}", None)
+                excluindo_idx = st.session_state.get(f"excluindo_clausula_{tipo_nome}", None)
+                
+                # Se está editando esta cláusula, mostrar formulário de edição
+                if editando_idx == i:
+                    st.markdown("### ✏️ Editar Cláusula")
+                    # Compatibilidade: titulo/nome, regra_spectra/descricao
+                    nome_edit = st.text_input(
+                        "Nome da cláusula",
+                        value=c.get("titulo") or c.get("nome", ""),
+                        key=f"edit_nome_{tipo_nome}_{i}",
+                        help="Identificador da regra na plataforma e nos relatórios. Ex.: Confidencialidade de dados, Prazo de vigência."
+                    )
+                    descricao_edit = st.text_area(
+                        "Descrição",
+                        value=c.get("regra_spectra") or c.get("descricao", ""),
+                        key=f"edit_desc_{tipo_nome}_{i}",
+                        help="O que a IA deve verificar no contrato — critério de conformidade. Ex.: Garante que dados confidenciais não podem ser divulgados a terceiros sem autorização."
+                    )
+                    buscar_em_edit = st.text_input(
+                        "Buscar em (palavras-chave para similaridade)",
+                        value=c.get("buscar_em", ""),
+                        key=f"edit_buscar_em_{tipo_nome}_{i}",
+                        help="Termos usados na busca semântica. Ex.: vigência, prazo, confidencialidade."
+                    )
+                    como_corrigir_edit = st.text_area(
+                        "Como corrigir",
+                        value=c.get("como_corrigir", ""),
+                        key=f"edit_como_corrigir_{tipo_nome}_{i}",
+                        help="Sugestão de redação para correção (opcional)."
+                    )
+                    ativa_edit = st.checkbox(
+                        "Cláusula ativa",
+                        value=c.get("ativa", True),
+                        key=f"edit_ativa_{tipo_nome}_{i}",
+                        help="Se desmarcada, esta regra não será usada na análise de similaridade."
+                    )
+                    
+                    cols_edit = st.columns(3)
+                    with cols_edit[0]:
+                        if st.button("Salvar", key=f"btn_salvar_edit_{tipo_nome}_{i}"):
+                            if not nome_edit.strip():
+                                st.error("O nome da cláusula é obrigatório.")
+                            elif not descricao_edit.strip():
+                                st.error("A descrição é obrigatória.")
+                            elif not buscar_em_edit.strip():
+                                st.error("O campo 'Buscar em' é obrigatório para a análise de similaridade.")
+                            else:
+                                clausula_editada = {
+                                    "ativa": ativa_edit,
+                                    "titulo": nome_edit.strip(),
+                                    "regra_spectra": descricao_edit.strip(),
+                                    "buscar_em": buscar_em_edit.strip(),
+                                }
+                                if como_corrigir_edit.strip():
+                                    clausula_editada["como_corrigir"] = como_corrigir_edit.strip()
+                                clausulas[i] = clausula_editada
+                                salvar_clausulas(tipo_nome, clausulas, idioma=idioma)
+                                _reindexar_clausulas_lista(clausulas, idioma_param=idioma)
+                                st.success(f"Cláusula '{nome_edit}' atualizada com sucesso!")
+                                st.session_state[f"editando_clausula_{tipo_nome}"] = None
+                                st.rerun()
+                    with cols_edit[1]:
+                        if st.button("Cancelar", key=f"btn_cancelar_edit_{tipo_nome}_{i}"):
+                            st.session_state[f"editando_clausula_{tipo_nome}"] = None
+                            st.rerun()
+                # Se está excluindo esta cláusula, mostrar confirmação
+                elif excluindo_idx == i:
+                    _nome_excl = c.get("titulo") or c.get("nome", "")
+                    st.warning(f"⚠️ Excluir cláusula: **{_nome_excl}**?")
+                    
+                    cols_del = st.columns(2)
+                    with cols_del[0]:
+                        if st.button("Confirmar Exclusão", key=f"btn_confirmar_del_{tipo_nome}_{i}", type="primary"):
+                                nome_clausula = clausulas[i].get("titulo") or clausulas[i].get("nome", "")
+                                clausulas.pop(i)
+                                salvar_clausulas(tipo_nome, clausulas, idioma=idioma)
+                                _reindexar_clausulas_lista(clausulas, idioma_param=idioma)
+                                st.success(f"Cláusula '{nome_clausula}' excluída com sucesso!")
+                                st.session_state[f"excluindo_clausula_{tipo_nome}"] = None
+                                st.rerun()
+                    with cols_del[1]:
+                        if st.button("Cancelar", key=f"btn_cancelar_del_{tipo_nome}_{i}"):
+                            st.session_state[f"excluindo_clausula_{tipo_nome}"] = None
+                            st.rerun()
+                # Modo de visualização normal
+                else:
+                    _nome_display = c.get("titulo") or c.get("nome", "")
+                    _desc_display = c.get("regra_spectra") or c.get("descricao", "")
+                    
+                    def _toggle_ativa_save(idx):
+                        clausulas_atual = carregar_clausulas(tipo_nome, idioma=idioma)
+                        if 0 <= idx < len(clausulas_atual):
+                            clausulas_atual[idx]["ativa"] = not clausulas_atual[idx].get("ativa", True)
+                            salvar_clausulas(tipo_nome, clausulas_atual, idioma=idioma)
+                            _reindexar_clausulas_lista(clausulas_atual, idioma_param=idioma)
+                        st.rerun()
+                    
+                    # Cabeçalho com botões de ação e checkbox Ativa
+                    col_titulo, col_btn_edit, col_btn_del = st.columns([3, 1, 1])
+                    with col_titulo:
+                        st.markdown(f"**{i+1}. {_nome_display}**")
+                    with col_btn_edit:
+                        if st.button("✏️", key=f"btn_edit_{tipo_nome}_{i}", help="Editar cláusula"):
+                            st.session_state[f"editando_clausula_{tipo_nome}"] = i
+                            st.rerun()
+                    with col_btn_del:
+                        if st.button("❌", key=f"btn_del_{tipo_nome}_{i}", help="Excluir cláusula"):
+                            st.session_state[f"excluindo_clausula_{tipo_nome}"] = i
+                            st.rerun()
+                    
+                    st.checkbox(
+                        "Ativa",
+                        value=c.get("ativa", True),
+                        key=f"ativa_{tipo_nome}_{i}",
+                        help="Desmarque para desativar esta regra na análise de similaridade.",
+                        on_change=lambda idx=i: _toggle_ativa_save(idx)
+                    )
+                    
+                    st.markdown("**Nome da cláusula**")
+                    st.caption(_nome_display or "—")
+                    
+                    st.markdown("**Descrição**")
+                    st.caption(_desc_display or "—")
+                    
+                    _buscar_em = c.get("buscar_em", "")
+                    st.markdown("**Buscar em (palavras-chave para similaridade)**")
+                    st.caption(_buscar_em or "—")
+                    
+                    _como_corrigir = c.get("como_corrigir", "")
+                    if _como_corrigir:
+                        st.markdown("**Como corrigir**")
+                        st.caption(_como_corrigir)
+                    
+                    st.markdown("---")
+        else:
+            st.caption("Nenhuma cláusula cadastrada.") 
+
+# ========= Seleção de Modelo =========
+
+from analise.agent.escolha_modelo import TipoModelo, GerenciadorModelos
+
+def selecionar_modelo_ia() -> str:
+    """
+    Interface para seleção de modelo de IA.
+    
+    Returns:
+        ID do modelo selecionado
+    """
+    
+    # Inicializar session_state
+    if 'modelo_selecionado' not in st.session_state:
+        st.session_state.modelo_selecionado = "gpt-5-mini"  # Padrão
+    if 'temperatura' not in st.session_state:
+        st.session_state.temperatura = 0.2
+    if 'threshold_similaridade' not in st.session_state:
+        st.session_state.threshold_similaridade = 0.45  # Padrão
+    
+    # Obter todos os modelos disponíveis
+    todos_modelos = []
+    for provedor in TipoModelo:
+        todos_modelos.extend(GerenciadorModelos.listar_por_provedor(provedor))
+    
+    if not todos_modelos:
+        st.warning("Nenhum modelo disponível")
+        return None
+    
+    # Criar opções para o selectbox
+    opcoes = {m.id: f"{m.nome} ({m.provedor.value})" for m in todos_modelos}
+    
+    # Índice do modelo selecionado
+    index = 0  # Fallback para o primeiro
+    if st.session_state.modelo_selecionado in opcoes:
+        index = list(opcoes.keys()).index(st.session_state.modelo_selecionado)
+    
+    # Selectbox
+    modelo_id = st.selectbox(
+        "Escolha o Modelo:",
+        options=list(opcoes.keys()),
+        format_func=lambda x: opcoes[x],
+        index=index,
+        key="select_modelo"
+    )
+    
+    # Atualizar seleção
+    if modelo_id:
+        st.session_state.modelo_selecionado = modelo_id
+    
+    # Configurações avançadas
+    with st.expander("Configurações Avançadas"):
+        st.session_state.temperatura = st.slider(
+            "Temperatura",
+            min_value=0.0,
+            max_value=1.0,
+            value=st.session_state.temperatura,
+            step=0.1,
+            help="Controla a criatividade do modelo. 0 = mais conservador, 1 = mais criativo"
+        )
+        
+        st.session_state.threshold_similaridade = st.slider(
+            "Threshold de Similaridade",
+            min_value=0.0,
+            max_value=1.0,
+            value=st.session_state.threshold_similaridade,
+            step=0.05,
+            help="Define o limite de similaridade para classificar como possível violação. Valores mais altos = menos violações detectadas, mais rigoroso"
+        )
+    
+    return st.session_state.modelo_selecionado
+
+
+# ========= Seleção de Embedding =========
+
+from analise.agent.escolha_modelo import GerenciadorEmbeddings
+
+
+def selecionar_embedding_ia() -> str:
+    """
+    Interface para seleção de modelo de embedding.
+    
+    Returns:
+        ID do embedding selecionado (chave do dicionário, ex: "openai-small")
+    """
+    # Inicializar session_state
+    if 'embedding_selecionado' not in st.session_state:
+        st.session_state.embedding_selecionado = "openai-small"  # Padrão (chave do dicionário) 
+    
+    # Obter todos os embeddings disponíveis usando as chaves do dicionário
+    embeddings_disponiveis = GerenciadorEmbeddings.MODELOS_DISPONIVEIS
+    
+    if not embeddings_disponiveis:
+        st.warning("Nenhum embedding disponível")
+        return None
+    
+    # Criar opções para o selectbox usando as chaves do dicionário
+    opcoes = {
+        chave: f"{config.nome} ({config.provedor.value})" 
+        for chave, config in embeddings_disponiveis.items()
+    }
+    
+    # Índice do embedding selecionado
+    index = 0
+    if st.session_state.embedding_selecionado in opcoes:
+        index = list(opcoes.keys()).index(st.session_state.embedding_selecionado)
+    
+    # Selectbox
+    embedding_id = st.selectbox(
+        "Escolha o Modelo de Embedding:",
+        options=list(opcoes.keys()),
+        format_func=lambda x: opcoes[x],
+        index=index,
+        key="select_embedding"
+    )
+    
+    # Atualizar seleção
+    if embedding_id:
+        st.session_state.embedding_selecionado = embedding_id
+        
+        # Mostrar info do embedding selecionado
+        config = GerenciadorEmbeddings.obter_embedding(embedding_id)
+        if config:
+            st.caption(f"{config.descricao} | {config.dimensoes}D | {config.max_tokens:,} tokens")
+    
+    return st.session_state.embedding_selecionado
+
+
+# ========= Download do Relatório =========
+
+def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_bytes: bytes = None):
+    """
+    Mostra os resultados da análise e botões de download (relatório, problemas.docx, solucao.docx).
+
+    Args:
+        resultado: ResultadoAnalise do orquestrador
+        nome_arquivo: Nome do arquivo original analisado
+        arquivo_original_bytes: Bytes do DOCX original (para gerar DOC comparado)
+    """
+    from output.docx import gerar_relatorio_analise_docx, gerar_nome_relatorio_analise
+    from datetime import datetime
+    from pathlib import Path
+
+    if resultado.sucesso:
+        st.info(f"Tempo: {resultado.tempo_total:.2f}s | "
+                f"{resultado.clausulas_analisadas}/{resultado.total_clausulas} cláusulas analisadas")
+
+        # Relatório único (problema + diff + explicação)
+        buffer = gerar_relatorio_analise_docx(
+            resultado.violacoes,
+            gerar_sugestoes_reescrita=resultado.gerar_sugestoes_reescrita
+        )
+        nome_output = gerar_nome_relatorio_analise(nome_arquivo)
+        st.download_button(
+            label=f"Baixar Relatório de Análise (DOCX) - {len(resultado.violacoes)} violações",
+            data=buffer,
+            file_name=nome_output,
+            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            key="dl_relatorio_analise"
+        )
+
+        # Comparação (problemas x solução): grava os 2 DOCX em output/docs, compara com Word (Revisar -> Comparar) e oferece download
+        doc_problemas = getattr(resultado, "doc_problemas_bytes", None)
+        doc_solucao = getattr(resultado, "doc_solucao_bytes", None)
+        if doc_problemas is not None and doc_solucao is not None:
+            from output.comparar_docx import comparar_docx
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            nome_base = Path(nome_arquivo).stem
+            mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            output_dir = Path(__file__).resolve().parent.parent / "output" / "docs"
+            output_dir.mkdir(parents=True, exist_ok=True)
+            path_problemas = output_dir / f"problemas_{nome_base}_{ts}.docx"
+            path_solucao = output_dir / f"solucao_{nome_base}_{ts}.docx"
+            path_comparacao = output_dir / f"comparacao_{nome_base}_{ts}.docx"
+            if st.button("Comparar documentos (problemas x solução)", key="btn_comparar_doc"):
+                with st.spinner("Salvando problemas e solução em output/docs e gerando comparação com Word..."):
+                    try:
+                        path_problemas.write_bytes(doc_problemas)
+                        path_solucao.write_bytes(doc_solucao)
+                        comparar_docx(str(path_problemas), str(path_solucao), str(path_comparacao))
+                        comparado_bytes = path_comparacao.read_bytes()
+                        st.session_state["comparacao_doc_bytes"] = comparado_bytes
+                        st.session_state["comparacao_doc_nome"] = f"comparacao_{nome_base}_{ts}.docx"
+                        st.session_state["comparacao_doc_nome_base"] = nome_base
+                        st.success(
+                            f"Documentos gravados em output/docs. Comparação gerada (Word). "
+                            f"Use o botão abaixo para baixar."
+                        )
+                    except Exception as e:
+                        st.error(f"Erro ao comparar documentos: {e}. Verifique se o Word está instalado e se pywin32 está disponível.")
+            if (st.session_state.get("comparacao_doc_bytes")
+                    and st.session_state.get("comparacao_doc_nome_base") == nome_base):
+                st.download_button(
+                    label="Baixar comparação (DOCX)",
+                    data=st.session_state["comparacao_doc_bytes"],
+                    file_name=st.session_state.get("comparacao_doc_nome", f"comparacao_{nome_base}_{ts}.docx"),
+                    mime=mime,
+                    key="dl_comparacao"
+                )
+        
+        # Resumo simples
+        if resultado.violacoes:
+            st.warning(f"{len(resultado.violacoes)} cláusulas com anotações")
+        if resultado.conformidades:
+            st.info(f"{len(resultado.conformidades)} cláusulas OK")
+        
+        # Alerta se sugestões foram solicitadas mas faltam
+        if resultado.gerar_sugestoes_reescrita and resultado.violacoes:
+            violacoes_sem_sugestao = [
+                v for v in resultado.violacoes 
+                if not v.get('sugestao_reescrita') or 
+                   (isinstance(v.get('sugestao_reescrita'), dict) and 
+                    not v['sugestao_reescrita'].get('texto_reescrito'))
+            ]
+            if violacoes_sem_sugestao:
+                st.warning(f"⚠️ {len(violacoes_sem_sugestao)} violação(ões) sem sugestão de reescrita gerada. Verifique os logs ou tente novamente.")
+        
+        # ========= DETALHAMENTO DAS VIOLAÇÕES =========
+        if resultado.violacoes:
+            st.subheader("Detalhamento das Violações")
+            
+            for i, violacao in enumerate(resultado.violacoes, 1):
+                # Obter dados da violação (backend: regra, chunk, problema, sugestao_reescrita)
+                regra = violacao.get("regra", {})
+                chunk = violacao.get("chunk", {})
+                clausula_violada = regra.get("titulo") if regra else violacao.get("clausula_violada", "Regra não identificada")
+                localizacao = violacao.get("localizacao") or (chunk.get("titulo") if chunk else None) or violacao.get("titulo", "N/A")
+                problema = violacao.get("problema", "")
+                motivos = violacao.get("motivo", [])
+                if problema and not motivos:
+                    motivos = [problema]
+                texto_trecho = chunk.get("texto", "")[:500] if chunk else ""
+                
+                # Fallback: se não tiver clausula_violada no novo formato, tentar pegar das clausulas_verificadas
+                if clausula_violada == 'Regra não identificada':
+                    clausulas_ref = violacao.get('clausulas_verificadas', [])
+                    if clausulas_ref:
+                        clausula_violada = clausulas_ref[0].get('nome', 'Regra não identificada')
+                
+                # Criar expander para cada violação
+                with st.expander(f"⚠️ {i}. {clausula_violada}", expanded=False):
+                    # Localização no documento
+                    st.markdown(f"**Localização no documento:** {localizacao}")
+                    
+                    # Motivos
+                    if motivos:
+                        st.markdown("**Por que está em violação:**")
+                        if isinstance(motivos, list):
+                            for motivo in motivos:
+                                st.markdown(f"- {motivo}")
+                        else:
+                            st.markdown(f"- {motivos}")
+                    
+                    # Análise original do Agent (fallback se não tiver motivos estruturados)
+                    if not motivos and violacao.get('analise_agent1'):
+                        st.markdown("**Análise:**")
+                        analise_texto = violacao.get('analise_agent1', '')
+                        # Limpar prefixos de classificação
+                        analise_texto = analise_texto.replace("[VIOLAÇÃO]", "").strip()
+                        analise_texto = analise_texto.replace("CLASSIFICAÇÃO: VIOLAÇÃO", "").strip()
+                        st.text(analise_texto[:800] + "..." if len(analise_texto) > 800 else analise_texto)
+                    
+                    # Trechos do documento analisado
+                    chunks_relacionados = violacao.get('chunks_relacionados', [])
+                    
+                    if texto_trecho:
+                        # Mostrar indicador se há múltiplos trechos
+                        if len(chunks_relacionados) > 1:
+                            st.markdown(f"**Trechos do documento analisado:** ({len(chunks_relacionados)} cláusulas afetadas)")
+                        else:
+                            st.markdown("**Trecho do documento analisado:**")
+                        
+                        # Mostrar trecho principal
+                        st.caption(texto_trecho + "..." if len(chunk.get('texto', '')) > 500 else texto_trecho)
+                        
+                        # Mostrar outros trechos relacionados (se houver mais de 1)
+                        if len(chunks_relacionados) > 1:
+                            chunks_adicionais = chunks_relacionados[1:]  # Pular o primeiro (já mostrado como principal)
+                            with st.expander(f"Ver outros {len(chunks_adicionais)} trecho(s) relacionado(s)", expanded=False):
+                                for idx, chunk_rel in enumerate(chunks_adicionais):
+                                    texto_rel = chunk_rel.get('texto', '')[:400] if chunk_rel and chunk_rel.get('texto') else ''
+                                    if texto_rel:
+                                        titulo_chunk = chunk_rel.get('titulo', f'Cláusula {idx + 2}')
+                                        st.markdown(f"**{titulo_chunk}:**")
+                                        st.caption(texto_rel + "..." if len(chunk_rel.get('texto', '')) > 400 else texto_rel)
+                                        # Adicionar separador apenas se não for o último item
+                                        if idx < len(chunks_adicionais) - 1:
+                                            st.markdown("---")
+                    elif not texto_trecho and localizacao:
+                        st.info(f"Trecho não localizado automaticamente. Verifique manualmente: {localizacao}")
+                    
+                    # Sugestão de reescrita (original vs. reescrito lado a lado)
+                    sugestao = violacao.get("sugestao_reescrita")
+                    if sugestao and isinstance(sugestao, dict):
+                        st.markdown("---")
+                        st.markdown("**Sugestão de reescrita**")
+                        txt_orig = sugestao.get("texto_original", "")
+                        txt_reesc = sugestao.get("texto_reescrito", "")
+                        explicacao = sugestao.get("explicacao_mudancas", "")
+                        col_orig, col_reesc = st.columns(2)
+                        slug = "".join(c if c.isalnum() else "_" for c in nome_arquivo)[:40]
+                        with col_orig:
+                            st.markdown("*Original*")
+                            st.text_area(
+                                "Texto original",
+                                value=txt_orig,
+                                height=min(300, max(120, 80 + len(txt_orig) // 2)),
+                                key=f"orig_{slug}_{i}",
+                                disabled=True,
+                                label_visibility="collapsed"
+                            )
+                        with col_reesc:
+                            st.markdown("*Sugerido*")
+                            st.text_area(
+                                "Texto reescrito",
+                                value=txt_reesc,
+                                height=min(300, max(120, 80 + len(txt_reesc) // 2)),
+                                key=f"reesc_{slug}_{i}",
+                                disabled=True,
+                                label_visibility="collapsed"
+                            )
+                        if explicacao:
+                            st.markdown("**Explicação das mudanças:**")
+                            st.caption(explicacao)
+    else:
+        st.error(f"❌ {resultado.mensagem}")
+
+
+# ========= Função Genérica de Análise com Cache =========
+
+def _gerar_chave_cache_config(
+    nome_arquivo: str,
+    idioma: str,
+    modelo_id: str,
+    embedding_id: str,
+    threshold: float,
+    temperatura: float,
+    gerar_sugestoes_reescrita: bool = False
+) -> str:
+    """
+    Gera uma chave de cache única baseada em todas as configurações relevantes.
+    
+    Args:
+        nome_arquivo: Nome do arquivo
+        idioma: Idioma do contrato
+        modelo_id: ID do modelo LLM
+        embedding_id: ID do modelo de embedding
+        threshold: Threshold de similaridade
+        temperatura: Temperatura do modelo
+        gerar_sugestoes_reescrita: Se deve gerar sugestões de reescrita
+        
+    Returns:
+        Hash MD5 da configuração para usar como chave de cache
+    """
+    config_str = f"{nome_arquivo}|{idioma}|{modelo_id}|{embedding_id}|{threshold}|{temperatura}|{gerar_sugestoes_reescrita}"
+    return hashlib.md5(config_str.encode('utf-8')).hexdigest()
+
+
+def render_pagina_analise(
+    tipo_contrato: str,
+    titulo: str,
+    label_upload: str,
+    key_prefix: str
+):
+    """
+    Renderiza uma página de análise completa com cache no session_state.
+    Evita reprocessamento quando o usuário clica em download.
+    O cache considera todas as configurações (arquivo, idioma, modelo, embedding, threshold, temperatura).
+    
+    Args:
+        tipo_contrato: Tipo do contrato (NDA, SPA_COTAS, etc)
+        titulo: Título da página
+        label_upload: Label do campo de upload
+        key_prefix: Prefixo para chaves do session_state (ex: "nda", "spa_cotas")
+    """
+    import analise.agent  # Garante que o pacote esteja em sys.modules antes do submodule (evita KeyError)
+    from analise.agent.orquestrador import OrquestradorAnalise
+    
+    # Sidebar
+    sidebar_informacoes(tipo_contrato)
+    sidebar_botoes(tipo_contrato)
+    sidebar_lista_clausulas(tipo_contrato)
+
+    st.title(titulo)
+    
+    # Botão voltar com limpeza de cache
+    if st.button("← Voltar para seleção", key=f"btn_voltar_{key_prefix}"):
+        # Limpar cache ao voltar
+        _limpar_cache_analise(key_prefix)
+        st.session_state.pagina = "home"
+        st.rerun()
+        
+    modelo_id = selecionar_modelo_ia()
+    embedding_id = selecionar_embedding_ia() 
+
+    arquivo = upload_docx(label_upload, key=f"upload_{key_prefix}")
+
+    # Obter idioma e configurações do session_state
+    idioma = st.session_state.get('idioma_contrato', 'pt')
+    threshold = st.session_state.get('threshold_similaridade', 0.45)
+    temperatura = st.session_state.get('temperatura', 0.2)
+    gerar_sugestoes_reescrita = True  # sempre ativo: sugestões de reescrita são geradas em toda análise
+
+    # Inicializar session_state para cache
+    cache_resultado = f"resultado_{key_prefix}"
+    cache_nome = f"arquivo_{key_prefix}_nome"
+    cache_bytes = f"arquivo_{key_prefix}_bytes"
+    cache_config_key = f"config_key_{key_prefix}"
+    
+    if cache_resultado not in st.session_state:
+        st.session_state[cache_resultado] = None
+        st.session_state[cache_nome] = None
+        st.session_state[cache_bytes] = None
+        st.session_state[cache_config_key] = None
+
+    # Só processa se arquivo foi enviado
+    if arquivo is not None:
+        nome_arquivo = arquivo.name
+        
+        # Ler arquivo apenas se necessário (evitar múltiplas leituras)
+        # Se o arquivo já está em cache e não mudou, usar do cache
+        if (st.session_state[cache_nome] == nome_arquivo and 
+            st.session_state[cache_bytes] is not None):
+            arquivo_bytes = st.session_state[cache_bytes]
+        else:
+            arquivo_bytes = arquivo.read()
+        
+        # Gerar chave de configuração atual (apenas uma vez)
+        config_key_atual = _gerar_chave_cache_config(
+            nome_arquivo, idioma, modelo_id, embedding_id, threshold, temperatura, gerar_sugestoes_reescrita
+        )
+        
+        # Verificar se arquivo ou configurações mudaram
+        arquivo_mudou = (st.session_state[cache_nome] != nome_arquivo)
+        config_mudou = (st.session_state[cache_config_key] != config_key_atual)
+        cache_invalido = (arquivo_mudou or config_mudou or st.session_state[cache_resultado] is None)
+        
+        # Se é um arquivo novo, configuração mudou ou não tem resultado em cache, mostrar botão de análise
+        if cache_invalido:
+            col1, col2 = st.columns([1, 4])
+            with col1:
+                analisar = st.button("Analisar", type="primary", key=f"btn_analisar_{key_prefix}")
+            with col2:
+                if arquivo_mudou and st.session_state[cache_resultado] is not None:
+                    st.warning("Arquivo diferente detectado. Clique em 'Analisar' para processar.")
+                elif config_mudou and st.session_state[cache_resultado] is not None:
+                    st.warning("Configurações alteradas (idioma, modelo, threshold, etc). Clique em 'Analisar' para reprocessar.")
+            
+            if analisar:
+                # Callbacks para UI
+                progress_bar = st.progress(0)
+                status_text = st.empty()
+                log_container = st.expander("Logs", expanded=False)
+                with log_container:
+                    log_placeholder = st.empty()
+                logs = []
+                
+                def on_progress(msg: str, valor: float):
+                    progress_bar.progress(valor)
+                    status_text.text(msg)
+                
+                def on_log(msg: str):
+                    logs.append(msg)
+                    log_placeholder.text("\n".join(logs))
+                
+                # Orquestrar análise
+                orquestrador = OrquestradorAnalise()
+                
+                resultado = orquestrador.analisar_contrato(
+                    arquivo_bytes=arquivo_bytes,
+                    nome_arquivo=nome_arquivo,
+                    tipo_contrato=tipo_contrato,
+                    modelo_llm_id=modelo_id,
+                    modelo_embedding_id=embedding_id,
+                    idioma=idioma,
+                    threshold_similaridade=threshold,
+                    temperatura=temperatura,
+                    gerar_sugestoes_reescrita=gerar_sugestoes_reescrita,
+                    on_progress=on_progress,
+                    on_log=on_log
+                )
+                
+                # Limpar UI de progresso
+                progress_bar.empty()
+                status_text.empty()
+                
+                # Armazenar resultado no cache com a chave de configuração
+                st.session_state[cache_resultado] = resultado
+                st.session_state[cache_nome] = nome_arquivo
+                st.session_state[cache_bytes] = arquivo_bytes
+                st.session_state[cache_config_key] = config_key_atual
+                
+                # Rerun para mostrar resultado sem reprocessar
+                st.rerun()
+        
+        # Mostrar resultado se existir no cache E a configuração ainda for válida
+        # Usar a mesma config_key_atual calculada acima (não recalcular)
+        cache_valido = (
+            st.session_state[cache_resultado] is not None and
+            st.session_state[cache_config_key] == config_key_atual and
+            st.session_state[cache_nome] == nome_arquivo
+        )
+        
+        if cache_valido:
+            mostrar_resultado_analise(
+                st.session_state[cache_resultado],
+                st.session_state[cache_nome],
+                arquivo_original_bytes=st.session_state.get(cache_bytes),
+            )
+            
+            # Botão para limpar cache e reprocessar
+            if st.button("Nova Análise", help="Limpa o cache e permite processar novamente", key=f"btn_nova_{key_prefix}"):
+                _limpar_cache_analise(key_prefix)
+                st.rerun()
+
+
+def _limpar_cache_analise(key_prefix: str):
+    """Limpa o cache de análise para um tipo de contrato."""
+    cache_resultado = f"resultado_{key_prefix}"
+    cache_nome = f"arquivo_{key_prefix}_nome"
+    cache_bytes = f"arquivo_{key_prefix}_bytes"
+    cache_config_key = f"config_key_{key_prefix}"
+    
+    if cache_resultado in st.session_state:
+        del st.session_state[cache_resultado]
+    if cache_nome in st.session_state:
+        del st.session_state[cache_nome]
+    if cache_bytes in st.session_state:
+        del st.session_state[cache_bytes]
+    if cache_config_key in st.session_state:
+        del st.session_state[cache_config_key]

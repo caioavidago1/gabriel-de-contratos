@@ -1,0 +1,65 @@
+[
+  {
+    "ativa": true,
+    "titulo": "Prazo de vigência excessivo",
+    "buscar_em": "vigência, prazo, duração, término, validade, anos, meses, confidencialidade",
+    "regra_spectra": "Prazo de confidencialidade deve ser no máximo 2 anos (24 meses), contados da assinatura ou término das negociações. Ideal: 1 ano (12 meses).",
+    "como_corrigir": "Alterar para: 'As partes deverão proteger a Informação Confidencial pelo prazo de 24 (vinte e quatro) meses, contados da data de assinatura deste Acordo.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Exceções à confidencialidade incompletas",
+    "buscar_em": "exceções, excecoes, exclusão, não se aplicam, não constituem, informação confidencial, domínio público",
+    "regra_spectra": "Deve incluir TODAS as 4 exceções obrigatórias: (1) informações de domínio público, (2) informações já em posse da parte antes do NDA, (3) informações recebidas de terceiros de boa-fé sem obrigação de sigilo, (4) informações exigidas por CVM, autoridade regulatória ou ordem judicial.",
+    "como_corrigir": "Adicionar ou completar com: 'Não constituem Informações Confidenciais: (i) informações de domínio público ou que se tornem públicas sem violação deste Acordo; (ii) informações comprovadamente já em posse da Parte antes deste Acordo; (iii) informações recebidas de terceiros não sujeitos a obrigação de confidencialidade; (iv) informações exigidas por CVM, autoridade regulatória ou ordem judicial.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Definição ampla de Representantes",
+    "buscar_em": "representantes, definições, afiliadas, assessores, consultores, externos, grupo econômico, significam",
+    "regra_spectra": "Definição de 'Representantes' deve se limitar EXCLUSIVAMENTE a pessoas DIRETAMENTE envolvidas na avaliação desta oportunidade específica. NÃO deve incluir: afiliadas genéricas, GPs, fundos geridos, qualquer pessoa do grupo econômico, ou 'assessores' sem qualificação adicional.",
+    "como_corrigir": "Restringir para: 'Representantes significam exclusivamente conselheiros, diretores e empregados DIRETAMENTE envolvidos na avaliação desta oportunidade específica e que tenham necessidade efetiva de conhecimento das Informações Confidenciais.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Responsabilidade sem limite a danos diretos",
+    "buscar_em": "indenização, reparação, danos, prejuízos, responsabilidade, lucros cessantes, indiretos, emergentes",
+    "regra_spectra": "Responsabilidade da Spectra deve estar EXPRESSAMENTE LIMITADA a danos diretos comprovados judicialmente. Devem estar EXCLUÍDOS: lucros cessantes, danos indiretos, danos emergentes, danos imateriais, perdas não quantificáveis.",
+    "como_corrigir": "Substituir por: 'A Parte será responsável EXCLUSIVAMENTE por danos diretos comprovados judicialmente, decorrentes de violação deste Acordo, excluindo-se expressamente lucros cessantes, danos indiretos, emergentes, imateriais ou perdas não quantificadas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Cláusula de non-circumvention ou exclusividade implícita",
+    "buscar_em": "uso, benefício, lucro, próprio, circunvenção, exclusividade, proibição, vedado, impedido",
+    "regra_spectra": "Evitar proibições amplas de uso que possam operar como non-circumvention ou exclusividade indevida. Uso de informações confidenciais deve ser restrito apenas ao propósito da transação específica, MAS sem bloquear atividades comerciais legítimas da Spectra ou usos internos permissíveis.",
+    "como_corrigir": "Substituir redação absoluta tipo 'de forma alguma em seu próprio benefício' por: 'usar as Informações Confidenciais exclusivamente para fins de avaliação da Transação, sem divulgação ou reprodução não autorizada, ressalvados usos internos legítimos não relacionados à apropriação indevida.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Falta exceção de desenvolvimento independente",
+    "buscar_em": "exceções, excecoes, exclusão, não se aplicam, desenvolvimento independente, desenvolvidas",
+    "regra_spectra": "Além das 4 exceções padrão, deve incluir exceção para informações DESENVOLVIDAS INDEPENDENTEMENTE pela Parte, sem uso das Informações Confidenciais recebidas.",
+    "como_corrigir": "Adicionar à lista de exceções: '(v) informações desenvolvidas independentemente pela Parte sem acesso ou uso das Informações Confidenciais fornecidas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Foro fora de São Paulo",
+    "buscar_em": "foro, lei aplicável, jurisdição, comarca, competência, litígios, controvérsias",
+    "regra_spectra": "Preferência para lei brasileira e foro da Comarca de São Paulo/SP, com renúncia a qualquer outro foro, sempre que possível na negociação.",
+    "como_corrigir": "Alterar para: 'Fica eleito o foro da Comarca da Capital do Estado de São Paulo para dirimir os litígios, controvérsias e disputas relacionadas ou decorrentes do presente Acordo, com exclusão de qualquer outro, por mais privilegiado que seja.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Não solicitação de colaboradores sem limite temporal",
+    "buscar_em": "não solicitação, colaboradores, funcionários, empregados, contratação, recrutamento, non-solicitation",
+    "regra_spectra": "Se houver cláusula de não solicitação, restringir à contratação direta de funcionários/colaboradores por período máximo de 1 ano, com exceções para candidatos que entrem em contato espontaneamente ou via anúncio geral.",
+    "como_corrigir": "Limitar a: 'Pelo prazo de 12 (doze) meses contados do término deste Acordo, as Partes não contratarão diretamente colaboradores da outra Parte, exceto aqueles que se candidatarem espontaneamente ou por meio de processos seletivos públicos.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Tratamento de dados pessoais com escopo limitado",
+    "buscar_em": "dados pessoais, LGPD, tratamento, proteção, titular, representantes legais",
+    "regra_spectra": "Se houver cláusula de tratamento de dados pessoais, deve abranger TODOS os titulares relevantes (não apenas representantes legais), especificar prazos de retenção, bases legais claras, finalidades detalhadas e mecanismos de anonimização/eliminação.",
+    "como_corrigir": "Expandir definição de Dados Pessoais para incluir: representantes, empregados, assessores e terceiros. Especificar prazo de retenção alinhado ao prazo do NDA. Detalhar bases legais conforme LGPD."
+  }
+]

@@ -1,0 +1,20 @@
+# App
+streamlit
+
+# Documentos
+python-dotenv
+python-docx
+pywin32
+
+# LLM (LangChain)
+langchain-core
+langchain-openai
+langchain-anthropic
+
+# Embeddings e vetores
+chromadb
+openai
+voyageai
+
+# Validação
+pydantic

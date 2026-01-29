@@ -1,0 +1,163 @@
+[
+  {
+    "nome": "Prazo de vigência da confidencialidade",
+    "descricao": "Garantir que o prazo de obrigação de confidencialidade seja de 1 ano, aceitando no máximo 2 anos, contados da assinatura ou do encerramento das negociações, conforme negociado.",
+    "exemplos": [
+      "Cláusula que prevê confidencialidade por prazo indeterminado.",
+      "Cláusula que impõe obrigação de confidencialidade por mais de 2 anos.",
+      "Ausência de definição clara de quando começa e termina o prazo de confidencialidade."
+    ],
+    "localizacao_tipica": "Capítulo de Término do Acordo ou Vigência (ex: cláusula 3.x)",
+    "palavras_chave": [
+      "vigência",
+      "prazo",
+      "anos",
+      "meses",
+      "término",
+      "encerramento",
+      "validade",
+      "duração"
+    ]
+  },
+  {
+    "nome": "Definição de representantes da Spectra",
+    "descricao": "Restringir a definição de 'Representantes' para não incluir GPs ou partes relacionadas que não estejam diretamente envolvidas na oportunidade, evitando conflitos de interesse desnecessários.",
+    "exemplos": [
+      "Definição de Representantes que inclui genericamente 'afiliadas' sem limitação.",
+      "Cláusula que amplia Representantes para qualquer pessoa ligada ao grupo econômico da Spectra.",
+      "Trechos que mencionam que qualquer fundo ou veículo gerido pela Spectra é considerado Representante para fins de responsabilidade."
+    ],
+    "localizacao_tipica": "Cláusula de Definições (ex: cláusula 2.1.1 ou seção de definições)",
+    "palavras_chave": [
+      "representantes",
+      "afiliadas",
+      "representantes externos",
+      "conselheiros",
+      "diretores",
+      "empregados",
+      "assessores"
+    ]
+  },
+  {
+    "nome": "Exclusividade / Non-circumvention",
+    "descricao": "Evitar cláusulas de non-circumvention amplas; limitar, quando necessário, apenas à negociação direta com terceiros ligados à mesma oportunidade, sem restringir negócios gerais da Spectra.",
+    "exemplos": [
+      "Cláusula que proíbe a Spectra de fazer qualquer negócio com empresas do setor, independentemente da oportunidade específica.",
+      "Texto que impede a Spectra de falar com qualquer investidor ou target revelado, mesmo para outras transações sem relação.",
+      "Non-circumvention que se estende por vários anos sem limitação de escopo."
+    ],
+    "localizacao_tipica": "Disposições Gerais ou cláusula específica de exclusividade",
+    "palavras_chave": [
+      "exclusividade",
+      "non-circumvention",
+      "não circunvenção",
+      "proibição",
+      "vedado",
+      "impedido",
+      "negócios diretos"
+    ]
+  },
+  {
+    "nome": "Indenização limitada a danos diretos",
+    "descricao": "A responsabilidade da Spectra deve se limitar a indenização por danos diretos comprovados judicialmente, excluindo expressamente lucros cessantes, danos indiretos, danos emergentes e danos imateriais.",
+    "exemplos": [
+      "Cláusula que menciona 'danos e prejuízos, inclusive lucros cessantes e danos indiretos'.",
+      "Texto que prevê responsabilidade por 'quaisquer perdas decorrentes, diretas ou indiretas'.",
+      "Previsão de multa desproporcional sem vinculação a dano efetivamente comprovado em juízo."
+    ],
+    "localizacao_tipica": "Capítulo de Reparação de Danos ou Responsabilidade (ex: cláusula 4.x)",
+    "palavras_chave": [
+      "indenização",
+      "danos",
+      "prejuízos",
+      "lucros cessantes",
+      "danos indiretos",
+      "responsabilidade",
+      "reparação",
+      "multa",
+      "penalidade"
+    ]
+  },
+  {
+    "nome": "Não solicitação de colaboradores",
+    "descricao": "Restringir a não solicitação à contratação direta de funcionários/colaboradores por período máximo de 1 ano, com exceções para candidatos que entrem em contato espontaneamente ou via anúncio geral.",
+    "exemplos": [
+      "Não solicitação com prazo superior a 12 meses.",
+      "Proibição de contratar ex-colaboradores mesmo após o término do vínculo com a outra parte.",
+      "Cláusula que proíbe contratações mesmo em processos seletivos públicos ou via consultoria de recrutamento."
+    ],
+    "localizacao_tipica": "Disposições Gerais ou cláusula específica de não solicitação",
+    "palavras_chave": [
+      "não solicitação",
+      "colaboradores",
+      "funcionários",
+      "contratação",
+      "empregados",
+      "recrutamento",
+      "non-solicitation"
+    ]
+  },
+  {
+    "nome": "Lei aplicável e foro",
+    "descricao": "Preferência para lei brasileira e foro da Comarca de São Paulo/SP, com renúncia a qualquer outro foro, sempre que possível na negociação.",
+    "exemplos": [
+      "Foro definido fora de São Paulo, como Rio de Janeiro ou foro estrangeiro.",
+      "Cláusula que permite à contraparte escolher foro alternativo a seu critério.",
+      "Ausência de cláusula de foro, deixando espaço para discussões futuras."
+    ],
+    "localizacao_tipica": "Capítulo final de Lei Aplicável e Foro (ex: cláusula 6.x)",
+    "palavras_chave": [
+      "foro",
+      "lei aplicável",
+      "legislação",
+      "comarca",
+      "São Paulo",
+      "jurisdição",
+      "competência"
+    ]
+  },
+  {
+    "nome": "Exceções à confidencialidade",
+    "descricao": "Garantir que não sejam consideradas informações confidenciais: (i) informações já em posse da Spectra antes do NDA; (ii) informações de domínio público; (iii) informações recebidas de terceiros não vinculados a obrigação de confidencialidade, de boa-fé; e (iv) informações exigidas por autoridade regulatória ou judicial.",
+    "exemplos": [
+      "Cláusula que não menciona a exceção de informações já conhecidas pela Spectra.",
+      "Ausência de exceção para informações requeridas por CVM ou outras autoridades.",
+      "Texto que exige autorização prévia da parte reveladora para qualquer divulgação a órgão regulador."
+    ],
+    "localizacao_tipica": "Cláusula de exceções à confidencialidade (ex: cláusula 2.6, 2.7 ou similar)",
+    "palavras_chave": [
+      "exceções",
+      "domínio público",
+      "posse prévia",
+      "terceiros",
+      "autoridade",
+      "judicial",
+      "CVM",
+      "regulador",
+      "não constituirão"
+    ]
+  },
+  {
+    "nome": "Obrigação de notificação de erros pelo fornecedor das informações",
+    "descricao": "Garantir que a contraparte tenha obrigação de notificar a Spectra em caso de identificação de erros, falsidades ou omissões nas informações confidenciais fornecidas, em prazo razoável (ex: 5 dias úteis), exceto em casos de fraude, dolo ou negligência onde a responsabilidade deve ser mantida.",
+    "exemplos": [
+      "Ausência de obrigação da contraparte de notificar erros identificados posteriormente.",
+      "Isenção total de responsabilidade por informações incorretas sem qualquer obrigação de correção ou notificação.",
+      "Cláusula que isenta responsabilidade inclusive em casos de fraude, dolo ou omissão deliberada."
+    ],
+    "localizacao_tipica": "Cláusula sobre precisão/qualidade das informações (ex: cláusula 2.8)",
+    "palavras_chave": [
+      "notificar",
+      "erros",
+      "omissões",
+      "falsas",
+      "precisão",
+      "completude",
+      "fraude",
+      "dolo",
+      "negligência",
+      "não assegura",
+      "não se responsabiliza"
+    ]
+  }
+]

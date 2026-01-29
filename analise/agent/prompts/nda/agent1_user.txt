@@ -1,0 +1,10 @@
+Título: {titulo}
+
+Texto da cláusula:
+{texto}
+
+Referências (preferências da Spectra que podem ser violadas):
+{clausulas_referencia}
+
+---
+Analise este trecho específico. Responda no formato estruturado obrigatório.
