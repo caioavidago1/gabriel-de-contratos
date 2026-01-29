@@ -18,3 +18,5 @@ voyageai
 
 # Validação
 pydantic
+
+redlines
