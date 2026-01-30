@@ -15,6 +15,7 @@ langchain-anthropic
 chromadb
 openai
 voyageai
+distro
 
 # Validação
 pydantic
