@@ -97,10 +97,7 @@ def comparar_docx_windows(original_path, revisado_path, saida_path):
 
 def comparar_docx_linux(original_path, revisado_path, saida_path):
     """Comparação usando LibreOffice UNO (Linux)"""
-    import uno
-    from com.sun.star.beans import PropertyValue
-    from com.sun.star.connection import NoConnectException
-    
+
     def criar_propriedade(nome, valor):
         """Cria uma PropertyValue para passar argumentos UNO"""
         prop = PropertyValue()
