@@ -8,12 +8,6 @@ from typing import Optional, Dict, Any
 import platform
 import sys
 
-if platform.system() != 'Windows':
-    libreoffice_path = '/usr/lib/python3/dist-packages'
-    if libreoffice_path not in sys.path:
-        sys.path.insert(0, libreoffice_path)
-
-from output.comparar_docx import comparar_docx
 # ========= Upload =========
 def upload_docx(label: str, key: str = "upload_docx"):
     """
@@ -759,6 +753,11 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
         doc_problemas = getattr(resultado, "doc_problemas_bytes", None)
         doc_solucao = getattr(resultado, "doc_solucao_bytes", None)
         if doc_problemas is not None and doc_solucao is not None:
+            # Lazy import: evita carregar comparar_docx (e pyuno no Linux) no startup do app
+            if platform.system() != 'Windows':
+                libreoffice_path = '/usr/lib/python3/dist-packages'
+                if libreoffice_path not in sys.path:
+                    sys.path.insert(0, libreoffice_path)
             from output.comparar_docx import comparar_docx
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
             nome_base = Path(nome_arquivo).stem
