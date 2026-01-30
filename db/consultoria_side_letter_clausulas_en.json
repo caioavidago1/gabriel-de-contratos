@@ -47,5 +47,145 @@
     "buscar_em": "independence, autonomous, employment, subordination, contractor",
     "regra_spectra": "Make clear it is service provision relationship, not employment: (1) consultant is independent; (2) no subordination, fixed hours or exclusivity; (3) consultant may have other clients; (4) no employment benefits (vacation, 13th salary, FGTS); (5) each party bears its tax/social security obligations; (6) consultant provides services via legal entity (ideally).",
     "como_corrigir": "Include: 'Independent Relationship: (i) Consultant is autonomous provider, no employment relationship; (ii) no subordination, hours or exclusivity; (iii) Consultant may have other clients; (iv) no employment benefits; (v) Consultant bears its taxes/social security; (vi) Consultant provides via legal entity [name]. Any labor claim: Consultant shall indemnify Company.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of preferred return (Preferred Return/Hurdle Rate)",
+    "buscar_em": "preferred return, hurdle rate, retorno preferencial, distribution, waterfall, carried interest, priority return",
+    "regra_spectra": "Every fund PPM must provide for a minimum preferred return to LPs before the GP receives carried interest. Spectra requires: (1) hurdle of IPCA+8% or 12-13% flat per annum; (2) cumulative calculation on uncalled capital; (3) distribution only after return of 100% of capital + hurdle; (4) total fund basis, not deal-by-deal.",
+    "como_corrigir": "Add section 'PREFERRED RETURN': 'Before any distribution of Carried Interest to the GP, each LP shall receive: (a) return of 100% of Capital Contributions; (b) annual preferred return of [IPCA + 8%] OR [12-13% flat] calculated on uncalled Capital Contributions, accumulated from the date of each contribution.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Carried interest on deal-by-deal basis without clawback",
+    "buscar_em": "carried interest, carry, performance fee, deal-by-deal, investment-by-investment, clawback, escrow carry, total fund",
+    "regra_spectra": "Deal-by-deal carry disproportionately favors the GP (receives on winners, LPs bear losers). Spectra requires: (1) carry calculated on total fund basis; (2) carry distribution only after return of capital + hurdle to all LPs; (3) clawback or escrow of carry until final liquidation; (4) losses deducted before carry calculation.",
+    "como_corrigir": "Change to: 'CARRIED INTEREST - TOTAL FUND BASIS: Distributions in the following order: (1st) 100% to LPs until full return of Capital; (2nd) 100% to LPs until Preferred Return; (3rd) [80% LPs / 20% GP]. Carry calculated on the fund as a whole. Losses on any investment reduce amount available for Carry. Clawback: GP returns carry received if, at the end, LPs did not receive capital + hurdle.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Excessive GP powers without LP approval",
+    "buscar_em": "general partner powers, GP authority, amendment, unilateral, discretion, consent, approval, voting rights, limited partner vote",
+    "regra_spectra": "GP cannot have unrestricted powers. Spectra requires LP approval (majority or 2/3) for: (1) amendments to the LPA affecting economic rights/governance; (2) changes to investment policy; (3) new issuance of interests; (4) material conflicts of interest; (5) borrowing/guarantees; (6) compulsory withdrawal of LPs; (7) change to management fee or carry.",
+    "como_corrigir": "Add: 'MATTERS REQUIRING LP APPROVAL (66% or majority of Capital Commitments): (a) Amendments to the LPA affecting economic rights or governance; (b) Changes to Investment Policy; (c) Issuance of new Interests; (d) Transactions with conflict of interest; (e) Debt above USD 500k or guarantees; (f) Compulsory withdrawal of LP; (g) Extension of Investment Period or Term; (h) Change to Management Fee or Carry.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Overly broad and irrevocable Power of Attorney",
+    "buscar_em": "power of attorney, procuração, attorney-in-fact, sign on behalf, execute documents, irrevocable, amendment authority",
+    "regra_spectra": "Power of attorney must be limited to essential administrative/operational acts. Spectra prohibits: (1) signing LPA amendments without prior approval; (2) altering economic terms; (3) binding LP to new obligations; (4) transferring/pledging LP interests; (5) consenting to compulsory withdrawal. Limited to: regulatory filings, approved portfolio investment documents, admission/withdrawal certificates.",
+    "como_corrigir": "Restrict: 'POWER OF ATTORNEY - LIMITED PURPOSES: Power of attorney limited to: (a) executing amendments to the Agreement ALREADY APPROVED by LPs; (b) governmental/regulatory filings (tax returns, certificates); (c) ordinary course administrative documents (Portfolio Company subscription, bank accounts); (d) admission/withdrawal of LPs per Agreement terms. EXPRESSLY EXCLUDED: altering economic terms, increasing LP obligations, transferring/pledging LP Interests, dissolving Partnership.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Borrowing without limits and with broad guarantees",
+    "buscar_em": "borrowing, indebtedness, debt, loan, guarantee, collateral, pledge, security interest, leverage, financing",
+    "regra_spectra": "Fund borrowing must have: (1) maximum limit (e.g. 25% of Capital Commitments); (2) LP approval if above threshold (e.g. USD 500k); (3) guarantees restricted to: future capital calls OR specific assets related to the loan (not all LP interests); (4) prohibition on handing fund management to creditor; (5) non-recourse to LPs personally.",
+    "como_corrigir": "Add: 'BORROWING LIMITATIONS: (a) Total debt shall not exceed 25% of Capital Commitments; (b) Debt above USD 500k requires majority LP approval; (c) Permitted guarantees: (i) future Capital Calls; (ii) specific Portfolio Company assets related to the loan (max 75% of FMV); (iii) fund cash. PROHIBITED: pledging all LP interests, giving Partnership as guarantee, allowing creditor to manage fund or remove GP, guaranteeing GP/Affiliates debt.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Compulsory withdrawal of LP at GP's sole discretion with arbitrary discount",
+    "buscar_em": "compulsory withdrawal, forced redemption, removal of limited partner, withdrawal price, discount, NAV reduction",
+    "regra_spectra": "Compulsory withdrawal must have: (1) limited circumstances (material breach, illegality, prolonged insolvency); (2) fair process (notice, opportunity to cure, right of defence); (3) majority LP approval (excluding the withdrawn); (4) redemption price determined by independent valuation firm, no arbitrary discount by GP; (5) payment partly in cash, partly per asset liquidation.",
+    "como_corrigir": "Define: 'COMPULSORY WITHDRAWAL: Only if: (a) material breach not cured within 30 days; (b) illegality/regulatory violation; (c) insolvency >90 days. PROCEDURE: (i) detailed notice; (ii) 30 days to cure; (iii) majority LP approval (excluding the affected); (iv) LP right to present defence. PRICE: determined by independent valuation firm (fair market value, no arbitrary discount). Payment: 30% cash within 90 days, balance per liquidation (max 24 months).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of fee offset (no fee compensation/double dipping)",
+    "buscar_em": "fee offset, transaction fees, monitoring fees, director fees, advisory fees, double dipping, credit, reimbursement, portfolio company fees",
+    "regra_spectra": "To avoid double dipping, all fees/compensation received by the GP or Affiliates from Portfolio Companies must be credited against Management Fee. Spectra requires: (1) 100% offset of: transaction fees, monitoring fees, director fees, co-investor fees; (2) detailed quarterly report; (3) if offset exceeds period management fee, pay difference to fund or carry credit; (4) exceptions only for pre-approved reasonable expense reimbursement.",
+    "como_corrigir": "Add: 'FEE OFFSET: 100% of the following fees received by GP/Affiliates from Portfolio Companies shall be credited against Management Fee: (a) transaction fees (origination, structuring, success); (b) monitoring/advisory/consulting fees; (c) director fees (except expense reimbursement); (d) co-investor fees. PROCEDURE: detailed quarterly report; credit applied in following quarter; if exceeds Management Fee, pay to fund in cash or carry credit for 12 months.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Fund expenses without defined cap and vague categories",
+    "buscar_em": "expenses, reimbursement, costs, overhead, organizational expenses, operating expenses, expense cap, expense limit",
+    "regra_spectra": "Fund reimbursable expenses must: (1) be clearly defined (legal, audit, admin, custody, D&O insurance, compliance); (2) have annual cap (e.g. 0.5% of Capital Commitments); (3) exclude GP overhead (rent, salaries, marketing, fundraising); (4) exclude Affiliate services unless at demonstrable arm's-length prices; (5) detailed quarterly report.",
+    "como_corrigir": "Define: 'PARTNERSHIP EXPENSES: Fund reimburses: (a) organizational/offering expenses (amortized over 2 years); (b) audit/tax prep; (c) legal/professional fees for specific investments; (d) third-party admin/custodian; (e) D&O insurance; (f) regulatory/compliance. EXPENSE CAP: 0.5% of Capital Commitments/year. NOT REIMBURSABLE: GP overhead (rent, salaries, marketing, fundraising), Affiliate services above market rate. Detailed quarterly report required.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "New issuance of interests without preemptive rights",
+    "buscar_em": "additional capital, new issuance, preemptive rights, pro rata, dilution, preferential rights, new limited partners, subscription",
+    "regra_spectra": "New issuances must: (1) require 66% or majority LP approval; (2) existing LPs have pro rata preemptive rights; (3) 20-day period to subscribe; (4) over-subscription permitted; (5) only after period expiry, offer to third parties; (6) terms to third parties no more favorable than to existing LPs; (7) MFN clause if third parties receive better terms.",
+    "como_corrigir": "Add: 'ADDITIONAL INTERESTS - PREEMPTIVE RIGHTS: Issuance requires [66% or majority] LP approval. PROCEDURE: (a) 30-day prior notice with detailed terms; (b) existing LPs have right to subscribe pro rata share (20 days); (c) over-subscription for 10 additional days; (d) only thereafter, offer to third parties on no more favorable terms; (e) if third parties receive better terms, existing LPs have MFN right (apply terms retroactively).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of Key Person provisions",
+    "buscar_em": "key person, fund lead, key man, death, disability, departure, suspension, investment period, replacement, succession",
+    "regra_spectra": "PPM must define: (1) who are the Key Persons (Fund Leads); (2) events triggering Key Person Event (death, permanent disability, departure); (3) automatic suspension of Investment Period; (4) replacement procedure (nominees, LP approval, headhunter if needed); (5) replacement deadline (90-180 days); (6) consequences if not replaced (end of Investment Period, LPs' right to remove GP).",
+    "como_corrigir": "Define: 'KEY PERSONS: [Diego, Gustavo, William]. KEY PERSON EVENT: (a) death or permanent disability (6 consecutive months); (b) cessation of devoting substantially full time to the fund. CONSEQUENCE: automatic suspension of Investment Period (only follow-ons permitted). REPLACEMENT: (1) GP nominates within 90 days, LPs approve (majority); (2) if rejected, 2nd nominee within 60 days; (3) if rejected, headhunter presents 3 candidates, GP chooses. If not replaced within 180 days: Investment Period ends, LPs may remove GP.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "GP removal only for limited violations, no removal without cause",
+    "buscar_em": "removal of general partner, termination for cause, without cause, gross negligence, fraud, breach, fiduciary duty, vote to remove",
+    "regra_spectra": "LPs must be able to remove GP: (1) FOR CAUSE: fraud, gross negligence, material breach, fiduciary violation, criminal conviction - majority of LPs; (2) WITHOUT CAUSE: after unresolved Key Person Event, or at any time by supermajority (75-80%) of LPs; (3) Consequences: GP loses future management fee, carry only on already realized deals (not future carry on pending exits), 90-day transition.",
+    "como_corrigir": "Add: 'REMOVAL OF GP: (a) FOR CAUSE (majority of LPs): fraud, gross negligence, material breach not cured within 30 days, fiduciary violation, crime related to fraud/embezzlement. (b) WITHOUT CAUSE: (i) after Key Person Event not resolved within 180 days (majority of LPs); OR (ii) at any time by 75% of LPs. CONSEQUENCES: GP loses future Management Fee; Carry only on exits realized before removal (not on pending exits); 90-day transition to new GP.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Opportunity allocation among manager's funds not defined",
+    "buscar_em": "allocation policy, deal allocation, opportunity allocation, multiple funds, side-by-side, co-investment, fairness, conflicts",
+    "regra_spectra": "When GP manages multiple funds, there must be a clear opportunity allocation policy: (1) objective criteria (each fund's investment policy, available capital, concentration, stage); (2) pro rata among eligible funds or rotation; (3) prohibition on allocating better deals to funds with higher management fee or carry; (4) disclosure of allocation to LPs; (5) compliance officer or LP Advisory Committee may question allocations.",
+    "como_corrigir": "Add: 'ALLOCATION POLICY: GP manages multiple funds. Opportunities allocated per: (a) each fund's Investment Policy (stage, sector, geo); (b) available capital and concentration limits; (c) chronological order or pro rata among eligible funds. PROHIBITED: allocating better deals to funds with higher fee/carry, favoring GP co-investors. DISCLOSURE: semi-annual allocation report to all LPs. LP Advisory Committee may question non-compliant allocations.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Transfer of LPs to Parallel Funds with higher fees without consent",
+    "buscar_em": "parallel fund, transfer, forced migration, fees increase, consent, different terms, side car, alternative vehicle",
+    "regra_spectra": "GP cannot transfer LPs to a Parallel Fund without: (1) individual LP consent; (2) identical or better economic terms (cannot increase fees); (3) if transfer due to adverse legal/tax event: 60-day notice, LP may choose early exit instead of transferring; (4) full disclosure of Parallel Fund terms before transfer; (5) power of attorney does not authorize this transfer.",
+    "como_corrigir": "Restrict: 'PARALLEL FUNDS: GP may create Parallel Funds. LP TRANSFER: only with individual written LP consent. If transfer required due to adverse legal/regulatory/tax event: (a) 60-day prior notice; (b) full disclosure of Parallel Fund terms; (c) terms no less favorable (fees/carry not higher); (d) LP may choose early exit (redemption at FMV) instead of transferring. Power of attorney does NOT authorize compulsory transfer to Parallel Fund.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Excessive waivers of LP rights and limitation of GP liability",
+    "buscar_em": "waiver, liability, indemnification, exculpation, gross negligence, fraud, bad faith, fiduciary duty, hold harmless",
+    "regra_spectra": "Waivers/exculpation must be limited. Spectra does not accept: (1) waiver of liability for fraud, bad faith, gross negligence, fiduciary violation; (2) waiver of right to information on conflicts of interest; (3) waiver of right to sue for insider trading, fraud, non-disclosure; (4) indemnification of GP by fund in cases of fraud/bad faith; (5) waiver of fiduciary duties. GP liable for: fraud, willful misconduct, bad faith, gross negligence, breach of fiduciary duty.",
+    "como_corrigir": "Limit: 'EXCULPATION: GP not liable for investment losses, except if caused by: fraud, willful misconduct, bad faith, gross negligence, breach of fiduciary duty. PROHIBITED: waiver of liability for fraud/bad faith/gross negligence; waiver of right to information on conflicts; waiver of fiduciary duties. INDEMNIFICATION: fund indemnifies GP only if acted in good faith and without gross negligence; fund does NOT indemnify in cases of fraud/willful misconduct/bad faith.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "LPs without audit rights over fund books and operations",
+    "buscar_em": "audit rights, inspection rights, books and records, access to information, quarterly reports, annual audit, transparency",
+    "regra_spectra": "LPs must have: (1) detailed quarterly reports (NAV, investments, valuations, fees, expenses, conflicts); (2) annual audit by independent firm; (3) right to audit books and records upon prior notice (15-30 days) and for cause (suspicion of fraud, gross negligence, breach); (4) audit costs borne by fund if irregularities found, by LP if unfounded; (5) LP Advisory Committee has broad access.",
+    "como_corrigir": "Add: 'INFORMATION RIGHTS: (a) Quarterly reports: NAV, portfolio valuations, detailed fees/expenses, conflicts, capital calls; (b) Annual audit by independent firm; (c) AUDIT RIGHTS: LP (or group representing 25% of Capital) may audit books upon: (i) cause (substantiated suspicion of fraud, gross negligence, breach); (ii) 30-day prior notice; (iii) reasonable business hours. Costs: by fund if irregularities, by LP if unfounded. LP Advisory Committee has unrestricted access.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Arbitration with excessive limitations on LP rights",
+    "buscar_em": "arbitration, dispute resolution, class action waiver, punitive damages, discovery limitations, arbitration location, damages cap",
+    "regra_spectra": "Arbitration clause cannot: (1) bar punitive damages in case of proven fraud; (2) limit discovery so as to prevent LP from proving misconduct; (3) bar class action even if systemic fraud affecting multiple LPs; (4) prevent arbitrator from reforming abusive/illegal contract; (5) require LP to bear costs even if GP loses. Arbitration must be balanced, with reasonable discovery, neutral seat, fee splitting.",
+    "como_corrigir": "Revise: 'ARBITRATION: Disputes resolved by arbitration (1 arbitrator, JAMS, [neutral seat]). DISCOVERY: permitted per JAMS rules, no excessive limitations (LP may request relevant documents). DAMAGES: arbitrator may award compensatory and, if fraud proven, punitive damages. COSTS: losing party pays winning party's costs (incentive to good faith). Class action waiver maintained only if not systemic fraud affecting multiple LPs. Arbitrator may reform contract if illegal/unconscionable.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Due diligence prior to investments not performed or not mandatory",
+    "buscar_em": "due diligence, investment process, diligence procedures, background check, financial analysis, legal review, evaluation criteria",
+    "regra_spectra": "PPM must specify that GP conducts adequate due diligence before each investment: (1) founders' background; (2) financial and market analysis; (3) legal/regulatory diligence; (4) reference checks; (5) technology/product diligence if applicable; (6) minimum approval criteria. Investments without diligence (e.g. FOMO deals) must be rare exception and approved by LP Advisory Committee.",
+    "como_corrigir": "Specify: 'INVESTMENT PROCESS: Before each investment, GP will conduct due diligence including: (a) founders' background and track record; (b) financial analysis (financial statements, metrics, projections); (c) market analysis (TAM, competition, moat); (d) legal/regulatory/IP diligence; (e) reference checks. Investments without full diligence (due to time constraints) require LP Advisory Committee approval and will represent <10% of the fund.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Custody of Digital Assets by GP itself without qualified custodian",
+    "buscar_em": "custody, digital assets, cryptocurrency, custodian, wallet, self-custody, qualified custodian, security, private keys",
+    "regra_spectra": "If fund invests in Digital Assets: (1) preference for regulated qualified custodian (Coinbase Custody, BitGo, etc); (2) if self-custody: robust procedure (multi-sig, cold storage, disaster recovery, insurance); (3) disclosure of specific risks (key loss, hacks); (4) annual custody audit; (5) clear liability for losses; (6) GP/Sub-Adviser liable for custody negligence.",
+    "como_corrigir": "Specify: 'DIGITAL ASSETS CUSTODY: GP will use regulated qualified custodian (e.g. Coinbase Custody, BitGo). If qualified custodian not available for given asset: self-custody with: (a) multi-signature wallets; (b) cold storage (majority offline); (c) documented disaster recovery procedure; (d) insurance against loss/theft; (e) annual audit. GP/Sub-Adviser liable for losses caused by custody negligence. Detailed risk disclosure in PPM.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of reserves for follow-on investments or pro rata rights in future rounds",
+    "buscar_em": "follow-on, pro rata, reserves, subsequent rounds, follow-on capital, recycling, additional investment, allocation to third parties",
+    "regra_spectra": "Fund must: (1) reserve % of capital (e.g. 30-50%) for follow-ons; (2) exercise pro rata rights in subsequent rounds of winning Portfolio Companies; (3) if insufficient capital, offer follow-on opportunity to existing LPs (pro rata) before third parties; (4) not allocate follow-ons preferentially to specific LPs or GP-related third parties; (5) clearly defined recycling policy (reinvest proceeds only during Investment Period).",
+    "como_corrigir": "Add: 'FOLLOW-ON STRATEGY: (a) [30-50%] of capital reserved for follow-ons in existing Portfolio Companies; (b) GP will exercise pro rata rights in subsequent rounds per capital availability; (c) if insufficient capital: offer follow-on opportunity to existing LPs (pro rata) before third parties; (d) preferential allocation to specific LPs or GP-related parties prohibited. RECYCLING: permitted only during Investment Period; exit proceeds may be reinvested 1x in new or existing Portfolio Companies.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "GP may enter conflict-of-interest transactions at its sole discretion",
+    "buscar_em": "conflict of interest, related party transactions, self-dealing, affiliated transactions, fair market value, independent valuation, approval",
+    "regra_spectra": "Conflict-of-interest transactions must: (1) be approved by majority of non-conflicted LPs OR independent LP Advisory Committee; (2) have valuation by independent third party (fair market value); (3) be on arm's-length terms or better for the fund; (4) full disclosure to LPs before approval; (5) GP proves transaction is fair; (6) prohibited: transactions where GP buys from fund below FMV or sells to fund above FMV.",
+    "como_corrigir": "Add: 'CONFLICT OF INTEREST TRANSACTIONS: Transactions between fund and GP/Affiliates/Portfolio Companies where GP has interest require: (a) valuation by independent third party (fair market value); (b) arm's-length terms or better for the fund; (c) full disclosure to LPs; (d) approval by majority of non-conflicted LPs OR LP Advisory Committee. GP has burden of proof that transaction is fair. PROHIBITED: transactions where GP buys fund assets below FMV or sells to fund above FMV.'"
   }
 ]

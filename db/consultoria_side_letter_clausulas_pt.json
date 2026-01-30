@@ -47,5 +47,145 @@
     "buscar_em": "independência, autônomo, vínculo, trabalhista, subordinação, PJ",
     "regra_spectra": "Deixar claro que é relação de prestação de serviços, não trabalhista: (1) consultor é independente; (2) sem subordinação, horário fixo ou exclusividade; (3) consultor pode ter outros clientes; (4) sem benefícios trabalhistas (férias, 13º, FGTS); (5) cada parte arca com suas obrigações fiscais/previdenciárias; (6) consultor presta serviços via PJ (idealmente).",
     "como_corrigir": "Incluir: 'Relação Independente: (i) Consultor é prestador autônomo, sem vínculo trabalhista; (ii) sem subordinação, horário ou exclusividade; (iii) Consultor pode ter outros clientes; (iv) sem benefícios trabalhistas; (v) Consultor arca com seus impostos/INSS; (vi) Consultor presta via PJ [nome]. Qualquer reclamação trabalhista: Consultor indenizará Empresa.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de retorno preferencial (Preferred Return/Hurdle Rate)",
+    "buscar_em": "preferred return, hurdle rate, retorno preferencial, distribuição, waterfall, carried interest, priority return",
+    "regra_spectra": "Todo PPM de fundo deve prever retorno preferencial mínimo aos LPs antes do GP receber carried interest. A Spectra exige: (1) hurdle de IPCA+8% ou 12-13% flat anual; (2) cálculo cumulativo sobre capital não retornado; (3) distribuição apenas após retorno de 100% do capital + hurdle; (4) base total fund, não deal-by-deal.",
+    "como_corrigir": "Adicionar seção 'PREFERRED RETURN': 'Antes de qualquer distribuição de Carried Interest ao GP, cada LP receberá: (a) retorno de 100% das Contribuições de Capital; (b) retorno preferencial anual de [IPCA + 8%] OU [12-13% flat] calculado sobre Contribuições de Capital não retornadas, acumulado desde a data de cada contribuição.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Estrutura de Carried Interest em base deal-by-deal sem clawback",
+    "buscar_em": "carried interest, carry, performance fee, deal-by-deal, investment-by-investment, clawback, escrow carry, total fund",
+    "regra_spectra": "Carry deal-by-deal favorece desproporcionalmente o GP (recebe em winners, LPs arcam com losers). Spectra exige: (1) carry calculado em total fund basis; (2) distribuição de carry apenas após retorno de capital + hurdle a todos LPs; (3) clawback ou escrow de carry até liquidação final; (4) perdas deduzidas antes de cálculo de carry.",
+    "como_corrigir": "Alterar para: 'CARRIED INTEREST - TOTAL FUND BASIS: Distribuições na seguinte ordem: (1º) 100% aos LPs até retorno total de Capital; (2º) 100% aos LPs até Preferred Return; (3º) [80% LPs / 20% GP]. Carry calculado sobre fundo como um todo. Perdas em qualquer investimento reduzem montante disponível para Carry. Clawback: GP devolve carry recebido se, ao final, LPs não receberam capital + hurdle.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Poderes excessivos do GP sem aprovação dos LPs",
+    "buscar_em": "general partner powers, GP authority, amendment, unilateral, discretion, consent, approval, voting rights, limited partner vote",
+    "regra_spectra": "GP não pode ter poderes irrestritos. Spectra exige aprovação de LPs (maioria ou 2/3) para: (1) alterações ao LPA que afetem direitos econômicos/governança; (2) mudanças na política de investimento; (3) novas emissões de cotas; (4) conflitos de interesse materiais; (5) tomada de dívida/garantias; (6) retirada compulsória de LPs; (7) alteração de management fee ou carry.",
+    "como_corrigir": "Adicionar: 'MATTERS REQUIRING LP APPROVAL (66% ou maioria de Capital Commitments): (a) Alterações ao LPA que afetem direitos econômicos ou governança; (b) Mudanças na Investment Policy; (c) Emissão de novos Interests; (d) Transações com conflito de interesse; (e) Dívida acima de USD 500k ou garantias; (f) Retirada compulsória de LP; (g) Extensão do Investment Period ou Term; (h) Alteração de Management Fee ou Carry.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Procuração (Power of Attorney) excessivamente ampla e irrevogável",
+    "buscar_em": "power of attorney, procuração, attorney-in-fact, sign on behalf, execute documents, irrevocable, amendment authority",
+    "regra_spectra": "Procuração deve ser restrita a atos administrativos/operacionais essenciais. Spectra veda: (1) assinar alterações ao LPA sem aprovação prévia; (2) alterar termos econômicos; (3) vincular LP a novas obrigações; (4) transferir/dar em garantia cotas do LP; (5) consentir com retirada compulsória. Procuração limitada a: filings regulatórios, documentos de portfolio investments aprovados, certificados de admissão/retirada.",
+    "como_corrigir": "Restringir: 'POWER OF ATTORNEY - LIMITED PURPOSES: Procuração limitada a: (a) executar alterações ao Agreement JÁ APROVADAS pelos LPs; (b) filings governamentais/regulatórios (tax returns, certificates); (c) documentos administrativos de curso ordinário (subscription de Portfolio Company, bank accounts); (d) admissão/retirada de LPs conforme termos do Agreement. EXPRESSAMENTE EXCLUÍDO: alterar termos econômicos, aumentar obrigações de LPs, transferir/penhorar Interests de LPs, dissolver Partnership.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Tomada de dívida sem limitações e com garantias amplas",
+    "buscar_em": "borrowing, indebtedness, debt, loan, guarantee, collateral, pledge, security interest, leverage, financing",
+    "regra_spectra": "Tomada de dívida pelo fundo deve ter: (1) limite máximo (ex: 25% de Capital Commitments); (2) aprovação de LPs se acima de threshold (ex: USD 500k); (3) garantias restritas a: capital calls futuros OU ativos específicos relacionados ao empréstimo (não todas as cotas dos LPs); (4) vedação a entregar gestão do fundo a credor; (5) non-recourse aos LPs pessoalmente.",
+    "como_corrigir": "Adicionar: 'BORROWING LIMITATIONS: (a) Dívida total não excederá 25% de Capital Commitments; (b) Dívida acima de USD 500k requer aprovação de maioria de LPs; (c) Garantias permitidas: (i) Capital Calls futuros; (ii) ativos específicos de Portfolio Company relacionados ao empréstimo (máx 75% do FMV); (iii) cash do fundo. VEDADO: penhorar todas as cotas dos LPs, dar Partnership como garantia, permitir credor gerir fundo ou remover GP, garantir dívidas do GP/Affiliates.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Retirada compulsória de LP a critério exclusivo do GP com desconto arbitrário",
+    "buscar_em": "compulsory withdrawal, forced redemption, removal of limited partner, withdrawal price, discount, NAV reduction",
+    "regra_spectra": "Retirada compulsória deve ter: (1) circunstâncias limitadas (breach material, ilegalidade, insolvência prolongada); (2) processo justo (notificação, oportunidade de cura, direito de defesa); (3) aprovação de maioria de LPs (exceto o retirado); (4) preço de resgate determinado por valuation firm independente, sem desconto arbitrário pelo GP; (5) pagamento parte em cash, parte conforme liquidação de ativos.",
+    "como_corrigir": "Definir: 'COMPULSORY WITHDRAWAL: Apenas se: (a) breach material não curado em 30 dias; (b) ilegalidade/violação regulatória; (c) insolvência >90 dias. PROCEDIMENTO: (i) notificação detalhada; (ii) 30 dias para cura; (iii) aprovação de maioria de LPs (excluindo o afetado); (iv) direito do LP de apresentar defesa. PREÇO: determinado por valuation firm independente (fair market value, sem desconto arbitrário). Pagamento: 30% cash em 90 dias, saldo conforme liquidação (máx 24 meses).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de fee offset (sem compensação de taxas/double dipping)",
+    "buscar_em": "fee offset, transaction fees, monitoring fees, director fees, advisory fees, double dipping, credit, reimbursement, portfolio company fees",
+    "regra_spectra": "Para evitar double dipping, todas as taxas/compensações recebidas pelo GP ou Affiliates de Portfolio Companies devem ser creditadas contra Management Fee. Spectra exige: (1) 100% offset de: transaction fees, monitoring fees, director fees, fees de co-investors; (2) relatório trimestral detalhado; (3) se offset exceder management fee do período, pagar diferença ao fundo ou carregar crédito; (4) exceções apenas para reembolso de despesas razoáveis pré-aprovadas.",
+    "como_corrigir": "Adicionar: 'FEE OFFSET: 100% das seguintes taxas recebidas pelo GP/Affiliates de Portfolio Companies serão creditadas contra Management Fee: (a) transaction fees (origination, structuring, success); (b) monitoring/advisory/consulting fees; (c) director fees (exceto reembolso de despesas); (d) fees de co-investors. PROCEDIMENTO: relatório trimestral detalhado; crédito aplicado no trimestre seguinte; se exceder Management Fee, pagar ao fundo em cash ou carregar crédito por 12 meses.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Despesas do fundo sem teto definido e categorias vagas",
+    "buscar_em": "expenses, reimbursement, costs, overhead, organizational expenses, operating expenses, expense cap, expense limit",
+    "regra_spectra": "Despesas reembolsáveis pelo fundo devem: (1) ser claramente definidas (legal, audit, admin, custody, D&O insurance, compliance); (2) ter teto anual (ex: 0.5% de Capital Commitments); (3) excluir overhead do GP (rent, salaries, marketing, fundraising); (4) excluir serviços de Affiliates a menos que a preços arm's-length demonstráveis; (5) relatório trimestral detalhado.",
+    "como_corrigir": "Definir: 'PARTNERSHIP EXPENSES: Fundo reembolsa: (a) organizational/offering expenses (amortizados em 2 anos); (b) audit/tax prep; (c) legal/professional fees de investments específicos; (d) admin/custodian third-party; (e) D&O insurance; (f) regulatory/compliance. EXPENSE CAP: 0.5% de Capital Commitments/ano. NÃO REEMBOLSÁVEL: overhead do GP (rent, salaries, marketing, fundraising), serviços de Affiliates acima de market rate. Relatório trimestral detalhado obrigatório.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Novas emissões de cotas sem direito de preferência (preemptive rights)",
+    "buscar_em": "additional capital, new issuance, preemptive rights, pro rata, dilution, preferential rights, new limited partners, subscription",
+    "regra_spectra": "Novas emissões devem: (1) requerer aprovação de 66% ou maioria de LPs; (2) LPs existentes têm direito de preferência pro rata; (3) período de 20 dias para subscrever; (4) over-subscription permitida; (5) apenas após expiração dos períodos, ofertar a terceiros; (6) termos a terceiros não mais favoráveis que aos LPs existentes; (7) MFN clause se terceiros receberem termos melhores.",
+    "como_corrigir": "Adicionar: 'ADDITIONAL INTERESTS - PREEMPTIVE RIGHTS: Emissão requer aprovação de [66% ou maioria] de LPs. PROCEDIMENTO: (a) notificação 30 dias antes com termos detalhados; (b) LPs existentes têm direito de subscrever pro rata share (20 dias); (c) over-subscription por 10 dias adicionais; (d) apenas após, ofertar a terceiros em termos não mais favoráveis; (e) se terceiros receberem termos melhores, LPs existentes têm direito MFN (aplicar termos retroativamente).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de Key Person provisions",
+    "buscar_em": "key person, fund lead, key man, death, disability, departure, suspension, investment period, replacement, succession",
+    "regra_spectra": "PPM deve definir: (1) quem são os Key Persons (Fund Leads); (2) eventos que triggam Key Person Event (morte, incapacidade permanente, saída); (3) suspensão automática do Investment Period; (4) procedimento de substituição (nominees, aprovação de LPs, headhunter se necessário); (5) prazo para substituição (90-180 dias); (6) consequências se não substituir (término de Investment Period, direito de LPs removerem GP).",
+    "como_corrigir": "Definir: 'KEY PERSONS: [Diego, Gustavo, William]. KEY PERSON EVENT: (a) morte ou incapacidade permanente (6 meses consecutivos); (b) cessação de dedicar substancialmente todo tempo ao fundo. CONSEQUÊNCIA: suspensão automática de Investment Period (apenas follow-ons permitidos). SUBSTITUIÇÃO: (1) GP nomeia em 90 dias, LPs aprovam (maioria); (2) se rejeitado, 2º nominee em 60 dias; (3) se rejeitado, headhunter apresenta 3 candidatos, GP escolhe. Se não substituir em 180 dias: Investment Period termina, LPs podem remover GP.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Remoção do GP apenas por violações limitadas, sem provisão de remoção sem justa causa",
+    "buscar_em": "removal of general partner, termination for cause, without cause, gross negligence, fraud, breach, fiduciary duty, vote to remove",
+    "regra_spectra": "LPs devem poder remover GP: (1) FOR CAUSE: fraude, gross negligence, breach material, violação fiduciária, condenação criminal - maioria de LPs; (2) WITHOUT CAUSE: após Key Person Event não resolvido, ou a qualquer tempo mediante supermaioria (75-80%) de LPs; (3) Consequências: GP perde management fee futuro, carry apenas sobre deals já realizados (não futuro carry em exits pendentes), transition de 90 dias.",
+    "como_corrigir": "Adicionar: 'REMOVAL OF GP: (a) FOR CAUSE (maioria de LPs): fraude, gross negligence, breach material não curado em 30 dias, violação fiduciária, crime relacionado a fraude/embezzlement. (b) WITHOUT CAUSE: (i) após Key Person Event não resolvido em 180 dias (maioria de LPs); OU (ii) a qualquer tempo mediante 75% de LPs. CONSEQUÊNCIAS: GP perde Management Fee futuro; Carry apenas sobre exits realizados antes da remoção (não sobre exits pendentes); transition de 90 dias para novo GP.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Alocação de oportunidades entre fundos do gestor não definida",
+    "buscar_em": "allocation policy, deal allocation, opportunity allocation, multiple funds, side-by-side, co-investment, fairness, conflicts",
+    "regra_spectra": "Quando GP gerencia múltiplos fundos, deve haver política clara de alocação de oportunidades: (1) critérios objetivos (investment policy de cada fundo, capital disponível, concentração, stage); (2) pro rata entre fundos elegíveis ou rotação; (3) vedação a alocar melhores deals a fundos com maior management fee ou carry; (4) disclosure de alocação aos LPs; (5) compliance officer ou LP Advisory Committee pode questionar alocações.",
+    "como_corrigir": "Adicionar: 'ALLOCATION POLICY: GP gerencia múltiplos fundos. Oportunidades alocadas conforme: (a) Investment Policy de cada fundo (stage, setor, geo); (b) capital disponível e limites de concentração; (c) ordem cronológica ou pro rata entre fundos elegíveis. VEDADO: alocar melhores deals a fundos com maior fee/carry, privilegiar co-investors do GP. DISCLOSURE: relatório semestral de alocações a todos LPs. LP Advisory Committee pode questionar alocações não conformes.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Transferência de LPs a Parallel Funds com taxas superiores sem consentimento",
+    "buscar_em": "parallel fund, transfer, forced migration, fees increase, consent, different terms, side car, alternative vehicle",
+    "regra_spectra": "GP não pode transferir LPs a Parallel Fund sem: (1) consentimento individual do LP; (2) termos econômicos idênticos ou melhores (não pode aumentar fees); (3) se transfer for por evento legal/tax adverso: notificação 60 dias, LP pode optar por exit antecipado ao invés de transferir; (4) disclosure completo dos termos do Parallel Fund antes de transfer; (5) procuração não autoriza esta transferência.",
+    "como_corrigir": "Restringir: 'PARALLEL FUNDS: GP pode criar Parallel Funds. TRANSFER DE LPs: apenas com consentimento individual por escrito do LP. Se transfer for necessário por evento legal/regulatório/tax adverso: (a) notificação 60 dias antes; (b) disclosure completo de termos do Parallel Fund; (c) termos não menos favoráveis (fees/carry não superiores); (d) LP pode optar por exit antecipado (redemption ao FMV) ao invés de transferir. Procuração NÃO autoriza transfer compulsório a Parallel Fund.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Waivers excessivos de direitos dos LPs e limitação de responsabilidade do GP",
+    "buscar_em": "waiver, liability, indemnification, exculpation, gross negligence, fraud, bad faith, fiduciary duty, hold harmless",
+    "regra_spectra": "Waivers/exculpação devem ser limitados. Spectra não aceita: (1) waiver de responsabilidade por fraude, má-fé, gross negligence, violação fiduciária; (2) waiver de direito a informações sobre conflitos de interesse; (3) waiver de direito a processar por insider trading, fraude, não-disclosure; (4) indemnização do GP pelo fundo em casos de fraude/má-fé; (5) waiver de fiduciary duties. GP responde por: fraude, willful misconduct, bad faith, gross negligence, breach of fiduciary duty.",
+    "como_corrigir": "Limitar: 'EXCULPATION: GP não responsável por perdas em investimentos, exceto se causadas por: fraude, willful misconduct, bad faith, gross negligence, breach of fiduciary duty. VEDADO: waiver de responsabilidade por fraude/má-fé/gross negligence; waiver de direito a informação sobre conflitos; waiver de fiduciary duties. INDEMNIFICATION: fundo indeniza GP apenas se agiu de boa-fé e sem gross negligence; fundo NÃO indeniza em casos de fraude/willful misconduct/bad faith.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "LPs sem direito de auditoria dos livros e operações do fundo",
+    "buscar_em": "audit rights, inspection rights, books and records, access to information, quarterly reports, annual audit, transparency",
+    "regra_spectra": "LPs devem ter: (1) relatórios trimestrais detalhados (NAV, investimentos, valuations, fees, expenses, conflitos); (2) annual audit por firma independente; (3) direito de auditar livros e registros mediante aviso prévio (15-30 dias) e por justa causa (suspeita de fraude, gross negligence, descumprimento); (4) custos de auditoria pelo fundo se irregularidades encontradas, pelo LP se infundada; (5) LP Advisory Committee tem acesso amplo.",
+    "como_corrigir": "Adicionar: 'INFORMATION RIGHTS: (a) Relatórios trimestrais: NAV, portfolio valuations, fees/expenses detalhados, conflitos, chamadas de capital; (b) Annual audit por firma independente; (c) AUDIT RIGHTS: LP (ou grupo representando 25% de Capital) pode auditar livros mediante: (i) justa causa (suspeita fundamentada de fraude, gross negligence, breach); (ii) aviso prévio de 30 dias; (iii) horário comercial razoável. Custos: pelo fundo se irregularidades, pelo LP se infundada. LP Advisory Committee tem acesso irrestrito.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Arbitragem com limitações excessivas a direitos do LP",
+    "buscar_em": "arbitration, dispute resolution, class action waiver, punitive damages, discovery limitations, arbitration location, damages cap",
+    "regra_spectra": "Cláusula de arbitragem não pode: (1) vedar danos punitivos em caso de fraude comprovada; (2) limitar discovery de forma a impedir LP de provar má conduta; (3) vedar class action mesmo se fraude sistêmica afetando múltiplos LPs; (4) impedir árbitro de reformar contrato abusivo/ilegal; (5) exigir LP a arcar com custos mesmo se GP perder. Arbitragem deve ser equilibrada, com discovery razoável, local neutro, fee splitting.",
+    "como_corrigir": "Revisar: 'ARBITRATION: Disputas resolvidas por arbitragem (1 árbitro, JAMS, [local neutro]). DISCOVERY: permitida conforme JAMS rules, sem limitações excessivas (LP pode requerer documentos relevantes). DAMAGES: árbitro pode conceder compensatory e, se fraude comprovada, punitive damages. COSTS: losing party paga custos da winning party (incentivo à boa-fé). Class action waiver mantido apenas se não for fraude sistêmica afetando múltiplos LPs. Árbitro pode reformar contrato se ilegal/unconscionable.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Due diligence prévia aos investimentos não é realizada ou não é obrigatória",
+    "buscar_em": "due diligence, investment process, diligence procedures, background check, financial analysis, legal review, evaluation criteria",
+    "regra_spectra": "PPM deve especificar que GP conduz due diligence adequada antes de cada investimento: (1) background dos founders; (2) análise financeira e de mercado; (3) legal/regulatory diligence; (4) reference checks; (5) technology/product diligence se aplicável; (6) critérios mínimos de aprovação. Investimentos sem diligence (ex: FOMO deals) devem ser exceção rara e aprovada por LP Advisory Committee.",
+    "como_corrigir": "Especificar: 'INVESTMENT PROCESS: Antes de cada investimento, GP conduzirá due diligence incluindo: (a) background e track record dos founders; (b) análise financeira (financial statements, metrics, projections); (c) análise de mercado (TAM, competição, moat); (d) legal/regulatory/IP diligence; (e) reference checks. Investimentos sem diligence completa (por time constraints) requerem aprovação de LP Advisory Committee e representarão <10% do fundo.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Custódia de Digital Assets pelo próprio GP sem custodian qualificado",
+    "buscar_em": "custody, digital assets, cryptocurrency, custodian, wallet, self-custody, qualified custodian, security, private keys",
+    "regra_spectra": "Se fundo investe em Digital Assets: (1) preferência por qualified custodian regulado (Coinbase Custody, BitGo, etc); (2) se self-custody: procedimento robusto (multi-sig, cold storage, disaster recovery, insurance); (3) disclosure dos riscos específicos (perda de keys, hacks); (4) auditoria anual da custódia; (5) responsabilidade clara por perdas; (6) GP/Sub-Adviser responde por negligência na custódia.",
+    "como_corrigir": "Especificar: 'DIGITAL ASSETS CUSTODY: GP utilizará qualified custodian regulado (ex: Coinbase Custody, BitGo). Se qualified custodian não disponível para determinado asset: self-custody com: (a) multi-signature wallets; (b) cold storage (majority offline); (c) procedimento de disaster recovery documentado; (d) insurance contra perda/theft; (e) auditoria anual. GP/Sub-Adviser responde por perdas causadas por negligência na custódia. Disclosure detalhado de riscos no PPM.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de reservas para follow-on investments ou pro rata rights em futuras rodadas",
+    "buscar_em": "follow-on, pro rata, reserves, subsequent rounds, follow-on capital, recycling, additional investment, allocation to third parties",
+    "regra_spectra": "Fundo deve: (1) reservar % do capital (ex: 30-50%) para follow-ons; (2) exercer pro rata rights em rodadas subsequentes de Portfolio Companies vencedoras; (3) se não houver capital, oferecer oportunidade de follow-on aos LPs existentes (pro rata) antes de terceiros; (4) não alocar follow-ons preferencialmente a LPs específicos ou terceiros relacionados ao GP; (5) política de recycling claramente definida (reinvestir proceeds apenas durante Investment Period).",
+    "como_corrigir": "Adicionar: 'FOLLOW-ON STRATEGY: (a) [30-50%] do capital reservado para follow-ons em Portfolio Companies existentes; (b) GP exercerá pro rata rights em rodadas subsequentes conforme disponibilidade de capital; (c) se capital insuficiente: oferecer follow-on opportunity aos LPs existentes (pro rata) antes de terceiros; (d) vedada alocação preferencial a LPs específicos ou relacionados ao GP. RECYCLING: permitido apenas durante Investment Period; proceeds de exits podem ser reinvestidos 1x em novas ou existentes Portfolio Companies.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "GP pode fazer transações com conflito de interesse a seu exclusivo critério",
+    "buscar_em": "conflict of interest, related party transactions, self-dealing, affiliated transactions, fair market value, independent valuation, approval",
+    "regra_spectra": "Transações com conflito de interesse devem: (1) ser aprovadas por maioria de LPs não-conflitados OU LP Advisory Committee independente; (2) ter valuation por terceiro independente (fair market value); (3) ser em termos arm's-length ou melhores para o fundo; (4) disclosure completo aos LPs antes da aprovação; (5) GP prova que transação é fair; (6) vedadas transações onde GP compra do fundo a preços abaixo de FMV ou vende ao fundo acima de FMV.",
+    "como_corrigir": "Adicionar: 'CONFLICT OF INTEREST TRANSACTIONS: Transações entre fundo e GP/Affiliates/Portfolio Companies onde GP tem interesse requerem: (a) valuation por terceiro independente (fair market value); (b) termos arm's-length ou melhores para o fundo; (c) disclosure completo aos LPs; (d) aprovação de maioria de LPs não-conflitados OU LP Advisory Committee. GP tem burden of proof de que transação é fair. VEDADAS: transações onde GP compra ativos do fundo abaixo FMV ou vende ao fundo acima FMV.'"
   }
 ]

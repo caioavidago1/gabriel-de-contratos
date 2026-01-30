@@ -47,5 +47,131 @@
     "buscar_em": "assunção, assumir, passivos, liabilities, assume, assumed liabilities",
     "regra_spectra": "Se houver assunção de passivos, deve ser definido claramente: (1) Assumed Liabilities (lista taxativa); (2) Excluded Liabilities (lista de exclusões); (3) passivos contingentes conhecidos vs desconhecidos; (4) responsabilidade residual do vendedor.",
     "como_corrigir": "Definir: 'Assumed Liabilities: apenas (i) trade payables no curso normal; (ii) passivos trabalhistas de contratos ativos. Excluded Liabilities: (i) tributos anteriores ao Closing; (ii) contingências não divulgadas; (iii) passivos com partes relacionadas. Vendedor responsável por Excluded Liabilities.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Procuração (Power of Attorney) irrevogável e excessivamente ampla",
+    "buscar_em": "power of attorney, procuração, attorney-in-fact, irrevocable, execute documents, amend, sign on behalf, lawful representative",
+    "regra_spectra": "Subscription Agreement não pode conceder procuração irrevogável ao GP para: (1) assinar/emendar LPA ou Subscription Documents sem aprovação prévia dos LPs; (2) vincular LP a novas obrigações não acordadas; (3) alterar termos econômicos (Capital Commitment, fees, carry); (4) transferir ou dar em garantia cotas do LP; (5) consentir com retirada compulsória. Procuração deve ser limitada a: atos administrativos, filings regulatórios/tax, documentos de portfolio investments já aprovados.",
+    "como_corrigir": "Limitar Seção 29(e): 'Subscriber concede procuração LIMITADA ao GP/Administrator para: (a) executar documentos JÁ APROVADOS pelos LPs conforme LPA; (b) filings governamentais/regulatórios (certificates of partnership, tax returns, AML/KYC docs); (c) subscription documents de Portfolio Companies aprovados pelo GP; (d) documentos para manter bank accounts. EXPRESSAMENTE EXCLUÍDO: alterar termos econômicos do LPA ou Subscription Documents, aumentar obrigações do LP, transferir/penhorar Interest do LP, consentir com compulsory withdrawal, dissolver Partnership.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Transfer forçado a Parallel Fund com taxas superiores sem consentimento",
+    "buscar_em": "parallel fund, transfer, conversion, different fees, adverse tax event, regulatory event, consent, mandatory transfer",
+    "regra_spectra": "Seção 29(e)(i) permite que GP transfira LP a Parallel Fund com taxas maiores, sem consentimento individual, invocando 'adverse legal/regulatory/tax event'. Spectra exige: (1) consentimento individual por escrito do LP; (2) se transfer por evento legal/tax: notificação 60 dias, disclosure completo de termos do Parallel Fund; (3) termos não menos favoráveis (fees não superiores); (4) LP pode optar por exit antecipado ao invés de transferir; (5) procuração NÃO autoriza transfer compulsório.",
+    "como_corrigir": "Revisar Seção 29(e)(i): 'GP pode criar Parallel Funds. TRANSFER: apenas com consentimento individual por escrito do LP. Se transfer necessário por evento legal/regulatório/tax adverso: (a) notificação 60 dias antes; (b) disclosure completo dos termos do Parallel Fund; (c) termos econômicos não menos favoráveis (Management Fee e Carry não superiores); (d) LP pode optar por redemption antecipada ao fair market value ao invés de transferir. Procuração em Seção 29(e) NÃO autoriza transfer compulsório a Parallel Fund.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Waiver excessivo de direito a informações sobre Portfolio Companies e conflitos",
+    "buscar_em": "waiver, information rights, disparity of information, material nonpublic information, portfolio company, disclosure, confidential information, insider",
+    "regra_spectra": "Seção 4(e) força LP a waiver do direito a: (1) informações materiais não públicas sobre Portfolio Companies; (2) informações sobre conflitos de interesse; (3) processar por fraude, insider trading, não-disclosure. Isso permite que GP: tenha informações privilegiadas, não divulgue ao LP, venda posições em outros veículos enquanto LP mantém, e LP não tem recurso legal. Spectra não aceita waiver de: fraude, má-fé, insider trading, non-disclosure material, conflitos não divulgados.",
+    "como_corrigir": "Revisar Seção 4(e): 'LP reconhece que GP pode ter informações confidenciais de Portfolio Companies que não podem ser divulgadas devido a obrigações fiduciárias/contratuais legítimas. LIMITAÇÃO: Este reconhecimento NÃO constitui waiver de: (a) responsabilidade do GP por fraude, má-fé, insider trading; (b) direito do LP de processar por non-disclosure de informações materiais que GP tinha obrigação de divulgar; (c) responsabilidade por conflitos de interesse não divulgados em violação ao LPA. GP deve implementar information barriers adequadas e agir de boa-fé.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscription irrevogável sem direito de desistência mesmo se materialmente enganado",
+    "buscar_em": "subscription irrevocable, binding, no withdrawal, no rescission, acceptance, cooling-off period, right to cancel",
+    "regra_spectra": "Seção 5 torna subscrição irrevogável sem período de cooling-off ou direito de rescisão, mesmo se LP descobrir informações materiais não divulgadas no PPM ou misrepresentations. Spectra exige: (1) período de cooling-off (5-10 dias) após aceite; (2) direito de rescisão se: informações materiais omitidas/falsas no PPM, GP violou representações, mudança material adversa no fundo antes do Closing; (3) LP pode retirar subscrição se Closing não ocorrer em [90] dias.",
+    "como_corrigir": "Adicionar à Seção 5: 'COOLING-OFF PERIOD: Subscriber pode cancelar subscrição em até [7] dias após aceite pelo GP, mediante notificação por escrito. RESCISSION RIGHTS: Subscriber pode rescindir subscrição se, antes do Closing: (a) informações materiais no PPM/LPA forem falsas ou omitidas; (b) GP violar representações materiais; (c) mudança material adversa no fundo/GP (Key Person Event, perda de license, litigação material); (d) Closing não ocorrer em 90 dias. Rescisão: devolução de 100% do Capital Commitment sem penalty.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Arbitragem com limitações excessivas aos direitos do LP",
+    "buscar_em": "arbitration, JAMS, arbitrator authority, damages limitation, non-economic damages, punitive damages, class action waiver, reform agreement",
+    "regra_spectra": "Seção 29(f)(i) limita arbitragem de forma abusiva: (1) árbitro não pode conceder non-economic damages, punitive damages (mesmo em fraude); (2) não pode reformar contrato abusivo; (3) discovery drasticamente limitada (impede LP de provar má conduta); (4) class action waiver (impede ação coletiva mesmo se fraude sistêmica); (5) cada parte paga seus custos (GP não paga mesmo se perder). Spectra exige: arbitragem equilibrada, discovery razoável, punitive damages se fraude, fee shifting se prevailing party.",
+    "como_corrigir": "Revisar Seção 29(f)(i): 'Disputas resolvidas por arbitragem (JAMS, Arbitration Location). ÁRBITRO PODE: (a) conceder compensatory damages; (b) punitive damages se fraude/willful misconduct/bad faith comprovadas; (c) equitable relief (injunctions, specific performance); (d) reformar contrato se ilegal/unconscionable; (e) conceder attorneys' fees conforme lei/agreement. DISCOVERY: adequada e razoável (documents, depositions, interrogatories). COSTS: prevailing party recebe reasonable attorneys' fees e costs. Class action waiver mantido APENAS se não for fraude sistêmica afetando múltiplos LPs.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Compartilhamento amplo de informações confidenciais dos LPs sem limitações",
+    "buscar_em": "confidentiality, sharing information, limited partner information, disclosure, proper purpose, third parties, service providers, AML",
+    "regra_spectra": "Seção 19 permite GP compartilhar informações confidenciais dos LPs de forma muito ampla para 'Proper Purpose', que inclui 'providing information requested by GP/Administrator/Investment Adviser/AngelList' e 'published or used' por eles. Isso permite compartilhamento comercial, marketing, etc. Spectra exige: compartilhamento APENAS para: (1) compliance legal/regulatório (AML, tax, securities filings); (2) service providers sob NDA; (3) consentimento do LP; (4) potenciais investidores sob NDA e sem identifying info sem consentimento.",
+    "como_corrigir": "Limitar Seção 19 e definir 'Proper Purpose': 'Informações do LP são confidenciais. GP pode divulgar APENAS para: (a) compliance legal/regulatório obrigatório (AML/KYC, tax reporting, securities filings, court orders); (b) service providers sob NDA restritiva (auditors, legal counsel, administrators), disclosure mínima necessária; (c) consentimento por escrito do LP; (d) potenciais investidores/acquirers do GP sob NDA, SEM identifying info do LP sem consentimento. VEDADO: uso comercial, marketing, compartilhamento com Affiliates para outros propósitos.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber assume responsabilidade por erros/fraudes do GP (indemnification abusiva)",
+    "buscar_em": "indemnification, hold harmless, indemnified parties, losses, liability, gross negligence, fraud, willful misconduct, bad faith",
+    "regra_spectra": "Seções 22 e 23 forçam Subscriber a indenizar Indemnified Parties (incluindo GP) por praticamente tudo, com exceções limitadíssimas. LP indeniza GP mesmo por: gross negligence (se não for 'material'), fraud (se GP não 'sabia'), má-fé. Spectra não aceita: LP indenizar GP por fraude/willful misconduct/bad faith/gross negligence do próprio GP; waiver de fiduciary duties; indemnização sem limitação de valor; inversão de burden of proof.",
+    "como_corrigir": "Revisar Seções 22 e 23: 'LP indeniza Indemnified Parties APENAS por Losses causadas por: (a) misrepresentations do LP; (b) breach de warranties/covenants do LP; (c) violação pelo LP de leis aplicáveis ao LP. LP NÃO indeniza Indemnified Parties por Losses causadas por: fraud, willful misconduct, bad faith, gross negligence, material breach of fiduciary duty, material violation of securities laws dos próprios Indemnified Parties. Indemnização limitada a [2x Capital Commitment do LP]. GP tem burden of proof de que Loss não foi causada por sua culpa.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "GP pode rejeitar subscrição ou reduzir allocation sem critérios objetivos",
+    "buscar_em": "rejection of subscription, acceptance, sole discretion, allocation, oversubscription, reduction, arbitrary",
+    "regra_spectra": "Seção 5 permite GP rejeitar subscrição ou aceitar 'lesser amount' a seu 'sole and absolute discretion', sem critérios objetivos. Isso permite: discriminação entre LPs, alocar menos a LPs que questionam termos, favorecer LPs relacionados ao GP. Spectra exige: (1) critérios objetivos de priorização (ordem cronológica, pro rata, ticket size); (2) não discriminação; (3) disclosure de alocação a todos subscribers; (4) se oversubscribed: LPs existentes têm prioridade pro rata.",
+    "como_corrigir": "Adicionar à Seção 5: 'ACCEPTANCE POLICY: Se oversubscribed, GP aceita subscriptions conforme: (a) ordem cronológica de submissão completa; OU (b) pro rata reduzindo todas subscriptions igualmente; OU (c) prioridade a: (i) existing LPs pro rata, (ii) subscriptions ≥ [USD 100k], (iii) ordem cronológica. VEDADO: discriminar subscriptions baseado em: relacionamento com GP, questionamento de termos, raça/religião/nacionalidade. GP divulga critério usado e allocation final (anonymized) a todos subscribers.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Default em Capital Call resulta em penalidades excessivas e perda de cotas",
+    "buscar_em": "default, capital call, failure to contribute, overdue, interest, forfeiture, suspension of distributions, reduction of interest",
+    "regra_spectra": "Seção 6 e LPA permitem penalidades severas por default em Capital Call: juros compostos elevados, suspensão de distribuições indefinida, forfeiture de Interest, expulsão. Isso é excessivo para defaults de boa-fé (problemas bancários, timing). Spectra exige: (1) notice de default + cure period (15-30 dias); (2) juros razoáveis (não punitivos); (3) forfeiture apenas se default prolongado e não curado; (4) LP pode remediar default pagando juros; (5) GP mitiga danos (busca funding alternativo).",
+    "como_corrigir": "Adicionar à Seção 6: 'DEFAULT: Se LP não fizer Capital Contribution em até [10] dias após Capital Call: (a) GP envia default notice; (b) LP tem [15] dias para cure; (c) juros: LIBOR+[5%] (não composto, não punitivo); (d) suspensão de distribuições até cure do default (máx 90 dias). FORFEITURE: apenas se: (i) default não curado em 30 dias; (ii) LP não demonstra impossibilidade de boa-fé; (iii) aprovação de maioria de LPs. LP pode remediar default pagando principal + juros. GP deve mitigar danos.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber renuncia a direitos de informação e auditoria",
+    "buscar_em": "information rights, access to records, audit rights, inspection, books and records, quarterly reports, annual report, transparency",
+    "regra_spectra": "Subscription Agreement não garante direitos de informação robustos. Combinado com LPA, LP não tem: direito de auditar livros, direito de questionar valuations, acesso a documentos de Portfolio Companies, detalhes de conflitos de interesse. Spectra exige: (1) relatórios trimestrais detalhados (NAV, investments, fees/expenses, conflitos); (2) annual audit por firma independente; (3) direito de auditoria mediante justa causa; (4) acesso a investment documentation (redacted se confidencial).",
+    "como_corrigir": "Adicionar nova seção: 'INFORMATION RIGHTS: (a) GP fornece relatórios trimestrais: NAV, portfolio investments/valuations, fees/expenses detalhados, conflitos de interesse, Capital Calls planejadas; (b) annual audit por firma independente (Big 4 ou similar), fornecida aos LPs; (c) LP (ou grupo ≥25% Capital) pode auditar livros mediante: (i) justa causa (suspeita de fraude/gross negligence/breach); (ii) 30 dias aviso prévio; (iii) horário comercial. Custos: pelo fundo se irregularidades, pelo LP se infundada.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Representations and warranties do LP excessivamente amplas e perpétuas",
+    "buscar_em": "representations, warranties, continuous, survive, accredited investor, qualified purchaser, suitability, knowledge and experience, reliance",
+    "regra_spectra": "Seções 11, 17, 29(d) exigem que representations/warranties do LP sejam 'continuous and survive' indefinidamente, mesmo se circunstâncias mudarem fora do controle do LP (ex: LP deixa de ser accredited investor por razões de mercado). Isso permite GP alegar breach anos depois. Spectra exige: (1) representations são 'as of the date hereof'; (2) LP notifica mudanças materiais que afetem legal compliance (não suitability); (3) GP não pode alegar breach por mudanças fora do controle do LP; (4) survival limitado a [3-5 anos].",
+    "como_corrigir": "Revisar Seção 29(d): 'Representations e warranties do Subscriber são verdadeiras na data de execução e na data do Closing. NOTIFICAÇÃO: Subscriber notifica GP se mudanças MATERIAIS que afetem: (a) legal compliance (prohibited investor, ERISA status); (b) AML representations. Subscriber NÃO tem obrigação de notificar mudanças em: accredited/qualified purchaser status, net worth, suitability. GP não pode alegar breach por mudanças fora do controle do Subscriber. Survival: representations sobrevivem por [3 anos] após admission, exceto AML/ERISA (indefinidas).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "LP não pode transferir Interest mas GP pode forçar transfer/retirada",
+    "buscar_em": "transfer restrictions, assignment, no right to transfer, prohibited transfer, compulsory withdrawal, forced redemption, liquidity",
+    "regra_spectra": "Subscription Agreement e LPA proíbem LP de transferir Interest (sem liquidez), mas GP pode: (1) forçar transfer do LP a Parallel Fund; (2) forçar retirada compulsória com desconto; (3) rejeitar transfers entre fundos do mesmo LP; (4) impedir secondary sales. Assimetria total. Spectra exige: (1) LP pode transferir a Affiliates sem consentimento; (2) LP pode transferir a terceiros com consentimento (não unreasonably withheld); (3) transfers intra-estrutura do LP permitidos; (4) GP facilita secondary sales em platform após [3 anos].",
+    "como_corrigir": "Adicionar nova seção: 'TRANSFERS BY LP: (a) PERMITIDO sem consentimento: transfers a Affiliates do LP (subsidiaries, holding companies, family trusts); (b) PERMITIDO com consentimento do GP (não unreasonably withheld/delayed): transfers a terceiros bona fide investors que atendam accredited/qualified standards; (c) transfers intra-estrutura do LP (entre fundos do mesmo LP/grupo) permitidos. GP facilita secondary marketplace na Platform após [Investment Period + 2 anos]. GP notifica LPs de oportunidades de secondary liquidity. Transfer fee: [1-2%] do NAV.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber obrigado a aceitar alterações unilaterais ao Subscription Agreement",
+    "buscar_em": "amendments, modifications, unilateral changes, consent, binding, revised terms, acceptance of changes",
+    "regra_spectra": "Seção 29(a) diz que Subscription Documents só podem ser alterados 'in writing signed by Subscriber and Fund', mas procuração em 29(e) permite GP assinar por Subscriber, criando circularidade. Isso permite GP alterar Subscription Agreement unilateralmente. Spectra exige: (1) alterações materiais requerem consentimento individual do LP por escrito (não via procuração); (2) alterações não materiais (clerical, compliance) podem ser unilaterais; (3) LP pode optar por exit se alterações materiais adversas.",
+    "como_corrigir": "Revisar Seção 29(a): 'AMENDMENTS: Alterações a estes Subscription Documents requerem: (a) alterações MATERIAIS (econômicas, governance, representations): consentimento individual por escrito do Subscriber (procuração em 29(e) NÃO autoriza GP a assinar por Subscriber); se Subscriber não consente, pode optar por redemption ao NAV; (b) alterações NÃO MATERIAIS (clerical, corrections, compliance legal/regulatório): GP pode fazer unilateralmente, notificando Subscriber em 30 dias. LP pode questionar se alteração é 'material' via arbitragem.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber renuncia a proteções de securities laws e direitos de rescisão estatutários",
+    "buscar_em": "waiver of rights, securities laws, statutory rights, rescission, anti-fraud, disclaimer, no registration, exemption",
+    "regra_spectra": "Seções 4(e)(iv), 8, 27 contêm waivers de direitos estatutários sob securities laws: waiver de anti-fraud provisions, direitos de rescisão por misstatements, due diligence rights. Alguns waivers são unenforceable (ex: waiver de Section 10(b)/Rule 10b-5 do Exchange Act). Spectra exige: (1) waivers limitados ao mínimo necessário para exemption; (2) não waiver de anti-fraud protections; (3) expressamente preservar statutory rights de rescisão se material omissions/misstatements; (4) compliance com Canadian contractual right (Seção 27) preservado.",
+    "como_corrigir": "Revisar Seções 4(e)(iv) e 8: 'Subscriber reconhece que Interests não são registrados sob Securities Act, confiando em exemptions (Reg D, NI 45-106). Este reconhecimento NÃO constitui waiver de: (a) anti-fraud provisions (Section 10(b)/Rule 10b-5 do Exchange Act, provincial securities laws); (b) statutory rights de rescission/damages se material omissions/misstatements no PPM/Subscription Documents; (c) contractual right of rescission em Seção 27 (Canadian investors). Subscriber renuncia APENAS a: registration/prospectus requirements (não anti-fraud).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Seção de AML permite GP congelar/retirar LP baseado em 'reasonably believes' sem due process",
+    "buscar_em": "anti-money laundering, AML, prohibited investor, freeze investment, segregate assets, withdraw investment, sanctions, OFAC",
+    "regra_spectra": "Seção 24(g) permite GP 'freeze' investment ou 'immediately withdraw' investment do LP se GP 'reasonably believes' que LP é Prohibited Investor, sem: (1) notificação prévia; (2) oportunidade de defesa; (3) independent verification; (4) compensation por danos se GP estiver errado. Isso permite ação arbitrária. Spectra exige: processo com due process, independent verification, oportunidade de cure, liability do GP se wrongful freeze.",
+    "como_corrigir": "Revisar Seção 24(g): 'AML COMPLIANCE: Se GP suspeita que LP é Prohibited Investor: (a) GP notifica LP por escrito, especificando fundamento; (b) GP engaja independent compliance firm para verificar; (c) LP tem 30 dias para fornecer evidências contrárias; (d) se independent firm confirma: GP pode freeze/withdraw; se não confirma: GP não pode agir. FREEZE: apenas pending investigation (máx 90 dias). WRONGFUL FREEZE: se freeze for infundado, GP indeniza LP por Losses (lost investment returns, costs). LP não tem claim apenas se freeze for de boa-fé e razoável.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber como trustee/nominee/fund-of-funds tem obrigações excessivas sobre Beneficial Owners",
+    "buscar_em": "beneficial owners, trustee, nominee, agent, underlying investors, fund-of-funds, representations on behalf, bind beneficial owners",
+    "regra_spectra": "Seção 25 exige que Subscriber que é trustee/nominee/fund-of-funds: (1) faça todas representations também pelos Beneficial Owners; (2) 'bind' Beneficial Owners ao Agreement; (3) tenha 'all requisite power and authority' dos Beneficial Owners; (4) implemente AML policies sobre Beneficial Owners. Isso pode ser impossível/impraticável (ex: fund-of-funds com 1000+ underlying investors). Spectra exige: (1) Subscriber representa apenas sobre si mesmo; (2) Subscriber fornece aggregate info sobre Beneficial Owners; (3) Subscriber não 'bind' Beneficial Owners ao Agreement.",
+    "como_corrigir": "Revisar Seção 25: 'Se Subscriber subscreve em nome de Beneficial Owners (trustee, nominee, fund-of-funds): (a) Subscriber representa e garante sobre SI MESMO (não sobre cada Beneficial Owner individualmente); (b) Subscriber fornece aggregate information: número de Beneficial Owners, jurisdições, se algum é Prohibited Investor/ERISA Plan; (c) Subscriber implementa AML policies adequadas e verifica identidade dos Beneficial Owners; (d) Subscriber NÃO 'bind' Beneficial Owners individualmente ao Agreement; (e) Fund tem privity apenas com Subscriber (não Beneficial Owners). Subscriber indeniza Fund se representations sobre Beneficial Owners forem falsas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Initial Drawdown Amount é 0% mas subscriptions têm prazos extremamente curtos",
+    "buscar_em": "initial drawdown, capital contribution timing, 24 hours, closing, payment deadline, wire transfer, subscription deadline",
+    "regra_spectra": "Subscription Documents exige que Subscriber: (1) submeta subscription confirmation, (2) entregue Subscription Documents completos, (3) pague Initial Drawdown Amount [0% neste caso], TUDO em '24 hours prior to Closing'. Prazo muito curto para: due diligence, legal review, obter approval interno (institutional investors), processar wire. Spectra exige: prazo razoável (5-10 dias) entre submissão e Closing; possibilidade de extensão; Initial Drawdown mínimo (10-25%).",
+    "como_corrigir": "Revisar procedimento de Closing: 'Subscriber deve, AT LEAST [5 business days] prior to applicable Closing: (i) submit subscription confirmation; (ii) deliver completed Subscription Documents; (iii) wire Initial Drawdown Amount [se aplicável]. GP notifica data de Closing com [10 business days] aviso prévio. GP pode estender deadline mediante request do Subscriber (não unreasonably withheld). Initial Drawdown Amount: [10-25%] de Capital Commitment (não 0%), reduz risco de default em Capital Calls futuras.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Definição de 'Proper Purpose' para disclosure de informações do LP é excessivamente ampla",
+    "buscar_em": "proper purpose, disclosure, information sharing, LP information, publish, use by GP, administrator, angellist",
+    "regra_spectra": "Seção 19 define 'Proper Purpose' para disclosure de informações confidenciais do LP de forma absurdamente ampla: inclui 'providing information requested by GP/Administrator/AngelList', que 'may be published or used' por eles. Isso permite: uso comercial, marketing de AngelList, compartilhamento com Affiliates para outros fundos, publish de LP list. Spectra exige: 'Proper Purpose' limitado estritamente a: compliance legal, closing conditions, tax purposes, service providers sob NDA.",
+    "como_corrigir": "Revisar definição de 'Proper Purpose' na Seção 19: 'Proper Purpose significa EXCLUSIVAMENTE: (a) compliance com legal/regulatory requirements obrigatórios (AML, tax reporting, securities filings, court orders); (b) satisfazer Closing conditions deste fundo (não outros fundos); (c) tax purposes relacionados a este fundo; (d) fornecer a service providers sob NDA (auditors, legal, admin) o mínimo necessário para suas funções. NÃO INCLUI: marketing, uso comercial, publish de LP lists, compartilhamento com Affiliates para outros propósitos, 'requests' genéricos do GP/AngelList sem fundamento legal.'"
   }
 ]

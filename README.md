@@ -439,6 +439,10 @@ LLAMA_CLOUD_API_KEY=llx-sua-chave-aqui
 
 # Chave opcional (pode deixar vazio se não tiver)
 VOYAGE_API_KEY=pa-sua-chave-aqui
+
+# Autenticação (opcional): se definidas, exige login para acessar a app e/ou editar cláusulas
+# APP_PASSWORD=senha_para_acessar_a_plataforma
+# ADMIN_PASSWORD=senha_para_editar_clausulas_e_prompts
 ```
 
 **IMPORTANTE:**
@@ -563,37 +567,36 @@ pkill -f streamlit
 
 ### Tela Inicial
 
-Ao abrir a plataforma, você verá uma tela com botões para diferentes tipos de contratos:
+Ao abrir a plataforma (após login, se `APP_PASSWORD` estiver configurado), você verá:
 
-- **NDA**
-- **SPA de cotas de fundos**
-- **SPA de aquisição de companhia**
-- **Regulamento de FIPs**
-- E outros...
+1. **Idioma do documento**: Português ou English (pt/en)
+2. **Botões por tipo de contrato**, agrupados em:
+   - Contratos Gerais (NDA, Consultoria/Side Letter)
+   - SPAs (cotas, aquisição, desinvestimento)
+   - Regulamentos de Fundos (FIP, FIDC)
+   - Search Funds – Search Phase (Contrato social, Acordo de Sócios)
+   - Search Funds – Acquisition Phase (Reg. FIP acquisition, Acordo de Cotistas)
 
 ### Processo de Análise
 
-1. **Selecione o tipo de contrato** clicando no botão correspondente
-2. **Faça upload do arquivo Word** (.docx) usando o botão de upload
-3. **Aguarde o processamento**:
-   - O sistema extrai o texto do documento
-   - Analisa o conteúdo
-   - Identifica possíveis violações
-4. **Visualize os resultados**:
-   - Lista de violações encontradas
-   - Justificativas para cada violação
-5. **Baixe o documento anotado**:
-   - Clique em "Download DOCX Anotado"
-   - O arquivo baixado terá anotações destacando os problemas
+1. **Escolha o idioma** do documento (pt/en) na home
+2. **Selecione o tipo de contrato** clicando no botão correspondente
+3. **Faça upload do arquivo Word** (.docx) na página de análise
+4. **Aguarde o processamento** (extração, busca, verificação e sugestões de reescrita)
+5. **Visualize os resultados**: violações, conformidades, tempo e modelo usado
+6. **Baixe os 3 documentos**:
+   - **DOCX Problemas**: relatório com problemas identificados
+   - **DOCX Solução**: parágrafos corrigidos/sugeridos
+   - **DOCX Explicação**: comparação problemas x solução
 
 ### Sidebar (Barra Lateral)
 
-Na barra lateral esquerda, você pode:
+Na barra lateral esquerda (em cada página de análise), você pode:
 
-- **Gerenciar cláusulas de referência**: Adicionar, editar ou remover cláusulas
-- **Editar prompts**: Modificar como os agentes de IA analisam os contratos
-- **Selecionar modelo de IA**: Escolher qual modelo usar (GPT-4, Claude, etc.)
-- **Reindexar Vector Store**: Atualizar o banco de dados de cláusulas
+- **Gerenciar cláusulas de referência**: Adicionar, editar ou remover regras (requer `ADMIN_PASSWORD` se configurado)
+- **Editar prompts**: Modificar prompts por tipo e idioma (extrator, agent3, agent4)
+- **Selecionar modelo de IA**: Escolher modelo LLM e modelo de embedding
+- **Atualizar Base de Regras**: Reindexar o ChromaDB quando alterar cláusulas de referência
 
 ---
 
@@ -740,114 +743,183 @@ python -m pip install -r requirements.txt
 
 Esta seção é para referência técnica. Você não precisa entender isso para usar a plataforma.
 
-### Arquitetura do Sistema
+### Visão geral do código atual
 
+- **Entrada**: Autenticação opcional (`APP_PASSWORD` no `.env`), seleção de **idioma** (pt/en) na home e **tipo de contrato**, upload de `.docx`.
+- **Pipeline**: Orquestrador (`analise/agent/orquestrador.py`) coordena: **Agent 1** (extrator DOCX) → **Agent 2** (matcher ChromaDB) → **Agent 3** (verificador, em paralelo) → **Agent 4** (reescritor, em paralelo) → geração de **3 DOCX** (problemas, solução, explicação) em `output/docs/`.
+- **Prompts**: Por tipo de contrato e idioma em `analise/agent/prompts/{tipo}/` (extrator, agent3, agent4; fallback em `_defaults/`).
+- **Exceções**: `analise/agent/exceptions.py` (APIKeyError, DocumentEmptyError, DatabaseNotIndexedError, etc.) com mensagens amigáveis.
+- **Config**: `config.toml` (Streamlit: tema, porta, upload size). Variáveis sensíveis no `.env` (API keys, `APP_PASSWORD`, `ADMIN_PASSWORD`).
+
+### Diagrama: Fluxo do usuário
+
+```mermaid
+flowchart LR
+    subgraph Entrada
+        A[Login opcional] --> B[Home]
+        B --> C[Idioma pt/en]
+        C --> D[Tipo de contrato]
+        D --> E[Upload .docx]
+    end
+    E --> F[Análise]
+    F --> G[Resultado]
+    G --> H[Download 3 DOCX]
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              INTERFACE (Streamlit)                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐ │
-│  │   app.py    │  │  t1_nda.py  │  │ t2_spa.py   │  │  ... outros tipos   │ │
-│  │  (Router)   │  │  (Render)   │  │  (Render)   │  │      (Render)       │ │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └──────────┬──────────┘ │
-│         │                │                │                     │           │
-│         └────────────────┴────────────────┴─────────────────────┘           │
-│                                    │                                        │
-│                          ┌─────────▼─────────┐                              │
-│                          │   comum.py        │                              │
-│                          │ (Funções Comuns)  │                              │
-│                          │ render_pagina_    │                              │
-│                          │   analise()       │                              │
-│                          └─────────┬─────────┘                              │
-└────────────────────────────────────┼────────────────────────────────────────┘
-                                     │
-┌────────────────────────────────────▼────────────────────────────────────────┐
-│                         ANÁLISE (Multi-Agentes)                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  analise/agent/orquestrador.py                                       │   │
-│  │  Coordena todo o pipeline de análise                                 │   │
-│  └───────────────────────────────┬─────────────────────────────────────┘   │
-│                                  │                                          │
-│  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────────────────┐   │
-│  │  Agent 1  │  │  Agent 2  │  │  Agent 3  │  │       Agent 4         │   │
-│  │ Extrator  │→ │  Matcher  │→ │Verificador│→ │     Reescritor        │   │
-│  │   DOCX    │  │           │  │           │  │                       │   │
-│  │           │  │ Regras + │  │ Regra +   │  │ Sugestão de           │   │
-│  │ DOCX →    │  │ chunks    │  │ 5 chunks  │  │ reescrita por         │   │
-│  │ cláusulas │  │ (Chroma)  │  │ → violação│  │ violação              │   │
-│  └───────────┘  └───────────┘  └───────────┘  └───────────────────────┘   │
-└────────────────────────────────────┬────────────────────────────────────────┘
-                                     │
-┌────────────────────────────────────▼────────────────────────────────────────┐
-│                          EMBEDDINGS                                         │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │ embeddings/clausulas.py – Indexa cláusulas de referência (JSON→Chroma)│   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │                         ChromaDB                                     │   │
-│  │  ./chroma_db/                                                        │   │
-│  │  - {tipo}_clausulas_{pt|en} (cláusulas de referência indexadas)     │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-└────────────────────────────────────┬────────────────────────────────────────┘
-                                     │
-┌────────────────────────────────────▼────────────────────────────────────────┐
-│                            OUTPUT                                           │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  output/docx.py – Problemas, Solução e Explicação (3 DOCX)           │   │
-│  │  output/comparar_docx.py – DOC comparado (original x revisado)       │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────────────┘
+
+### Diagrama: Arquitetura em camadas
+
+```mermaid
+flowchart TB
+    subgraph UI["Interface (Streamlit)"]
+        APP[app.py - Router]
+        T1[t1_nda / t2_spa_cotas / ...]
+        COMUM[comum.py - upload, sidebar, render_pagina_analise]
+        AUTH[auth.py - APP_PASSWORD, ADMIN_PASSWORD]
+        APP --> T1
+        APP --> AUTH
+        T1 --> COMUM
+    end
+
+    subgraph Analise["Análise (Multi-Agentes)"]
+        ORQ[orquestrador.py]
+        AG1[Agent 1 - Extrator DOCX]
+        AG2[Agent 2 - Matcher]
+        AG3[Agent 3 - Verificador]
+        AG4[Agent 4 - Reescritor]
+        ORQ --> AG1 --> AG2 --> AG3 --> AG4
+    end
+
+    subgraph Dados["Dados"]
+        DB[(db/ - JSON cláusulas)]
+        CHROMA[(ChromaDB)]
+        EMB[embeddings/clausulas.py]
+        DB --> EMB --> CHROMA
+    end
+
+    subgraph Saida["Saída"]
+        DOCX[output/docx.py - problemas, solução]
+        COMP[output/comparar_docx.py - explicacao]
+        DOCX --> COMP
+    end
+
+    COMUM --> ORQ
+    ORQ --> DB
+    AG2 --> CHROMA
+    AG4 --> DOCX
+```
+
+### Diagrama: Pipeline de agentes (sequência)
+
+```mermaid
+sequenceDiagram
+    participant U as Usuário
+    participant O as Orquestrador
+    participant A1 as Agent 1 Extrator
+    participant A2 as Agent 2 Matcher
+    participant A3 as Agent 3 Verificador
+    participant A4 as Agent 4 Reescritor
+    participant Out as output (3 DOCX)
+
+    U->>O: .docx + tipo + idioma
+    O->>A1: extrair_clausulas_docx()
+    A1-->>O: cláusulas []
+    O->>A2: match_regras_chunks(regras, chunks)
+    A2-->>O: regra + top 5 chunks por regra
+    par Verificação em paralelo
+        O->>A3: analisar_regra_chunks(regra, top5)
+        A3-->>O: eh_violacao, problema, chunk
+    end
+    O->>O: violacoes_validadas
+    par Reescrita em paralelo
+        O->>A4: reescrever_clausula(violacao)
+        A4-->>O: sugestao_reescrita
+    end
+    O->>Out: gerar_problemas_docx, gerar_solucao_docx, gerar_doc_comparado
+    Out-->>O: doc_problemas_bytes, doc_solucao_bytes, doc_explicacao_bytes
+    O-->>U: ResultadoAnalise + downloads
 ```
 
 ### Estrutura de Diretórios
 
 ```
-contratos/
-├── app.py                      # Entry point - Router de páginas Streamlit
+gabriel-de-contratos/
+├── app.py                      # Entry point: auth, idioma, router de páginas
+├── config.toml                 # Streamlit: tema, porta, maxUploadSize, etc.
 ├── requirements.txt            # Dependências Python
 ├── README.md                   # Esta documentação
-├── .env                        # Chaves de API (NÃO compartilhar!)
+├── .env                        # Chaves API, APP_PASSWORD, ADMIN_PASSWORD (NÃO compartilhar!)
 │
-├── modulos/                    # Módulos de interface por tipo de contrato
-│   ├── comum.py                # Funções compartilhadas (upload, sidebar, render)
+├── modulos/                    # Interface por tipo de contrato
+│   ├── auth.py                 # Autenticação app e admin (APP_PASSWORD, ADMIN_PASSWORD)
+│   ├── comum.py                # upload, sidebar, render_pagina_analise, histórico, carregar_clausulas
 │   ├── t1_nda.py               # NDA
 │   ├── t2_spa_cotas.py         # SPA de cotas
 │   ├── t3_spa_aquisicao.py     # SPA de aquisição
-│   └── ... outros tipos
+│   ├── t4_spa_desinvestimento.py
+│   ├── t5_reg_fip.py
+│   ├── t6_reg_fidc.py
+│   ├── t7_consultoria.py
+│   ├── t8_contrato_social_search.py
+│   ├── t9_acordo_socios_search.py
+│   ├── t10_reg_fip_acquisition.py
+│   └── t11_acordo_cotistas_acquisition.py
 │
-├── analise/                    # Core de análise
+├── analise/
 │   ├── agent/                  # Sistema de agentes LLM
-│   │   ├── orquestrador.py     # Orquestrador principal
-│   │   ├── agent1_extrator_docx.py  # Extrai cláusulas do DOCX
-│   │   ├── agent2_matcher.py   # Matcher regras + chunks (Chroma)
-│   │   ├── agent3_verificador.py    # Verifica violação (regra + 5 chunks)
-│   │   ├── agent4_reescritor.py     # Sugere reescrita por violação
-│   │   ├── escolha_modelo.py   # Gerenciador de modelos LLM/Embedding
-│   │   └── prompts/            # Prompts por tipo (agent1, agent4)
-│   │
-│   └── embeddings/             # Busca vetorial
-│       └── clausulas.py        # Indexação de cláusulas de referência (JSON→Chroma)
+│   │   ├── orquestrador.py     # Orquestrador: pipeline completo e paralelização
+│   │   ├── agent1_extrator_docx.py  # Extrai cláusulas do DOCX (LLM)
+│   │   ├── agent2_matcher.py   # Matcher: regras + chunks (ChromaDB, top_k=5)
+│   │   ├── agent3_verificador.py    # Verifica violação (regra + 5 chunks), paralelo
+│   │   ├── agent4_reescritor.py     # Sugestão de reescrita por violação, paralelo
+│   │   ├── escolha_modelo.py   # Gerenciador de modelos LLM e Embedding
+│   │   ├── exceptions.py       # Exceções com user_message (APIKeyError, etc.)
+│   │   ├── __init__.py         # Prompts: carregar_prompt_tipo, AGENTES, idioma
+│   │   └── prompts/            # Por tipo e idioma (extrator, agent3, agent4)
+│   │       ├── _defaults/      # Fallback
+│   │       ├── nda/
+│   │       └── ... (spa_cotas, reg_fip, etc.)
+│   └── embeddings/
+│       └── clausulas.py        # Indexação cláusulas de referência (JSON → ChromaDB)
 │
-├── output/                     # Geração de output
-│   ├── docx.py                 # DOCX problemas, solução e explicação
-│   └── comparar_docx.py        # DOC comparado (original x revisado)
+├── output/
+│   ├── docx.py                 # gerar_problemas_docx, gerar_solucao_docx
+│   ├── comparar_docx.py        # gerar_doc_comparado (problemas + solução → explicacao)
+│   └── docs/                   # DOCX gerados (problemas_*, solucao_*, explicacao_*)
 │
-├── db/                         # Base de conhecimento (cláusulas de referência)
-│   ├── nda_clausulas_pt.json   # Cláusulas para NDA (pt/en)
+├── db/                         # Cláusulas de referência por tipo e idioma
+│   ├── nda_clausulas_pt.json
+│   ├── nda_clausulas_en.json
 │   └── {tipo}_clausulas_{pt|en}.json
 │
 └── chroma_db/                  # Vector store (ChromaDB)
-    └── chroma.sqlite3          # Banco de embeddings
+    └── chroma.sqlite3
 ```
 
-### Fluxo de Análise
+### Fluxo de Análise (detalhado)
 
-1. **Upload**: Usuário envia arquivo `.docx`
-2. **Agent 1 (Extrator)**: Extrai cláusulas do DOCX (LLM + python-docx)
-3. **Agent 2 (Matcher)**: Para cada regra ativa, busca chunks com similaridade ≥ threshold no ChromaDB
-4. **Agent 3 (Verificador)**: Para cada regra + top 5 chunks, decide se há violação (LLM)
-5. **Agent 4 (Reescritor)**: Para cada violação, gera sugestão de reescrita (LLM)
-6. **Output**: Gera 3 DOCX (problemas, solução, explicação) e opcional DOC comparado (original x revisado)
+1. **Autenticação**: Se `APP_PASSWORD` estiver no `.env`, exibe tela de login (`modulos/auth.py`).
+2. **Home**: Usuário escolhe **idioma do documento** (pt/en) e **tipo de contrato**; ao clicar no tipo, vai para a página de análise.
+3. **Upload**: Na página do tipo (ex.: `t1_nda`), upload do `.docx`; `comum.render_pagina_analise` chama o orquestrador.
+4. **Orquestrador**:
+   - Valida embedding e base de conhecimento (regras em `db/`, ChromaDB sincronizado).
+   - **Agent 1**: Extrai cláusulas do DOCX (LLM + prompts por tipo/idioma).
+   - **Agent 2**: Para cada regra ativa, busca no ChromaDB os chunks do documento com similaridade ≥ threshold; monta (regra, top 5 chunks).
+   - **Agent 3**: Para cada (regra, top 5 chunks), verifica se há violação (LLM); execução **em paralelo** (ThreadPoolExecutor, até 4 workers).
+   - **Agent 4**: Para cada violação validada, gera sugestão de reescrita (LLM); execução **em paralelo**.
+   - **Output**: Gera 3 DOCX (problemas, solução, explicação via `comparar_docx`) e grava em `output/docs/`; retorna `ResultadoAnalise` com bytes dos DOCX para download na UI.
+5. **Resultado**: Lista de violações/conformidades, tempo, modelo usado; download dos 3 DOCX; histórico das últimas análises na sessão.
+
+### Configuração (config.toml)
+
+O arquivo `config.toml` na raiz do projeto configura o Streamlit:
+
+- **theme**: cores (primaryColor, backgroundColor, etc.)
+- **server.port**: porta (padrão 8501)
+- **server.maxUploadSize**: tamanho máximo de upload em MB (ex.: 5000)
+- **server.maxMessageSize**: tamanho máximo de mensagem para widgets
+- **browser.gatherUsageStats**: false para não enviar estatísticas
+
+Variáveis sensíveis (API keys, senhas) ficam apenas no `.env`.
 
 ### Como Adicionar Novo Tipo de Contrato
 
@@ -883,14 +955,16 @@ def render():
 
 #### Passo 3: (Opcional) Criar prompts específicos
 
-Apenas **agent4** (Reescritor) usa prompts por tipo. O Verificador (agent3) usa prompt fixo.
+Os agentes **extrator**, **agent3** (Verificador) e **agent4** (Reescritor) usam prompts por tipo e idioma. Arquivos no formato `{agent}_{system|user}_{pt|en}.txt`.
 
 ```
 analise/agent/prompts/novo_tipo/
-├── agent1_system.txt
-├── agent1_user.txt
-├── agent4_system.txt
-└── agent4_user.txt
+├── extrator_system_pt.txt
+├── extrator_user_pt.txt
+├── agent3_system_pt.txt
+├── agent3_user_pt.txt
+├── agent4_system_pt.txt
+└── agent4_user_pt.txt
 ```
 
 Se não criar, usa os prompts de `_defaults/`.

@@ -47,5 +47,131 @@
     "buscar_em": "assumption, assume, liabilities, assumed liabilities, excluded liabilities",
     "regra_spectra": "If there is assumption of liabilities, must clearly define: (1) Assumed Liabilities (exhaustive list); (2) Excluded Liabilities (exclusion list); (3) known vs unknown contingent liabilities; (4) seller's residual responsibility.",
     "como_corrigir": "Define: 'Assumed Liabilities: only (i) trade payables in ordinary course; (ii) labor liabilities of active contracts. Excluded Liabilities: (i) taxes prior to Closing; (ii) undisclosed contingencies; (iii) liabilities with related parties. Seller responsible for Excluded Liabilities.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Irrevocable and overly broad Power of Attorney",
+    "buscar_em": "power of attorney, procuração, attorney-in-fact, irrevocable, execute documents, amend, sign on behalf, lawful representative",
+    "regra_spectra": "Subscription Agreement cannot grant irrevocable power of attorney to GP for: (1) signing/amending LPA or Subscription Documents without prior LP approval; (2) binding LP to unagreed new obligations; (3) altering economic terms (Capital Commitment, fees, carry); (4) transferring or pledging LP interests; (5) consenting to compulsory withdrawal. Power of attorney must be limited to: administrative acts, regulatory/tax filings, already-approved portfolio investment documents.",
+    "como_corrigir": "Limit Section 29(e): 'Subscriber grants LIMITED power of attorney to GP/Administrator for: (a) executing documents ALREADY APPROVED by LPs per LPA; (b) governmental/regulatory filings (certificates of partnership, tax returns, AML/KYC docs); (c) subscription documents of Portfolio Companies approved by GP; (d) documents to maintain bank accounts. EXPRESSLY EXCLUDED: altering economic terms of LPA or Subscription Documents, increasing LP obligations, transferring/pledging LP Interest, consenting to compulsory withdrawal, dissolving Partnership.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Forced transfer to Parallel Fund with higher fees without consent",
+    "buscar_em": "parallel fund, transfer, conversion, different fees, adverse tax event, regulatory event, consent, mandatory transfer",
+    "regra_spectra": "Section 29(e)(i) allows GP to transfer LP to Parallel Fund with higher fees, without individual consent, invoking 'adverse legal/regulatory/tax event'. Spectra requires: (1) individual written LP consent; (2) if transfer due to legal/tax event: 60-day notice, full disclosure of Parallel Fund terms; (3) terms no less favorable (fees not higher); (4) LP may choose early exit instead of transferring; (5) power of attorney does NOT authorize compulsory transfer.",
+    "como_corrigir": "Revise Section 29(e)(i): 'GP may create Parallel Funds. TRANSFER: only with individual written LP consent. If transfer required due to adverse legal/regulatory/tax event: (a) 60-day prior notice; (b) full disclosure of Parallel Fund terms; (c) economic terms no less favorable (Management Fee and Carry not higher); (d) LP may choose early redemption at fair market value instead of transferring. Power of attorney in Section 29(e) does NOT authorize compulsory transfer to Parallel Fund.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Excessive waiver of right to information on Portfolio Companies and conflicts",
+    "buscar_em": "waiver, information rights, disparity of information, material nonpublic information, portfolio company, disclosure, confidential information, insider",
+    "regra_spectra": "Section 4(e) forces LP to waive right to: (1) material nonpublic information on Portfolio Companies; (2) information on conflicts of interest; (3) suing for fraud, insider trading, non-disclosure. This allows GP to have privileged information, not disclose to LP, sell positions in other vehicles while LP holds, and LP has no legal recourse. Spectra does not accept waiver of: fraud, bad faith, insider trading, material non-disclosure, undisclosed conflicts.",
+    "como_corrigir": "Revise Section 4(e): 'LP acknowledges that GP may have confidential information on Portfolio Companies that cannot be disclosed due to legitimate fiduciary/contractual obligations. LIMITATION: This acknowledgment does NOT constitute waiver of: (a) GP liability for fraud, bad faith, insider trading; (b) LP right to sue for non-disclosure of material information that GP had duty to disclose; (c) liability for undisclosed conflicts of interest in breach of LPA. GP must implement adequate information barriers and act in good faith.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Irrevocable subscription without right to withdraw even if materially misled",
+    "buscar_em": "subscription irrevocable, binding, no withdrawal, no rescission, acceptance, cooling-off period, right to cancel",
+    "regra_spectra": "Section 5 makes subscription irrevocable with no cooling-off period or rescission right, even if LP discovers material undisclosed information in PPM or misrepresentations. Spectra requires: (1) cooling-off period (5-10 days) after acceptance; (2) rescission right if: material information omitted/false in PPM, GP breached representations, material adverse change in fund before Closing; (3) LP may withdraw subscription if Closing does not occur within [90] days.",
+    "como_corrigir": "Add to Section 5: 'COOLING-OFF PERIOD: Subscriber may cancel subscription within [7] days after GP acceptance, by written notice. RESCISSION RIGHTS: Subscriber may rescind subscription if, before Closing: (a) material information in PPM/LPA is false or omitted; (b) GP breaches material representations; (c) material adverse change in fund/GP (Key Person Event, loss of license, material litigation); (d) Closing does not occur within 90 days. Rescission: return of 100% of Capital Commitment without penalty.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Arbitration with excessive limitations on LP rights",
+    "buscar_em": "arbitration, JAMS, arbitrator authority, damages limitation, non-economic damages, punitive damages, class action waiver, reform agreement",
+    "regra_spectra": "Section 29(f)(i) limits arbitration abusively: (1) arbitrator cannot award non-economic damages, punitive damages (even for fraud); (2) cannot reform abusive contract; (3) discovery drastically limited (prevents LP from proving misconduct); (4) class action waiver (prevents collective action even for systemic fraud); (5) each party pays its costs (GP does not pay even if it loses). Spectra requires: balanced arbitration, reasonable discovery, punitive damages if fraud, fee shifting to prevailing party.",
+    "como_corrigir": "Revise Section 29(f)(i): 'Disputes resolved by arbitration (JAMS, Arbitration Location). ARBITRATOR MAY: (a) award compensatory damages; (b) punitive damages if fraud/willful misconduct/bad faith proven; (c) equitable relief (injunctions, specific performance); (d) reform contract if illegal/unconscionable; (e) award attorneys' fees per law/agreement. DISCOVERY: adequate and reasonable (documents, depositions, interrogatories). COSTS: prevailing party receives reasonable attorneys' fees and costs. Class action waiver maintained ONLY if not systemic fraud affecting multiple LPs.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Broad sharing of LP confidential information without limitations",
+    "buscar_em": "confidentiality, sharing information, limited partner information, disclosure, proper purpose, third parties, service providers, AML",
+    "regra_spectra": "Section 19 allows GP to share LP confidential information too broadly for 'Proper Purpose', which includes 'providing information requested by GP/Administrator/Investment Adviser/AngelList' and 'published or used' by them. This allows commercial use, marketing, etc. Spectra requires: sharing ONLY for: (1) legal/regulatory compliance (AML, tax, securities filings); (2) service providers under NDA; (3) LP consent; (4) potential investors under NDA and without identifying info without consent.",
+    "como_corrigir": "Limit Section 19 and define 'Proper Purpose': 'LP information is confidential. GP may disclose ONLY to: (a) mandatory legal/regulatory compliance (AML/KYC, tax reporting, securities filings, court orders); (b) service providers under restrictive NDA (auditors, legal counsel, administrators), minimum necessary disclosure; (c) written LP consent; (d) potential investors/acquirers of GP under NDA, WITHOUT LP identifying info without consent. PROHIBITED: commercial use, marketing, sharing with Affiliates for other purposes.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber assumes liability for GP errors/fraud (abusive indemnification)",
+    "buscar_em": "indemnification, hold harmless, indemnified parties, losses, liability, gross negligence, fraud, willful misconduct, bad faith",
+    "regra_spectra": "Sections 22 and 23 force Subscriber to indemnify Indemnified Parties (including GP) for practically everything, with very limited exceptions. LP indemnifies GP even for: gross negligence (if not 'material'), fraud (if GP did not 'know'), bad faith. Spectra does not accept: LP indemnifying GP for GP's own fraud/willful misconduct/bad faith/gross negligence; waiver of fiduciary duties; unlimited indemnification; reversal of burden of proof.",
+    "como_corrigir": "Revise Sections 22 and 23: 'LP indemnifies Indemnified Parties ONLY for Losses caused by: (a) LP misrepresentations; (b) breach of LP warranties/covenants; (c) LP violation of applicable laws. LP does NOT indemnify Indemnified Parties for Losses caused by: fraud, willful misconduct, bad faith, gross negligence, material breach of fiduciary duty, material violation of securities laws by Indemnified Parties themselves. Indemnification limited to [2x LP Capital Commitment]. GP has burden of proof that Loss was not caused by its fault.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "GP may reject subscription or reduce allocation without objective criteria",
+    "buscar_em": "rejection of subscription, acceptance, sole discretion, allocation, oversubscription, reduction, arbitrary",
+    "regra_spectra": "Section 5 allows GP to reject subscription or accept 'lesser amount' at its 'sole and absolute discretion', without objective criteria. This allows: discrimination among LPs, allocating less to LPs who question terms, favoring GP-related LPs. Spectra requires: (1) objective prioritization criteria (chronological order, pro rata, ticket size); (2) no discrimination; (3) disclosure of allocation to all subscribers; (4) if oversubscribed: existing LPs have pro rata priority.",
+    "como_corrigir": "Add to Section 5: 'ACCEPTANCE POLICY: If oversubscribed, GP accepts subscriptions per: (a) chronological order of complete submission; OR (b) pro rata reducing all subscriptions equally; OR (c) priority to: (i) existing LPs pro rata, (ii) subscriptions ≥ [USD 100k], (iii) chronological order. PROHIBITED: discriminating subscriptions based on: relationship with GP, questioning of terms, race/religion/nationality. GP discloses criteria used and final allocation (anonymized) to all subscribers.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Capital Call default results in excessive penalties and loss of interests",
+    "buscar_em": "default, capital call, failure to contribute, overdue, interest, forfeiture, suspension of distributions, reduction of interest",
+    "regra_spectra": "Section 6 and LPA allow severe penalties for Capital Call default: high compound interest, indefinite suspension of distributions, Interest forfeiture, expulsion. This is excessive for good-faith defaults (banking issues, timing). Spectra requires: (1) default notice + cure period (15-30 days); (2) reasonable interest (not punitive); (3) forfeiture only if prolonged uncured default; (4) LP may remedy default by paying interest; (5) GP mitigates damages (seeks alternative funding).",
+    "como_corrigir": "Add to Section 6: 'DEFAULT: If LP does not make Capital Contribution within [10] days after Capital Call: (a) GP sends default notice; (b) LP has [15] days to cure; (c) interest: LIBOR+[5%] (not compound, not punitive); (d) suspension of distributions until default cure (max 90 days). FORFEITURE: only if: (i) default not cured within 30 days; (ii) LP does not demonstrate good-faith impossibility; (iii) majority LP approval. LP may remedy default by paying principal + interest. GP must mitigate damages.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber waives information and audit rights",
+    "buscar_em": "information rights, access to records, audit rights, inspection, books and records, quarterly reports, annual report, transparency",
+    "regra_spectra": "Subscription Agreement does not guarantee robust information rights. Combined with LPA, LP has no: right to audit books, right to question valuations, access to Portfolio Company documents, conflict-of-interest details. Spectra requires: (1) detailed quarterly reports (NAV, investments, fees/expenses, conflicts); (2) annual audit by independent firm; (3) audit right upon cause; (4) access to investment documentation (redacted if confidential).",
+    "como_corrigir": "Add new section: 'INFORMATION RIGHTS: (a) GP provides quarterly reports: NAV, portfolio investments/valuations, detailed fees/expenses, conflicts of interest, planned Capital Calls; (b) annual audit by independent firm (Big 4 or similar), provided to LPs; (c) LP (or group ≥25% Capital) may audit books upon: (i) cause (suspicion of fraud/gross negligence/breach); (ii) 30-day prior notice; (iii) business hours. Costs: by fund if irregularities, by LP if unfounded.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "LP representations and warranties overly broad and perpetual",
+    "buscar_em": "representations, warranties, continuous, survive, accredited investor, qualified purchaser, suitability, knowledge and experience, reliance",
+    "regra_spectra": "Sections 11, 17, 29(d) require LP representations/warranties to be 'continuous and survive' indefinitely, even if circumstances change outside LP control (e.g. LP ceases to be accredited investor for market reasons). This allows GP to allege breach years later. Spectra requires: (1) representations are 'as of the date hereof'; (2) LP notifies material changes affecting legal compliance (not suitability); (3) GP cannot allege breach for changes outside LP control; (4) survival limited to [3-5 years].",
+    "como_corrigir": "Revise Section 29(d): 'Subscriber representations and warranties are true as of execution date and Closing date. NOTIFICATION: Subscriber notifies GP of MATERIAL changes affecting: (a) legal compliance (prohibited investor, ERISA status); (b) AML representations. Subscriber has NO duty to notify changes in: accredited/qualified purchaser status, net worth, suitability. GP cannot allege breach for changes outside Subscriber control. Survival: representations survive for [3 years] after admission, except AML/ERISA (indefinite).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "LP cannot transfer Interest but GP may force transfer/withdrawal",
+    "buscar_em": "transfer restrictions, assignment, no right to transfer, prohibited transfer, compulsory withdrawal, forced redemption, liquidity",
+    "regra_spectra": "Subscription Agreement and LPA prohibit LP from transferring Interest (no liquidity), but GP may: (1) force LP transfer to Parallel Fund; (2) force compulsory withdrawal at discount; (3) reject transfers between same LP's funds; (4) block secondary sales. Total asymmetry. Spectra requires: (1) LP may transfer to Affiliates without consent; (2) LP may transfer to third parties with consent (not unreasonably withheld); (3) intra-LP-structure transfers permitted; (4) GP facilitates secondary sales on platform after [3 years].",
+    "como_corrigir": "Add new section: 'TRANSFERS BY LP: (a) PERMITTED without consent: transfers to LP Affiliates (subsidiaries, holding companies, family trusts); (b) PERMITTED with GP consent (not unreasonably withheld/delayed): transfers to bona fide third-party investors meeting accredited/qualified standards; (c) intra-LP-structure transfers (between same LP/group funds) permitted. GP facilitates secondary marketplace on Platform after [Investment Period + 2 years]. GP notifies LPs of secondary liquidity opportunities. Transfer fee: [1-2%] of NAV.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber required to accept unilateral amendments to Subscription Agreement",
+    "buscar_em": "amendments, modifications, unilateral changes, consent, binding, revised terms, acceptance of changes",
+    "regra_spectra": "Section 29(a) states that Subscription Documents may only be amended 'in writing signed by Subscriber and Fund', but power of attorney in 29(e) allows GP to sign for Subscriber, creating circularity. This allows GP to amend Subscription Agreement unilaterally. Spectra requires: (1) material amendments require individual written LP consent (not via power of attorney); (2) non-material amendments (clerical, compliance) may be unilateral; (3) LP may choose exit if adverse material amendments.",
+    "como_corrigir": "Revise Section 29(a): 'AMENDMENTS: Amendments to these Subscription Documents require: (a) MATERIAL amendments (economic, governance, representations): individual written Subscriber consent (power of attorney in 29(e) does NOT authorize GP to sign for Subscriber); if Subscriber does not consent, may choose redemption at NAV; (b) NON-MATERIAL amendments (clerical, corrections, legal/regulatory compliance): GP may make unilaterally, notifying Subscriber within 30 days. LP may challenge whether amendment is \"material\" via arbitration.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber waives securities law protections and statutory rescission rights",
+    "buscar_em": "waiver of rights, securities laws, statutory rights, rescission, anti-fraud, disclaimer, no registration, exemption",
+    "regra_spectra": "Sections 4(e)(iv), 8, 27 contain waivers of statutory rights under securities laws: waiver of anti-fraud provisions, rescission rights for misstatements, due diligence rights. Some waivers are unenforceable (e.g. waiver of Section 10(b)/Rule 10b-5 of Exchange Act). Spectra requires: (1) waivers limited to minimum necessary for exemption; (2) no waiver of anti-fraud protections; (3) expressly preserve statutory rescission rights for material omissions/misstatements; (4) Canadian contractual right compliance (Section 27) preserved.",
+    "como_corrigir": "Revise Sections 4(e)(iv) and 8: 'Subscriber acknowledges that Interests are not registered under Securities Act, relying on exemptions (Reg D, NI 45-106). This acknowledgment does NOT constitute waiver of: (a) anti-fraud provisions (Section 10(b)/Rule 10b-5 of Exchange Act, provincial securities laws); (b) statutory rescission/damages rights for material omissions/misstatements in PPM/Subscription Documents; (c) contractual right of rescission in Section 27 (Canadian investors). Subscriber waives ONLY: registration/prospectus requirements (not anti-fraud).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "AML section allows GP to freeze/withdraw LP based on 'reasonably believes' without due process",
+    "buscar_em": "anti-money laundering, AML, prohibited investor, freeze investment, segregate assets, withdraw investment, sanctions, OFAC",
+    "regra_spectra": "Section 24(g) allows GP to 'freeze' investment or 'immediately withdraw' LP investment if GP 'reasonably believes' LP is Prohibited Investor, without: (1) prior notice; (2) opportunity to defend; (3) independent verification; (4) compensation for damages if GP is wrong. This allows arbitrary action. Spectra requires: process with due process, independent verification, opportunity to cure, GP liability if wrongful freeze.",
+    "como_corrigir": "Revise Section 24(g): 'AML COMPLIANCE: If GP suspects LP is Prohibited Investor: (a) GP notifies LP in writing, specifying basis; (b) GP engages independent compliance firm to verify; (c) LP has 30 days to provide contrary evidence; (d) if independent firm confirms: GP may freeze/withdraw; if not: GP may not act. FREEZE: only pending investigation (max 90 days). WRONGFUL FREEZE: if freeze is unfounded, GP indemnifies LP for Losses (lost investment returns, costs). LP has no claim only if freeze was in good faith and reasonable.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subscriber as trustee/nominee/fund-of-funds has excessive obligations over Beneficial Owners",
+    "buscar_em": "beneficial owners, trustee, nominee, agent, underlying investors, fund-of-funds, representations on behalf, bind beneficial owners",
+    "regra_spectra": "Section 25 requires Subscriber that is trustee/nominee/fund-of-funds to: (1) make all representations also on behalf of Beneficial Owners; (2) 'bind' Beneficial Owners to Agreement; (3) have 'all requisite power and authority' of Beneficial Owners; (4) implement AML policies on Beneficial Owners. This may be impossible/impracticable (e.g. fund-of-funds with 1000+ underlying investors). Spectra requires: (1) Subscriber represents only about itself; (2) Subscriber provides aggregate info on Beneficial Owners; (3) Subscriber does not 'bind' Beneficial Owners to Agreement.",
+    "como_corrigir": "Revise Section 25: 'If Subscriber subscribes on behalf of Beneficial Owners (trustee, nominee, fund-of-funds): (a) Subscriber represents and warrants about ITSELF (not about each Beneficial Owner individually); (b) Subscriber provides aggregate information: number of Beneficial Owners, jurisdictions, whether any is Prohibited Investor/ERISA Plan; (c) Subscriber implements adequate AML policies and verifies Beneficial Owners' identity; (d) Subscriber does NOT \"bind\" Beneficial Owners individually to Agreement; (e) Fund has privity only with Subscriber (not Beneficial Owners). Subscriber indemnifies Fund if representations about Beneficial Owners are false.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Initial Drawdown Amount is 0% but subscriptions have extremely short deadlines",
+    "buscar_em": "initial drawdown, capital contribution timing, 24 hours, closing, payment deadline, wire transfer, subscription deadline",
+    "regra_spectra": "Subscription Documents require Subscriber to: (1) submit subscription confirmation, (2) deliver complete Subscription Documents, (3) pay Initial Drawdown Amount [0% in this case], ALL within '24 hours prior to Closing'. Deadline too short for: due diligence, legal review, obtaining internal approval (institutional investors), processing wire. Spectra requires: reasonable period (5-10 days) between submission and Closing; possibility of extension; minimum Initial Drawdown (10-25%).",
+    "como_corrigir": "Revise Closing procedure: 'Subscriber must, AT LEAST [5 business days] prior to applicable Closing: (i) submit subscription confirmation; (ii) deliver completed Subscription Documents; (iii) wire Initial Drawdown Amount [if applicable]. GP notifies Closing date with [10 business days] prior notice. GP may extend deadline upon Subscriber request (not unreasonably withheld). Initial Drawdown Amount: [10-25%] of Capital Commitment (not 0%), reduces default risk on future Capital Calls.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Definition of 'Proper Purpose' for LP information disclosure is overly broad",
+    "buscar_em": "proper purpose, disclosure, information sharing, LP information, publish, use by GP, administrator, angellist",
+    "regra_spectra": "Section 19 defines 'Proper Purpose' for disclosure of LP confidential information overly broadly: includes 'providing information requested by GP/Administrator/AngelList', which 'may be published or used' by them. This allows: commercial use, AngelList marketing, sharing with Affiliates for other funds, publishing LP list. Spectra requires: 'Proper Purpose' strictly limited to: legal compliance, closing conditions, tax purposes, service providers under NDA.",
+    "como_corrigir": "Revise 'Proper Purpose' definition in Section 19: 'Proper Purpose means EXCLUSIVELY: (a) compliance with mandatory legal/regulatory requirements (AML, tax reporting, securities filings, court orders); (b) satisfying Closing conditions of this fund (not other funds); (c) tax purposes related to this fund; (d) providing to service providers under NDA (auditors, legal, admin) the minimum necessary for their functions. DOES NOT INCLUDE: marketing, commercial use, publishing LP lists, sharing with Affiliates for other purposes, generic \"requests\" from GP/AngelList without legal basis.'"
   }
 ]

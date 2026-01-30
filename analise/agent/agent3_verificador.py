@@ -26,6 +26,7 @@ class AgentVerificador:
         self.llm = llm
         self.tipo_contrato = tipo_contrato or "_defaults"
         self.idioma = idioma
+        self._prompt = self._criar_prompt()
 
     def _criar_prompt(self) -> ChatPromptTemplate:
         """Monta o prompt a partir dos arquivos em prompts/<tipo>/agent3_*.txt."""
@@ -58,37 +59,42 @@ class AgentVerificador:
             f"Trecho {i+1} (título: {c.get('titulo', '')[:80]}):\n{c.get('texto', '')}"
             for i, c in enumerate(top_5_chunks)
         )
-        prompt_regra = self._criar_prompt()
-        chain = prompt_regra | self.llm.with_structured_output(
+        chain = self._prompt | self.llm.with_structured_output(
             ResultadoVerificacaoRegra, method="json_schema"
         )
+        # Evitar NoSessionContext quando rodando em ThreadPoolExecutor (workers
+        # não têm ScriptRunContext do Streamlit). Desabilitar callbacks nessa chamada.
+        config_sem_callbacks = {"callbacks": []}
         try:
-            out = chain.invoke({
-                "nome_regra": nome_regra,
-                "descricao_regra": descricao_regra,
-                "trechos_contrato": trechos_contrato,
-            })
+            out = chain.invoke(
+                {
+                    "nome_regra": nome_regra,
+                    "descricao_regra": descricao_regra,
+                    "trechos_contrato": trechos_contrato,
+                },
+                config=config_sem_callbacks,
+            )
         except Exception as e:
             error_str = str(e).lower()
+            error_type = type(e).__name__
+            
             # Identificar tipo de erro para logging mais preciso
             if "rate limit" in error_str or "429" in error_str:
                 raise APIRateLimitError(
-                    f"Rate limit ao verificar regra '{nome_regra}': {e}",
+                    f"Rate limit ao verificar regra '{nome_regra}' [{error_type}]: {e}",
                     user_message="Limite de requisições atingido. Aguarde alguns minutos."
                 )
             elif "connection" in error_str or "timeout" in error_str:
                 raise APIConnectionError(
-                    f"Erro de conexão ao verificar regra '{nome_regra}': {e}",
+                    f"Erro de conexão ao verificar regra '{nome_regra}' [{error_type}]: {e}",
                     user_message="Erro de conexão com o serviço de IA."
                 )
             else:
-                # Erro não crítico - retornar conformidade como fallback
-                return {
-                    "eh_violacao": False,
-                    "problema": "",
-                    "chunk": None,
-                    "regra": regra,
-                }
+                # Re-raise com informações adicionais para o orquestrador logar
+                raise RuleVerificationError(
+                    message=f"[{error_type}] {e}",
+                    rule_name=nome_regra
+                )
         
         idx = out.chunk_index
         chunk_que_viola = top_5_chunks[idx - 1] if 1 <= idx <= len(top_5_chunks) else None

@@ -75,7 +75,8 @@ class AgentReescritor:
             contexto_global=contexto_texto or "Nenhum contexto adicional."
         )
 
-        resposta = self.llm.invoke(mensagens)
+        # Evitar NoSessionContext em workers (ThreadPoolExecutor); desabilitar callbacks.
+        resposta = self.llm.invoke(mensagens, config={"callbacks": []})
         parsed = self._parsear_resposta(resposta.content, texto_original)
 
         return {

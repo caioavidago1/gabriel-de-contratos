@@ -1,3 +1,4 @@
+import functools
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -22,6 +23,7 @@ DESCRICOES_AGENTES = {
 }
 
 
+@functools.lru_cache(maxsize=None)
 def carregar_prompt_tipo(tipo_contrato: str, agent: str, parte: str, idioma: str = "pt") -> str:
     """
     Carrega prompt customizado por tipo de contrato e idioma.

@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import threading
+import traceback
 
 from .agent1_extrator_docx import extrair_clausulas_docx
 from .agent2_matcher import AgentMatcher
@@ -130,11 +131,12 @@ class OrquestradorAnalise:
                     user_message="Não foi possível conectar ao serviço de embeddings."
                 )
             
-            # === ETAPA 2: Validar Base de Conhecimento ===
+            # === ETAPA 2: Carregar regras e validar base de conhecimento ===
+            from modulos.comum import carregar_clausulas
+            regras = carregar_clausulas(tipo_contrato, idioma=idioma)
             self._log(on_log, "Validando base de conhecimento...")
             self._progress(on_progress, "Validando base de conhecimento", 0.05)
-            
-            self._validar_base_conhecimento(tipo_contrato, idioma=idioma)
+            self._validar_base_conhecimento(tipo_contrato, idioma=idioma, regras=regras)
             
             # === ETAPA 3: Agente 1 – Extrator DOCX (lógica ia.py) ===
             self._log(on_log, "Extraindo cláusulas do documento...")
@@ -177,8 +179,6 @@ class OrquestradorAnalise:
             contexto_global = {}
             
             # === ETAPA 4: Agente 2 – Matcher (por regra, top 5 chunks) + Verificador ===
-            from modulos.comum import carregar_clausulas
-            regras = carregar_clausulas(tipo_contrato, idioma=idioma)
             regras_ativas = [r for r in regras if r.get("ativa", True)]
             total_regras = len(regras_ativas)
             self._log(on_log, f"Aplicando {total_regras} regras de conformidade")
@@ -210,45 +210,31 @@ class OrquestradorAnalise:
 
             self._log(on_log, f"Verificando {total_regras} regras em paralelo...")
             
-            # Lock para atualização thread-safe do progresso
-            progress_lock = threading.Lock()
-            regras_verificadas = [0]  # Usando lista para mutabilidade em closure
-            
+            # Workers não chamam on_progress/on_log (evitar NoSessionContext). Atualizações na thread principal.
             def verificar_regra_worker(item: Dict, idx: int) -> Dict:
-                """Worker para verificar uma regra em paralelo."""
+                """Worker para verificar uma regra em paralelo. Não usa Streamlit/callbacks."""
                 regra = item["regra"]
                 nome_regra = regra.get("titulo", "Regra")[:50]
                 top_5 = item.get("top_5_chunks", [])
-                
                 try:
                     resultado = agent_verificador.analisar_regra_chunks(regra, top_5)
-                    
-                    # Atualizar progresso de forma thread-safe
-                    with progress_lock:
-                        regras_verificadas[0] += 1
-                        progresso = 0.55 + (regras_verificadas[0] / total_regras) * 0.25
-                        self._progress(
-                            on_progress, 
-                            f"Verificando regra {regras_verificadas[0]} de {total_regras}: {nome_regra}",
-                            progresso,
-                            {
-                                "etapa": "verificacao",
-                                "regra_atual": nome_regra,
-                                "idx_regra": regras_verificadas[0],
-                                "total_regras": total_regras
-                            }
-                        )
-                    
+                    resultado["_nome_regra"] = nome_regra
                     return resultado
-                    
                 except Exception as e:
-                    self._log(on_log, f"Atenção: erro na regra '{nome_regra}': {e}")
-                    with progress_lock:
-                        regras_verificadas[0] += 1
-                    return {"eh_violacao": False, "problema": "", "chunk": None, "regra": regra}
+                    erro_tipo = type(e).__name__
+                    erro_msg = str(e)
+                    erro_detalhado = self._formatar_erro_verificacao(erro_tipo, erro_msg, nome_regra)
+                    return {
+                        "eh_violacao": False,
+                        "problema": "",
+                        "chunk": None,
+                        "regra": regra,
+                        "_nome_regra": nome_regra,
+                        "_erro_log": erro_detalhado,
+                    }
             
-            # Executar verificações em paralelo (max 4 workers)
             verificacoes = []
+            regras_concluidas = [0]  # mutável para closure
             max_workers = min(4, total_regras) if total_regras > 0 else 1
             
             with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -256,13 +242,33 @@ class OrquestradorAnalise:
                     executor.submit(verificar_regra_worker, item, i): i
                     for i, item in enumerate(match_resultado)
                 }
-                
                 for future in as_completed(futures):
                     try:
                         resultado = future.result()
+                        erro_log = resultado.pop("_erro_log", None)
+                        if erro_log:
+                            self._log(on_log, erro_log)
+                        regras_concluidas[0] += 1
+                        progresso = 0.55 + (regras_concluidas[0] / total_regras) * 0.25
+                        nome_regra = resultado.pop("_nome_regra", "Regra")
+                        self._progress(
+                            on_progress,
+                            f"Verificando regra {regras_concluidas[0]} de {total_regras}: {nome_regra}",
+                            progresso,
+                            {
+                                "etapa": "verificacao",
+                                "regra_atual": nome_regra,
+                                "idx_regra": regras_concluidas[0],
+                                "total_regras": total_regras,
+                            },
+                        )
                         verificacoes.append(resultado)
                     except Exception as e:
-                        self._log(on_log, f"Erro em worker de verificação: {e}")
+                        erro_tipo = type(e).__name__
+                        erro_msg = str(e)
+                        self._log(on_log, f"[ERRO CRÍTICO] Falha no worker de verificação")
+                        self._log(on_log, f"  └─ Tipo: {erro_tipo}")
+                        self._log(on_log, f"  └─ Detalhe: {erro_msg[:200]}")
 
             violacoes_validadas = [v for v in verificacoes if v.get("eh_violacao") and v.get("chunk")]
             conformidades_finais = [v for v in verificacoes if not v.get("eh_violacao")]
@@ -270,32 +276,66 @@ class OrquestradorAnalise:
             resumo = ""
             self._log(on_log, f"Violações detectadas: {len(violacoes_validadas)}")
 
-            # === ETAPA 6: Reescritor ===
+            # === ETAPA 6: Reescritor (paralelizado) ===
             if violacoes_validadas:
                 self._log(on_log, "Preparando sugestões de redação...")
                 self._progress(on_progress, "Sugestões de Redação", 0.85)
                 agent4_reesc = AgentReescritor(llm, tipo_contrato=tipo_contrato, idioma=idioma)
-                
-                for idx, v in enumerate(violacoes_validadas):
+                total_violacoes = len(violacoes_validadas)
+                # Workers não chamam on_progress/on_log (evitar NoSessionContext).
+                def reescrever_worker(idx: int, v: Dict) -> tuple:
+                    """Worker para reescrever uma violação em paralelo. Não usa Streamlit/callbacks."""
                     nome_violacao = v.get("regra", {}).get("titulo", "")[:40]
-                    self._progress(
-                        on_progress,
-                        f"Sugestão {idx + 1} de {len(violacoes_validadas)}: {nome_violacao}",
-                        0.85 + (idx / len(violacoes_validadas)) * 0.05,
-                        {
-                            "etapa": "reescrita",
-                            "regra_atual": nome_violacao,
-                            "idx_regra": idx + 1,
-                            "total_regras": len(violacoes_validadas)
-                        }
-                    )
                     try:
                         sugestao = agent4_reesc.reescrever_clausula(v, contexto_global)
-                        v["sugestao_reescrita"] = sugestao
-                        self._log(on_log, f"Sugestão {idx + 1} de {len(violacoes_validadas)} preparada")
+                        return (idx, sugestao, None)
                     except Exception as e:
-                        self._log(on_log, f"Aviso: falha ao reescrever violação {idx + 1}: {e}")
-                        v["sugestao_reescrita"] = None
+                        erro_tipo = type(e).__name__
+                        erro_msg = str(e)
+                        erro_detalhado = self._formatar_erro_reescrita(erro_tipo, erro_msg, nome_violacao, idx + 1)
+                        return (idx, None, erro_detalhado)
+
+                reescritas_concluidas = [0]
+                max_workers_reescrita = min(4, total_violacoes) if total_violacoes > 0 else 1
+                resultados_reescrita: Dict[int, Any] = {}
+                with ThreadPoolExecutor(max_workers=max_workers_reescrita) as executor:
+                    futures_reescrita = {
+                        executor.submit(reescrever_worker, idx, v): idx
+                        for idx, v in enumerate(violacoes_validadas)
+                    }
+                    for future in as_completed(futures_reescrita):
+                        try:
+                            idx, sugestao, erro_log = future.result()
+                            if erro_log:
+                                self._log(on_log, erro_log)
+                            reescritas_concluidas[0] += 1
+                            progresso = 0.85 + (reescritas_concluidas[0] / total_violacoes) * 0.05
+                            nome_violacao = violacoes_validadas[idx].get("regra", {}).get("titulo", "")[:40]
+                            self._progress(
+                                on_progress,
+                                f"Sugestão {reescritas_concluidas[0]} de {total_violacoes}: {nome_violacao}",
+                                progresso,
+                                {
+                                    "etapa": "reescrita",
+                                    "regra_atual": nome_violacao,
+                                    "idx_regra": reescritas_concluidas[0],
+                                    "total_regras": total_violacoes,
+                                },
+                            )
+                            if not erro_log:
+                                self._log(on_log, f"Sugestão {reescritas_concluidas[0]} de {total_violacoes} preparada")
+                            resultados_reescrita[idx] = sugestao
+                        except Exception as e:
+                            erro_tipo = type(e).__name__
+                            erro_msg = str(e)
+                            self._log(on_log, f"[ERRO CRÍTICO] Falha no worker de reescrita")
+                            self._log(on_log, f"  └─ Tipo: {erro_tipo}")
+                            self._log(on_log, f"  └─ Detalhe: {erro_msg[:200]}")
+                            idx = futures_reescrita[future]
+                            resultados_reescrita[idx] = None
+
+                for idx in range(total_violacoes):
+                    violacoes_validadas[idx]["sugestao_reescrita"] = resultados_reescrita.get(idx)
 
             # === ETAPA 7: Gerar documentos ===
             self._progress(on_progress, "Finalizando Documentos", 0.92)
@@ -361,15 +401,18 @@ class OrquestradorAnalise:
             else:
                 return self._erro(f"Erro na análise: {str(e)}")
     
-    def _validar_base_conhecimento(self, tipo_contrato: str, idioma: str = "pt") -> None:
+    def _validar_base_conhecimento(
+        self, tipo_contrato: str, idioma: str = "pt", regras: Optional[List[Dict]] = None
+    ) -> None:
         """
         Valida se a base de conhecimento está sincronizada.
         Lança exceção específica se não estiver.
+        Se regras for passado, usa essa lista; caso contrário carrega do disco.
         """
         from modulos.comum import carregar_clausulas
-        
-        clausulas = carregar_clausulas(tipo_contrato, idioma=idioma)
-        
+
+        clausulas = regras if regras is not None else carregar_clausulas(tipo_contrato, idioma=idioma)
+
         if not clausulas:
             raise DatabaseEmptyError(
                 f"Nenhuma cláusula encontrada para '{tipo_contrato}'",
@@ -429,3 +472,74 @@ class OrquestradorAnalise:
         """Adiciona log se callback existir."""
         if callback:
             callback(mensagem)
+    
+    @staticmethod
+    def _formatar_erro_verificacao(erro_tipo: str, erro_msg: str, nome_regra: str) -> str:
+        """
+        Formata mensagem de erro de verificação de forma clara e informativa.
+        Categoriza o erro e fornece contexto útil para debugging.
+        """
+        erro_lower = erro_msg.lower()
+        
+        # Categorizar o erro
+        if "rate limit" in erro_lower or "429" in erro_lower:
+            categoria = "LIMITE DE REQUISIÇÕES"
+            sugestao = "Aguarde alguns segundos e tente novamente"
+        elif "api key" in erro_lower or "authentication" in erro_lower or "401" in erro_lower:
+            categoria = "AUTENTICAÇÃO"
+            sugestao = "Verifique sua chave de API nas configurações"
+        elif "timeout" in erro_lower or "timed out" in erro_lower:
+            categoria = "TIMEOUT"
+            sugestao = "O modelo demorou para responder, considere usar um modelo mais rápido"
+        elif "connection" in erro_lower or "network" in erro_lower:
+            categoria = "CONEXÃO"
+            sugestao = "Verifique sua conexão com a internet"
+        elif "json" in erro_lower or "parse" in erro_lower or "decode" in erro_lower:
+            categoria = "RESPOSTA INVÁLIDA"
+            sugestao = "O modelo retornou uma resposta mal formatada"
+        elif "validation" in erro_lower or "pydantic" in erro_lower:
+            categoria = "VALIDAÇÃO"
+            sugestao = "O modelo não retornou os campos esperados"
+        else:
+            categoria = "ERRO GERAL"
+            sugestao = "Erro inesperado durante a análise"
+        
+        # Truncar mensagem de erro para legibilidade
+        erro_resumido = erro_msg[:150] + "..." if len(erro_msg) > 150 else erro_msg
+        
+        return (
+            f"[{categoria}] Falha na regra: '{nome_regra}'\n"
+            f"  └─ Tipo: {erro_tipo}\n"
+            f"  └─ Causa: {erro_resumido}\n"
+            f"  └─ Sugestão: {sugestao}"
+        )
+    
+    @staticmethod
+    def _formatar_erro_reescrita(erro_tipo: str, erro_msg: str, nome_violacao: str, idx: int) -> str:
+        """
+        Formata mensagem de erro de reescrita de forma clara e informativa.
+        """
+        erro_lower = erro_msg.lower()
+        
+        # Categorizar o erro
+        if "rate limit" in erro_lower or "429" in erro_lower:
+            categoria = "LIMITE DE REQUISIÇÕES"
+            sugestao = "Aguarde alguns segundos"
+        elif "timeout" in erro_lower or "timed out" in erro_lower:
+            categoria = "TIMEOUT"
+            sugestao = "O modelo demorou para gerar a sugestão"
+        elif "json" in erro_lower or "parse" in erro_lower:
+            categoria = "RESPOSTA INVÁLIDA"
+            sugestao = "O modelo retornou resposta mal formatada"
+        else:
+            categoria = "ERRO GERAL"
+            sugestao = "Erro ao gerar sugestão de reescrita"
+        
+        erro_resumido = erro_msg[:150] + "..." if len(erro_msg) > 150 else erro_msg
+        
+        return (
+            f"[{categoria}] Falha na sugestão #{idx}: '{nome_violacao}'\n"
+            f"  └─ Tipo: {erro_tipo}\n"
+            f"  └─ Causa: {erro_resumido}\n"
+            f"  └─ Sugestão: {sugestao}"
+        )

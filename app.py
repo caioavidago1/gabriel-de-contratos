@@ -1,6 +1,7 @@
 # Desabilitar uvloop para evitar conflito com nest_asyncio
 # Deve estar no início do arquivo, antes de qualquer import que use asyncio
 import sys
+import logging
 import asyncio
 
 # Se uvloop estiver instalado, forçar uso do event loop padrão
@@ -13,6 +14,23 @@ except Exception as e:
     print(f"[APP] Aviso ao configurar event loop: {e}")
 
 import streamlit as st
+
+# Suprimir aviso "missing ScriptRunContext" quando orquestrador usa ThreadPoolExecutor
+# (callbacks on_progress/on_log são chamados de worker threads sem contexto Streamlit)
+class _FiltroScriptRunContext(logging.Filter):
+    def filter(self, record):
+        return "missing ScriptRunContext" not in (record.getMessage() or "")
+
+_filtro_src = _FiltroScriptRunContext()
+for h in logging.root.handlers:
+    h.addFilter(_filtro_src)
+logging.root.addFilter(_filtro_src)
+# Streamlit usa loggers próprios; aplicar filtro em todos os loggers conhecidos
+for name in ("streamlit", "streamlit.runtime", "streamlit.runtime.scriptrunner_utils.script_run_context"):
+    log = logging.getLogger(name)
+    for h in log.handlers:
+        h.addFilter(_filtro_src)
+    log.addFilter(_filtro_src)
 from modulos.t1_nda import render as render_nda
 from modulos.t2_spa_cotas import render as render_spa_cotas
 from modulos.t3_spa_aquisicao import render as render_spa_aquisicao

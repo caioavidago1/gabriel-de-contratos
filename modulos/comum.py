@@ -661,6 +661,7 @@ def selecionar_modelo_ia() -> str:
 # ========= Seleção de Embedding =========
 
 from analise.agent.escolha_modelo import GerenciadorEmbeddings
+from analise.agent.orquestrador import OrquestradorAnalise
 
 
 def selecionar_embedding_ia() -> str:
@@ -1087,9 +1088,6 @@ def render_pagina_analise(
         label_upload: Label do campo de upload
         key_prefix: Prefixo para chaves do session_state (ex: "nda", "spa_cotas")
     """
-    import analise.agent  # Garante que o pacote esteja em sys.modules antes do submodule (evita KeyError)
-    from analise.agent.orquestrador import OrquestradorAnalise
-    
     # Sidebar
     sidebar_informacoes(tipo_contrato)
     sidebar_botoes(tipo_contrato)
@@ -1144,6 +1142,8 @@ def render_pagina_analise(
             arquivo_bytes = st.session_state[cache_bytes]
         else:
             arquivo_bytes = arquivo.read()
+            size_kb = len(arquivo_bytes) / 1024
+            print(f"[Upload] Documento recebido: {nome_arquivo} ({size_kb:.1f} KB)")
         
         # Gerar chave de configuração atual (apenas uma vez)
         config_key_atual = _gerar_chave_cache_config(
@@ -1167,17 +1167,20 @@ def render_pagina_analise(
                     st.warning("Configurações alteradas (idioma, modelo, threshold, etc). Clique em 'Analisar' para reprocessar.")
             
             if analisar:
+                print(f"[Análise] Iniciando: {nome_arquivo} | tipo={tipo_contrato} | idioma={idioma}")
                 # Callbacks para UI com progresso detalhado
                 progress_bar = st.progress(0)
                 status_text = st.empty()
                 detail_text = st.empty()  # Novo: texto de detalhe (regra atual)
-                log_container = st.expander("Logs", expanded=False)
+                log_container = st.expander("Detalhes Técnicos", expanded=True)
                 with log_container:
                     log_placeholder = st.empty()
                 logs = []
+                erros_tecnicos = []  # Armazenar erros para exibição destacada
                 
                 def on_progress(msg: str, valor: float, detalhes: dict = None):
                     """Callback de progresso com suporte a detalhes."""
+                    print(f"[Progresso] {valor*100:.0f}% | {msg}")
                     progress_bar.progress(valor)
                     status_text.text(msg)
                     # Mostrar detalhe da regra atual se disponível
@@ -1191,7 +1194,14 @@ def render_pagina_analise(
                         detail_text.empty()
                 
                 def on_log(msg: str):
+                    print(f"[Log] {msg}")
                     logs.append(msg)
+                    # Detectar erros para destaque
+                    if msg.startswith("[") and any(cat in msg for cat in [
+                        "LIMITE DE REQUISIÇÕES", "AUTENTICAÇÃO", "TIMEOUT", 
+                        "CONEXÃO", "RESPOSTA INVÁLIDA", "VALIDAÇÃO", "ERRO"
+                    ]):
+                        erros_tecnicos.append(msg)
                     log_placeholder.text("\n".join(logs))
                 
                 # Orquestrar análise
@@ -1210,17 +1220,35 @@ def render_pagina_analise(
                     on_progress=on_progress,
                     on_log=on_log
                 )
-                
+                print(f"[Análise] Concluída: {nome_arquivo} | sucesso={resultado.sucesso}")
                 # Limpar UI de progresso
                 progress_bar.empty()
                 status_text.empty()
                 detail_text.empty()
+                
+                # Exibir resumo de erros técnicos se houver
+                if erros_tecnicos:
+                    with st.expander(f"⚠️ Detalhes Técnicos - {len(erros_tecnicos)} erro(s) durante a análise", expanded=True):
+                        st.warning("Algumas regras não puderam ser verificadas devido a erros. "
+                                   "A análise continuou com as regras restantes.")
+                        for erro in erros_tecnicos:
+                            # Formatar erro para exibição
+                            linhas = erro.split("\n")
+                            if linhas:
+                                # Primeira linha: categoria e regra
+                                st.markdown(f"**{linhas[0]}**")
+                                # Linhas seguintes: detalhes
+                                for linha in linhas[1:]:
+                                    if linha.strip():
+                                        st.caption(linha)
+                            st.divider()
                 
                 # Armazenar resultado no cache com a chave de configuração
                 st.session_state[cache_resultado] = resultado
                 st.session_state[cache_nome] = nome_arquivo
                 st.session_state[cache_bytes] = arquivo_bytes
                 st.session_state[cache_config_key] = config_key_atual
+                st.session_state[f"erros_tecnicos_{key_prefix}"] = erros_tecnicos  # Salvar erros para exibição posterior
                 
                 # Salvar no histórico de análises se sucesso
                 if resultado.sucesso:
@@ -1243,6 +1271,24 @@ def render_pagina_analise(
         )
         
         if cache_valido:
+            # Exibir erros técnicos salvos, se houver
+            erros_salvos = st.session_state.get(f"erros_tecnicos_{key_prefix}", [])
+            if erros_salvos:
+                with st.expander(f"⚠️ Detalhes Técnicos - {len(erros_salvos)} erro(s) durante a análise", expanded=False):
+                    st.warning("Algumas regras não puderam ser verificadas devido a erros. "
+                               "A análise continuou com as regras restantes.")
+                    for erro in erros_salvos:
+                        # Formatar erro para exibição
+                        linhas = erro.split("\n")
+                        if linhas:
+                            # Primeira linha: categoria e regra
+                            st.markdown(f"**{linhas[0]}**")
+                            # Linhas seguintes: detalhes
+                            for linha in linhas[1:]:
+                                if linha.strip():
+                                    st.caption(linha)
+                        st.divider()
+            
             mostrar_resultado_analise(
                 st.session_state[cache_resultado],
                 st.session_state[cache_nome],
@@ -1261,6 +1307,7 @@ def _limpar_cache_analise(key_prefix: str):
     cache_nome = f"arquivo_{key_prefix}_nome"
     cache_bytes = f"arquivo_{key_prefix}_bytes"
     cache_config_key = f"config_key_{key_prefix}"
+    cache_erros = f"erros_tecnicos_{key_prefix}"
     
     if cache_resultado in st.session_state:
         del st.session_state[cache_resultado]
@@ -1270,3 +1317,5 @@ def _limpar_cache_analise(key_prefix: str):
         del st.session_state[cache_bytes]
     if cache_config_key in st.session_state:
         del st.session_state[cache_config_key]
+    if cache_erros in st.session_state:
+        del st.session_state[cache_erros]
