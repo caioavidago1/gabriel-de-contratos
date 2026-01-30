@@ -5,7 +5,15 @@ import hashlib
 import uuid
 from datetime import datetime
 from typing import Optional, Dict, Any
+import platform
+import sys
 
+if platform.system() != 'Windows':
+    libreoffice_path = '/usr/lib/python3/dist-packages'
+    if libreoffice_path not in sys.path:
+        sys.path.insert(0, libreoffice_path)
+
+from output.comparar_docx import comparar_docx
 # ========= Upload =========
 def upload_docx(label: str, key: str = "upload_docx"):
     """
