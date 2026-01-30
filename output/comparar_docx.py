@@ -6,6 +6,13 @@ import io
 import os
 import sys
 import platform
+
+if platform.system() != 'Windows':
+    # Adiciona o caminho do LibreOffice ao sys.path para encontrar 'uno'
+    libreoffice_path = '/usr/lib/python3/dist-packages'
+    if libreoffice_path not in sys.path:
+        sys.path.insert(0, libreoffice_path)
+
 from typing import Optional
 
 from docx import Document
