@@ -1,19 +1,12 @@
 """
-Comparar dois DOCX (problemas x solução) e salvar o documento de comparação.
-Versão multiplataforma com tracked changes NATIVOS.
+Comparar dois DOCX (problemas x solução) com track changes.
+Usa win32com no Windows e LibreOffice UNO no Linux.
 """
 import io
 import os
 import sys
+import platform
 from typing import Optional
-
-# Importações condicionais apenas para Windows
-if sys.platform == 'win32':
-    import pythoncom
-    import win32com.client as win32
-else:
-    pythoncom = None
-    win32 = None
 
 from docx import Document
 
@@ -28,7 +21,6 @@ def gerar_doc_comparado(doc_problemas_bytes: bytes, doc_solucao_bytes: bytes) ->
         doc_solucao = Document(io.BytesIO(doc_solucao_bytes))
     except Exception:
         return None
-    
     doc = Document()
     doc.add_heading("Comparação: Problemas x Solução", 0)
     doc.add_paragraph("")
@@ -36,150 +28,145 @@ def gerar_doc_comparado(doc_problemas_bytes: bytes, doc_solucao_bytes: bytes) ->
     for para in doc_problemas.paragraphs:
         p = doc.add_paragraph(para.text)
         p.style = para.style.name if para.style else "Normal"
-    
     doc.add_paragraph("")
     doc.add_heading("2. Documento Solução (revisado)", level=1)
     for para in doc_solucao.paragraphs:
         p = doc.add_paragraph(para.text)
         p.style = para.style.name if para.style else "Normal"
-    
     buffer = io.BytesIO()
     doc.save(buffer)
     buffer.seek(0)
     return buffer.getvalue()
 
 
-def comparar_docx_libreoffice(original_path, revisado_path, saida_path):
-    """
-    Compara documentos usando LibreOffice com tracked changes NATIVOS.
-    Os tracked changes funcionarão no Microsoft Word.
-    """
+def comparar_docx_windows(original_path, revisado_path, saida_path):
+    """Comparação usando win32com (Windows/MS Word)"""
+    import pythoncom
+    import win32com.client as win32
+    
+    original_path = os.path.abspath(original_path)
+    revisado_path = os.path.abspath(revisado_path)
+    saida_path = os.path.abspath(saida_path)
+
+    # Necessário quando chamado de outro thread (ex.: Streamlit)
+    pythoncom.CoInitialize()
     try:
-        import uno
-        from com.sun.star.beans import PropertyValue
-        
-        # Conectar ao LibreOffice
-        local_context = uno.getComponentContext()
-        resolver = local_context.ServiceManager.createInstanceWithContext(
-            "com.sun.star.bridge.UnoUrlResolver", local_context
-        )
-        
-        # Tentar conectar ao LibreOffice
+        word = win32.gencache.EnsureDispatch("Word.Application")
+        word.Visible = False
+
         try:
-            ctx = resolver.resolve(
-                "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"
+            doc_original = word.Documents.Open(original_path)
+            doc_revisado = word.Documents.Open(revisado_path)
+
+            # Equivalente ao Word: Revisar -> Comparar
+            word.CompareDocuments(
+                doc_original,
+                doc_revisado,
+                Destination=win32.constants.wdCompareDestinationNew,
+                Granularity=win32.constants.wdGranularityWordLevel,
+                CompareFormatting=True
             )
-        except:
-            # Iniciar LibreOffice em background
-            import subprocess
-            subprocess.Popen([
-                'soffice',
-                '--headless',
-                '--accept=socket,host=localhost,port=2002;urp;',
-                '--nofirststartwizard'
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            import time
-            time.sleep(3)
-            ctx = resolver.resolve(
-                "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"
-            )
-        
-        smgr = ctx.ServiceManager
-        desktop = smgr.createInstanceWithContext("com.sun.star.frame.Desktop", ctx)
-        
-        # Converter caminhos para URLs
-        def path_to_url(path):
-            return uno.systemPathToFileUrl(os.path.abspath(path))
-        
-        original_url = path_to_url(original_path)
-        revisado_url = path_to_url(revisado_path)
-        saida_url = path_to_url(saida_path)
-        
-        # Abrir documento original
-        doc_original = desktop.loadComponentFromURL(original_url, "_blank", 0, ())
-        
-        # Ativar tracked changes
-        doc_original.recordChanges = True
-        
-        # Comparar com documento revisado usando a função nativa do LibreOffice
-        doc_original.compareDocuments(revisado_url)
-        
-        # Salvar com tracked changes no formato Word
-        store_props = (
-            PropertyValue("FilterName", 0, "MS Word 2007 XML", 0),
-            PropertyValue("Overwrite", 0, True, 0),
-        )
-        doc_original.storeToURL(saida_url, store_props)
-        
-        # Fechar documento
-        doc_original.close(True)
-        
-        print("✓ Comparação com tracked changes nativos concluída (LibreOffice)")
-        return True
-        
-    except ImportError:
-        print("❌ LibreOffice não está instalado ou python3-uno não disponível")
-        print("   Instale com: sudo apt-get install libreoffice python3-uno")
-        return False
-    except Exception as e:
-        print(f"❌ Erro ao usar LibreOffice: {e}")
-        return False
+
+            # O resultado fica como ActiveDocument (documento de comparação)
+            word.ActiveDocument.SaveAs(saida_path)
+
+        finally:
+            # Fecha tudo sem salvar os originais
+            try:
+                for d in list(word.Documents):
+                    d.Close(SaveChanges=False)
+            except Exception:
+                pass
+            word.Quit()
+    finally:
+        pythoncom.CoUninitialize()
 
 
-def comparar_docx(original_path, revisado_path, saida_path):
-    """
-    Compara dois documentos DOCX com tracked changes NATIVOS.
-    - No Windows: usa Microsoft Word
-    - No Linux: usa LibreOffice
-    """
+def comparar_docx_linux(original_path, revisado_path, saida_path):
+    """Comparação usando LibreOffice UNO (Linux)"""
+    import uno
+    from com.sun.star.beans import PropertyValue
+    from com.sun.star.connection import NoConnectException
+    
+    def criar_propriedade(nome, valor):
+        """Cria uma PropertyValue para passar argumentos UNO"""
+        prop = PropertyValue()
+        prop.Name = nome
+        prop.Value = valor
+        return prop
+    
     original_path = os.path.abspath(original_path)
     revisado_path = os.path.abspath(revisado_path)
     saida_path = os.path.abspath(saida_path)
     
-    # Tentar usar Word no Windows
-    if sys.platform == 'win32' and pythoncom is not None and win32 is not None:
-        try:
-            pythoncom.CoInitialize()
-            try:
-                word = win32.gencache.EnsureDispatch("Word.Application")
-                word.Visible = False
+    try:
+        # Conecta ao LibreOffice
+        local_context = uno.getComponentContext()
+        resolver = local_context.ServiceManager.createInstanceWithContext(
+            "com.sun.star.bridge.UnoUrlResolver", local_context)
+        
+        ctx = resolver.resolve(
+            "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext")
+        smgr = ctx.ServiceManager
+        
+        # Cria o desktop
+        desktop = smgr.createInstanceWithContext("com.sun.star.frame.Desktop", ctx)
+        
+        # Converte caminhos para URLs do sistema
+        original_url = uno.systemPathToFileUrl(original_path)
+        revisado_url = uno.systemPathToFileUrl(revisado_path)
+        saida_url = uno.systemPathToFileUrl(saida_path)
+        
+        # Abre o documento mais recente (revisor)
+        propriedades = (criar_propriedade("Hidden", True),)
+        documento = desktop.loadComponentFromURL(revisado_url, "_blank", 0, propriedades)
+        
+        # Obtém o dispatcher
+        dispatcher = smgr.createInstanceWithContext(
+            "com.sun.star.frame.DispatchHelper", ctx)
+        
+        # Prepara os argumentos para comparação
+        args = (
+            criar_propriedade("URL", original_url),
+            criar_propriedade("FilterName", ""),
+        )
+        
+        # Executa o comando de comparação
+        frame = documento.getCurrentController().getFrame()
+        dispatcher.executeDispatch(frame, ".uno:CompareDocuments", "", 0, args)
+        
+        # Salva o resultado
+        props_salvar = (
+            criar_propriedade("FilterName", "Office Open XML Text"),
+            criar_propriedade("Overwrite", True),
+        )
+        documento.storeToURL(saida_url, props_salvar)
+        
+        # Fecha o documento
+        documento.close(True)
+        
+    except NoConnectException:
+        raise RuntimeError(
+            "Erro: LibreOffice não está rodando. Execute:\n"
+            'soffice --invisible --headless "--accept=socket,host=localhost,port=2002;urp;"&'
+        )
+    except Exception as e:
+        raise RuntimeError(f"Erro ao comparar documentos: {e}")
 
-                try:
-                    doc_original = word.Documents.Open(original_path)
-                    doc_revisado = word.Documents.Open(revisado_path)
 
-                    word.CompareDocuments(
-                        doc_original,
-                        doc_revisado,
-                        Destination=win32.constants.wdCompareDestinationNew,
-                        Granularity=win32.constants.wdGranularityWordLevel,
-                        CompareFormatting=True
-                    )
-
-                    word.ActiveDocument.SaveAs(saida_path)
-                    print("✓ Comparação com Microsoft Word concluída")
-                    return True
-
-                finally:
-                    try:
-                        for d in list(word.Documents):
-                            d.Close(SaveChanges=False)
-                    except Exception:
-                        pass
-                    word.Quit()
-            finally:
-                pythoncom.CoUninitialize()
-                return True
-        except Exception as e:
-            print(f"❌ Erro ao usar Word: {e}")
-            return False
-    
-    # Usar LibreOffice no Linux
+def comparar_docx(original_path, revisado_path, saida_path):
+    """
+    Comparar dois DOCX com track changes (multiplataforma).
+    Detecta automaticamente o sistema operacional.
+    """
+    if platform.system() == 'Windows':
+        comparar_docx_windows(original_path, revisado_path, saida_path)
     else:
-        return comparar_docx_libreoffice(original_path, revisado_path, saida_path)
+        comparar_docx_linux(original_path, revisado_path, saida_path)
 
 
 if __name__ == "__main__":
+    # Diretório padrão: output/docs (ao lado deste script, pasta docs)
     docs_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
 
     if len(sys.argv) >= 4:
@@ -187,6 +174,7 @@ if __name__ == "__main__":
         solucao = sys.argv[2]
         saida = sys.argv[3]
         
+        # Se forem só nomes de arquivo, buscar em output/docs
         if not os.path.isabs(problema) and not os.path.dirname(problema):
             problema = os.path.join(docs_dir, problema)
         if not os.path.isabs(solucao) and not os.path.dirname(solucao):
@@ -194,9 +182,12 @@ if __name__ == "__main__":
         if not os.path.isabs(saida) and not os.path.dirname(saida):
             saida = os.path.join(docs_dir, saida)
         
-        if comparar_docx(problema, solucao, saida):
-            print(f"✓ Arquivo gerado: {saida}")
-        else:
-            print("❌ Erro na comparação")
+        try:
+            comparar_docx(problema, solucao, saida)
+            print(f"✓ Comparação concluída! Resultado salvo em: {saida}")
+        except Exception as e:
+            print(f"✗ Erro: {e}", file=sys.stderr)
+            sys.exit(1)
     else:
         print("Uso: python comparar_docx.py <problemas_xxx.docx> <solucao_xxx.docx> <saida.docx>")
+        print("Ex.: python comparar_docx.py problemas_Teste.docx solucao_Teste.docx comparacao.docx")
