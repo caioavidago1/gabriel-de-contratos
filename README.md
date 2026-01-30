@@ -57,6 +57,8 @@ Para clonar o repositório:
 ```bash
 git clone https://github.com/caioavidago1/contratos.git
 cd contratos
+# Se o clone criou uma pasta com outro nome (ex.: gabriel-de-contratos), use:
+# cd gabriel-de-contratos
 ```
 
 ### Servidor de Produção
@@ -226,10 +228,11 @@ cd contratos
 
 **Opção B: Navegar até pasta local existente**
 
-Digite o comando abaixo (ajuste o caminho conforme necessário):
+Digite o comando abaixo (ajuste o caminho e o nome da pasta conforme necessário):
 
 ```bash
-cd "C:\Users\SeuUsuario\OneDrive - Spectra\Documentos\contratos"
+cd "C:\Users\SeuUsuario\OneDrive - Spectra\Documentos\gabriel-de-contratos"
+# ou: cd "C:\Users\SeuUsuario\OneDrive - Spectra\Documentos\contratos"
 ```
 
 **Dica**: Você pode copiar o caminho da pasta no Windows Explorer, clicar com botão direito na barra de endereço e selecionar "Copiar endereço como texto".
@@ -488,8 +491,9 @@ O arquivo `.env` deve estar na mesma pasta que:
 
 **Desenvolvimento Local:**
 ```bash
-cd "C:\Users\SeuUsuario\OneDrive - Spectra\Documentos\contratos"
+cd "C:\Users\SeuUsuario\OneDrive - Spectra\Documentos\gabriel-de-contratos"
 ```
+(Ajuste o caminho conforme a pasta do projeto no seu computador.)
 
 **Servidor de Produção:**
 ```bash
@@ -882,8 +886,9 @@ gabriel-de-contratos/
 │       └── clausulas.py        # Indexação cláusulas de referência (JSON → ChromaDB)
 │
 ├── output/
+│   ├── __init__.py
 │   ├── docx.py                 # gerar_problemas_docx, gerar_solucao_docx
-│   ├── comparar_docx.py        # gerar_doc_comparado (problemas + solução → explicacao)
+│   ├── comparar_docx.py        # gerar_doc_comparado (problemas + solução → explicacao); script CLI para track changes (Word/LibreOffice)
 │   └── docs/                   # DOCX gerados (problemas_*, solucao_*, explicacao_*)
 │
 ├── db/                         # Cláusulas de referência por tipo e idioma
@@ -1029,4 +1034,4 @@ Para acessar o servidor de produção, você precisa do arquivo de chave privada
 
 ---
 
-**Última atualização**: Janeiro 2026
+**Última atualização**: 30 de janeiro de 2026

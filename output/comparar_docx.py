@@ -1,7 +1,7 @@
 """
 Comparar dois DOCX (problemas x solução) com track changes.
 Usa win32com no Windows e LibreOffice UNO no Linux.
-UNO/pyuno é importado só dentro de comparar_docx_linux() para o módulo carregar no Linux sem inicializar o runtime.
+gUNO/pyuno é importado só dentro de comparar_docx_linux() para o módulo carregar no Linux sem inicializar o runtime.
 """
 import io
 import os

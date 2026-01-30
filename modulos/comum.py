@@ -144,14 +144,14 @@ def sidebar_informacoes(tipo_nome: str):
         with st.expander("ℹ️ Guia: Como editar instruções e regras", expanded=False):
             st.markdown("### 📝 Como Editar Instruções da IA")
             
-            st.markdown("As instruções são orientações que a IA segue ao analisar contratos. Você pode personalizá-las por tipo de contrato (NDA, SPA, etc.).")
+            st.markdown("As instruções orientam a IA na análise de contratos. São personalizáveis por tipo de contrato (NDA, SPA, etc.) e por idioma.")
             
             st.markdown("**Passo a passo:**")
-            st.markdown("1. Em **Configurações**, clique em **'Editar prompt'** (abaixo de Atualizar Base de Regras)")
-            st.markdown("2. Digite a **senha de administrador** no bloco de acesso quando solicitado")
-            st.markdown("3. O editor abre com **abas para cada tipo de análise**")
-            st.markdown("4. Edite as instruções conforme necessário")
-            st.markdown("5. Clique em **'Salvar Todos'** para aplicar (ou **'Fechar'** para sair sem salvar)")
+            st.markdown("1. Na seção **Configurações** da sidebar, clique em **'Editar prompt'**")
+            st.markdown("2. No bloco de acesso, digite a **senha de administrador** e clique em **'Entrar como administrador'**")
+            st.markdown("3. O editor abre com **abas para cada tipo de análise** (agent1, agent3, agent4)")
+            st.markdown("4. Edite **Mensagem System** e **Mensagem User** conforme necessário")
+            st.markdown("5. Clique em **'Salvar Todos'** para aplicar ou **'Fechar'** para sair sem salvar")
             
             st.markdown("**Tipos de análise editáveis:**")
             agentes_editaveis_guia = [a for a in AGENTES if a != "extrator"]
@@ -160,42 +160,42 @@ def sidebar_informacoes(tipo_nome: str):
                 vars_str = ", ".join([f"`{v}`" for v in vars_agente])
                 st.markdown(f"- **{DESCRICOES_AGENTES.get(agent, agent)}**")
                 if vars_agente:
-                    st.caption(f"  Variáveis obrigatórias: {vars_str}")
+                    st.caption(f"  Variáveis obrigatórias no User: {vars_str}")
             
             st.markdown("**Tipos de mensagem:**")
-            st.markdown("- **Mensagem System**: Comportamento geral da análise")
-            st.markdown("- **Mensagem User**: Template que recebe os dados do documento")
+            st.markdown("- **Mensagem System**: Comportamento geral do agente")
+            st.markdown("- **Mensagem User**: Template que recebe os dados do documento (variáveis obrigatórias devem ser mantidas)")
             
             st.markdown("**Importante:**")
-            st.markdown("- Todas as variáveis obrigatórias devem permanecer no template")
+            st.markdown("- Mantenha todas as variáveis obrigatórias no template User")
             st.markdown("- Use **'Reset Todos'** para restaurar as instruções padrão")
             
             st.markdown("---")
             
             st.markdown("### 📄 Como Gerenciar Regras de Conformidade")
             
-            st.markdown("As regras definem o que a IA verifica no contrato (conformidade com suas cláusulas de referência).")
+            st.markdown("As regras definem o que a IA verifica no contrato (conformidade com cláusulas de referência).")
             
             st.markdown("**Adicionar nova regra:**")
             st.markdown("1. Em **Configurações**, clique em **'Adicionar cláusula'**")
             st.markdown("2. Preencha:")
             st.markdown("   - **Nome da cláusula** (obrigatório): Ex.: _Confidencialidade de dados_, _Prazo de vigência_")
-            st.markdown("   - **Descrição** (obrigatório): O que deve ser verificado no contrato")
-            st.markdown("   - **Buscar em** (obrigatório): Palavras-chave para localizar trechos relevantes. Ex.: _vigência_, _prazo_, _confidencialidade_")
+            st.markdown("   - **Descrição** (obrigatório): O que a IA deve verificar no contrato — critério de conformidade")
+            st.markdown("   - **Buscar em** (obrigatório): Palavras-chave para busca semântica. Ex.: _vigência_, _prazo_, _confidencialidade_")
             st.markdown("   - **Como corrigir** (opcional): Sugestão de redação para correção")
             st.markdown("   - **Cláusula ativa**: Marque para incluir na análise")
             st.markdown("3. Clique em **'Salvar Cláusula'** — a base de regras é atualizada automaticamente")
             
             st.markdown("**Editar ou excluir:**")
-            st.markdown("- Use o botão **✏️** para editar uma regra e **❌** para excluir")
-            st.markdown("- Confirme em **'Confirmar Exclusão'** quando for excluir")
+            st.markdown("- Use **✏️** para editar e **❌** para excluir cada regra na lista")
+            st.markdown("- Confirme em **'Confirmar Exclusão'** ao excluir")
             
             st.markdown("**Atualização da base:**")
-            st.markdown("- Ao **adicionar**, **editar** ou **excluir** regras, a base é atualizada automaticamente")
+            st.markdown("- A base é atualizada automaticamente ao **adicionar**, **editar** ou **excluir** regras")
             st.markdown("- Use **'Atualizar Base de Regras'** ao trocar o **modelo de IA** ou o **idioma do contrato**")
             
             st.markdown("**Visualizar:**")
-            st.markdown("- As regras do tipo de contrato atual aparecem na sidebar, com opção de editar (✏️) ou excluir (❌).")
+            st.markdown("- As regras aparecem na sidebar do tipo de contrato atual, com editar (✏️) e excluir (❌).")
 
 # ========= Sidebar - Histórico de Análises =========
 def sidebar_historico():
