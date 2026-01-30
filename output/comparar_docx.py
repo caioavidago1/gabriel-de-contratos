@@ -7,14 +7,20 @@ import os
 import sys
 import platform
 
+
 if platform.system() != 'Windows':
     # Adiciona o caminho do LibreOffice ao sys.path para encontrar 'uno'
     libreoffice_path = '/usr/lib/python3/dist-packages'
     if libreoffice_path not in sys.path:
         sys.path.insert(0, libreoffice_path)
+    
+    # ✅ IMPORTS UNO AQUI (FORA DAS FUNÇÕES)
+    import uno
+    from com.sun.star.beans import PropertyValue
+    from com.sun.star.connection import NoConnectException
+
 
 from typing import Optional
-
 from docx import Document
 
 
