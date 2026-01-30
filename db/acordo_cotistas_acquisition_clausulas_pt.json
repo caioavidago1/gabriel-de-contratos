@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Composição do conselho sem maioria para o investidor",
+    "buscar_em": "conselho de administração, board, composição, indicação, membros, cadeiras",
+    "regra_spectra": "Em aquisições de controle, Spectra deve ter: (1) maioria absoluta do conselho (mínimo 3 de 5); (2) direito de indicar chairman com voto de qualidade; (3) direito de substituir indicados a qualquer tempo; (4) quorum de instalação que permita reuniões sem minoritários; (5) vedação a alternates sem aprovação.",
+    "como_corrigir": "Estabelecer: 'Conselho: 5 membros, sendo (i) 3 indicados por Spectra (incluindo Chairman com voto de qualidade); (ii) 2 por minoritários. Spectra pode substituir seus indicados a qualquer tempo. Quorum: maioria absoluta (3). Alternates apenas com aprovação prévia da maioria.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Matérias reservadas ao conselho muito restritas",
+    "buscar_em": "competência, atribuições, conselho, aprovação, matérias reservadas",
+    "regra_spectra": "Conselho deve ter competência exclusiva sobre decisões estratégicas: (1) budget anual e revisões >10%; (2) investimentos >threshold (ex: R$ 500k); (3) contratação/demissão C-level; (4) aprovação de contratos materiais (>R$ 1M ou >12 meses); (5) transações com partes relacionadas; (6) política de endividamento; (7) abertura/fechamento de unidades.",
+    "como_corrigir": "Definir: 'Competência Exclusiva do Conselho: (i) budget e revisões >10%; (ii) investimentos >R$ 500k; (iii) contratação/demissão C-level; (iv) contratos >R$ 1M ou >12 meses; (v) transações relacionadas >R$ 100k; (vi) dívida >R$ X; (vii) abertura/fechamento filiais; (viii) distribuição dividendos.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Remuneração de executivos sem aprovação do conselho",
+    "buscar_em": "remuneração, salários, bônus, stock options, benefícios, compensação",
+    "regra_spectra": "Remuneração de C-level deve: (1) ser aprovada pelo conselho anualmente; (2) ter parte variável atrelada a KPIs objetivos (EBITDA, receita, metas); (3) bônus limitado (ex: máximo 50-100% do fixo); (4) stock options com vesting e boas práticas; (5) vedação a aumentos >20% a.a. sem justificativa.",
+    "como_corrigir": "Estabelecer: 'Remuneração C-level: (i) aprovada anualmente pelo Conselho; (ii) parte variável máximo 80% do fixo, atrelada a KPIs (EBITDA 50%, receita 30%, qualitativo 20%); (iii) stock options com vesting 4 anos; (iv) reajustes >IPCA requerem justificativa e aprovação específica.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Vesting de quotas de management inadequado",
+    "buscar_em": "vesting, aquisição, management shares, quotas, fundadores, cliff",
+    "regra_spectra": "Management equity deve ter: (1) vesting de 4 anos; (2) cliff de 1 ano (nada veste antes); (3) aceleração apenas em good leaver involuntário ou exit; (4) bad leaver: recompra a custo; (5) good leaver: fórmula de valuation clara; (6) non-compete durante vesting.",
+    "como_corrigir": "Definir: 'Management (15% do capital): (i) vesting 4 anos (25% por ano); (ii) cliff 1 ano; (iii) bad leaver: recompra a custo; (iv) good leaver: valuation = média EBITDA 12 meses x múltiplo da transação; (v) aceleração 50% se exit >1,5x investimento Spectra; (vi) non-compete 2 anos durante vesting.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Direitos econômicos preferenciais insuficientes",
+    "buscar_em": "preferência, liquidação, dividendos, waterfall, preferencial, prioridade",
+    "regra_spectra": "Spectra deve ter preferência de liquidação: (1) retorno de 1x capital investido antes de qualquer distribuição aos demais; (2) após: participação pro-rata nos demais valores; (3) dividendos: pro-rata após alcançar retorno mínimo; (4) não-cumulativo (não acumula preferência dividendos); (5) conversível em ordinária se interessante.",
+    "como_corrigir": "Estabelecer: 'Preferência: (i) na liquidação ou exit: Spectra recebe 1x capital antes de qualquer distribuição; (ii) saldo: distribuído pro-rata entre todos; (iii) dividendos anuais: pro-rata, sem preferência; (iv) não-cumulativo; (v) Spectra pode converter em ordinárias se exit implica retorno >3x.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de call option para minoritários",
+    "buscar_em": "call option, opção de compra, put, opção de venda, compra compulsória",
+    "regra_spectra": "Spectra deve ter call option sobre quotas de minoritários: (1) exercível após 3-5 anos; (2) valuation: fórmula clara (ex: 6-8x EBITDA médio últimos 2 anos); (3) pagamento: parte em dinheiro (mínimo 50%), parte diferido; (4) exercício por evento (IPO, venda, deadlock); (5) minoritário não tem put (exceto em caso de deadlock ou breach).",
+    "como_corrigir": "Incluir: 'Call Option: (i) Spectra pode comprar quotas minoritários após 5 anos; (ii) preço: 7x EBITDA médio últimos 24 meses; (iii) pagamento: 60% no closing, 40% em 18 meses (com juros CDI); (iv) exercício também se IPO ou oferta terceiro >1,2x valuation. Minoritário tem put apenas se deadlock >6 meses.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Transações com partes relacionadas sem aprovação independente",
+    "buscar_em": "partes relacionadas, related parties, conflito de interesse, transações, contratos",
+    "regra_spectra": "Transações com partes relacionadas (sócios, gestores, empresas coligadas) devem ter: (1) divulgação total ao conselho; (2) aprovação de conselheiros independentes ou maioria sem conflito; (3) termos arms-length (mercado); (4) fairness opinion se material (>5% receita/patrimônio); (5) ratificação anual.",
+    "como_corrigir": "Estabelecer: 'Transações Relacionadas: (i) divulgação prévia ao Conselho com 15 dias; (ii) aprovação de conselheiros sem conflito; (iii) se >R$ 500k: fairness opinion; (iv) termos devem ser arms-length; (v) ratificação anual das transações em Assembleia. Vedado remunerar minoritários ou partes relacionadas sem aprovação.'"
+  }
+]

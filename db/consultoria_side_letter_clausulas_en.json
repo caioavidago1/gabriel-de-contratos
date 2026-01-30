@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Consulting scope too broad or vague",
+    "buscar_em": "scope, services, activities, consulting, advisory",
+    "regra_spectra": "Consulting/advisory scope must be specific and limited: (1) maximum monthly hours (e.g.: 20-40h); (2) defined topics (strategy, M&A, fundraising); (3) clear deliverables; (4) prohibition of day-to-day operational work; (5) right to decline projects beyond scope; (6) reimbursement of pre-approved expenses.",
+    "como_corrigir": "Define: 'Scope: (i) up to 30h/month strategic consulting in: fundraising, M&A, governance, investor relations; (ii) participation in 2 monthly board/advisory meetings; (iii) Consultant may decline operational work; (iv) extraordinary expenses reimbursed if pre-approved.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Consulting compensation without cap or structure",
+    "buscar_em": "compensation, fees, payment, retainer",
+    "regra_spectra": "Compensation must have: (1) reasonable fixed monthly fee (retainer); (2) success fee if any (e.g.: % of amount raised in fundraising, % of deal in M&A) with cap; (3) prohibition of accumulation with management fee if consultant is GP of investor fund; (4) monthly advance or arrears payment; (5) annual inflation adjustment.",
+    "como_corrigir": "Establish: 'Compensation: (i) R$ X/month retainer (annual IPCA adjustment); (ii) success fee: 1% of amount raised in successful fundraising (R$ Y cap); 1.5% of enterprise value in closed M&A (R$ Z cap). If Consultant is investor fund GP: no retainer accumulation (only success fee).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Indefinite term without termination possibility",
+    "buscar_em": "term, duration, period, termination, notice",
+    "regra_spectra": "Contract must have: (1) initial fixed term (12-24 months) with automatic renewal; or (2) indefinite term with right of unmotivated termination upon notice (60-90 days); (3) immediate termination for cause (breach, conflict of interest); (4) effects of termination on success fees (pro-rata if deals in progress).",
+    "como_corrigir": "Define: 'Term: 24 months, automatic renewal for 12-month periods. Either party may terminate unmotivatedly with 90-day notice. Immediate termination if: material breach, undisclosed conflict of interest. Success fees: if termination during ongoing deal, consultant receives pro-rata if deal closes within 180 days.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Insufficient confidentiality and NDA",
+    "buscar_em": "confidentiality, secrecy, NDA, information, data",
+    "regra_spectra": "Consultant must sign robust NDA: (1) all company information is confidential; (2) exclusive use for consulting purposes; (3) prohibition of sharing with third parties (except advisors with NDA); (4) return/destruction of materials at termination; (5) 2-3 year survival after termination; (6) penalties for violation.",
+    "como_corrigir": "Include: 'Confidentiality: (i) all information is confidential; (ii) exclusive use for consulting; (iii) prohibited to share (except advisors with NDA); (iv) return/destruction at termination; (v) obligation survives 3 years; (vi) violation: R$ X fine + indemnification for proven losses + injunction.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Conflicts of interest poorly addressed",
+    "buscar_em": "conflict, interest, prohibition, competition, exclusivity, incompatibility",
+    "regra_spectra": "Must have: (1) disclosure of all current and potential conflicts; (2) prohibition of simultaneous consulting for direct competitors; (3) permission for other non-conflicting consultancies; (4) duty to inform new conflicts; (5) resolution procedure if conflict arises (waiver or termination); (6) no exclusivity for consultant (may have other clients).",
+    "como_corrigir": "Establish: 'Conflicts: (i) Consultant discloses all current conflicts (Annex); (ii) prohibited simultaneous consulting to direct competitors in same sector; (iii) other consultancies allowed; (iv) duty to inform new conflicts within 5 days; (v) if material conflict arises: Company may require termination or Consultant ceases conflicting relationship.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "IP and derivative works without clear assignment",
+    "buscar_em": "intellectual property, IP, work, deliverables, assignment, copyright",
+    "regra_spectra": "Clarify IP ownership: (1) work product and deliverables are 'work for hire' and belong to company; (2) total assignment of copyrights and generated IP; (3) consultant waives moral rights as permitted by law; (4) unlimited right of use/modification by company; (5) consultant warrants no third party IP violation.",
+    "como_corrigir": "Define: 'IP: (i) all work products are Company's work for hire; (ii) total, irrevocable, worldwide assignment of copyrights and IP to Company; (iii) waiver of moral rights to maximum extent of law; (iv) Company may use, modify, license freely; (v) Consultant warrants no third party IP violation; shall indemnify if violation.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Lack of independence clause (no employment relationship)",
+    "buscar_em": "independence, autonomous, employment, subordination, contractor",
+    "regra_spectra": "Make clear it is service provision relationship, not employment: (1) consultant is independent; (2) no subordination, fixed hours or exclusivity; (3) consultant may have other clients; (4) no employment benefits (vacation, 13th salary, FGTS); (5) each party bears its tax/social security obligations; (6) consultant provides services via legal entity (ideally).",
+    "como_corrigir": "Include: 'Independent Relationship: (i) Consultant is autonomous provider, no employment relationship; (ii) no subordination, hours or exclusivity; (iii) Consultant may have other clients; (iv) no employment benefits; (v) Consultant bears its taxes/social security; (vi) Consultant provides via legal entity [name]. Any labor claim: Consultant shall indemnify Company.'"
+  }
+]

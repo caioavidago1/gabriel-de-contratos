@@ -2,14 +2,13 @@
 Agent 3: Verificador de Violações
 Analisa regra + top 5 chunks do contrato.
 analisar_regra_chunks(regra, top_5_chunks) -> eh_violacao, problema, chunk, regra.
-
-Nota: Este agente usa prompts inline. Os arquivos prompts/agent1_* (Verificador)
-existem para a UI/edição; uma refatoração futura pode carregá-los via
-carregar_prompt_tipo(tipo, "agent1", "system"|"user").
+Prompts carregados de prompts/<tipo>/agent3_system.txt e agent3_user.txt.
 """
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
+
+from analise.agent import carregar_prompt_tipo
 
 
 class ResultadoVerificacaoRegra(BaseModel):
@@ -22,8 +21,19 @@ class ResultadoVerificacaoRegra(BaseModel):
 class AgentVerificador:
     """Analisa possíveis violações: regra Spectra + 5 trechos do contrato."""
 
-    def __init__(self, llm):
+    def __init__(self, llm, tipo_contrato: Optional[str] = None, idioma: str = "pt"):
         self.llm = llm
+        self.tipo_contrato = tipo_contrato or "_defaults"
+        self.idioma = idioma
+
+    def _criar_prompt(self) -> ChatPromptTemplate:
+        """Monta o prompt a partir dos arquivos em prompts/<tipo>/agent3_*.txt."""
+        system_msg = carregar_prompt_tipo(self.tipo_contrato, "agent3", "system", self.idioma)
+        user_msg = carregar_prompt_tipo(self.tipo_contrato, "agent3", "user", self.idioma)
+        return ChatPromptTemplate.from_messages([
+            ("system", system_msg),
+            ("human", user_msg),
+        ])
 
     def analisar_regra_chunks(
         self,
@@ -41,31 +51,21 @@ class AgentVerificador:
                 "chunk": None,
                 "regra": regra,
             }
-        regra_spectra = regra.get("regra_spectra", "").strip()
-        titulo_regra = regra.get("titulo", "Regra")
-        chunks_texto = "\n\n---\n\n".join(
+        descricao_regra = regra.get("regra_spectra", "").strip()
+        nome_regra = regra.get("titulo", "Regra")
+        trechos_contrato = "\n\n---\n\n".join(
             f"Trecho {i+1} (título: {c.get('titulo', '')[:80]}):\n{c.get('texto', '')}"
             for i, c in enumerate(top_5_chunks)
         )
-        prompt_regra = ChatPromptTemplate.from_messages([
-            ("system",
-             "Você é um especialista em análise de contratos. Dada uma REGRA SPECTRA e 5 trechos de contrato, "
-             "decida se ALGUM dos trechos potencialmente INFringe a regra. Seja objetivo: só marque violação se "
-             "o trecho claramente contrariar a regra. Responda com eh_violacao (true/false), problema (descrição breve) "
-             "e chunk_index (1 a 5; qual trecho viola; 0 se nenhum)."),
-            ("human",
-             "REGRA SPECTRA ({titulo_regra}):\n{regra_spectra}\n\n"
-             "TRECHOS DO CONTRATO:\n{chunks_texto}\n\n"
-             "Algum trecho infringe a regra? Responda no formato estruturado.")
-        ])
+        prompt_regra = self._criar_prompt()
         chain = prompt_regra | self.llm.with_structured_output(
             ResultadoVerificacaoRegra, method="json_schema"
         )
         try:
             out = chain.invoke({
-                "titulo_regra": titulo_regra,
-                "regra_spectra": regra_spectra,
-                "chunks_texto": chunks_texto,
+                "nome_regra": nome_regra,
+                "descricao_regra": descricao_regra,
+                "trechos_contrato": trechos_contrato,
             })
         except Exception:
             return {

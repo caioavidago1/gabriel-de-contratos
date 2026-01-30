@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Matérias reservadas insuficientes para minoritário",
+    "buscar_em": "matérias reservadas, veto, aprovação, quorum qualificado, deliberações",
+    "regra_spectra": "Investidor minoritário (Spectra em deals search/venture) deve ter veto sobre: (1) alteração do capital social; (2) mudança do objeto social; (3) fusão, incorporação, cisão; (4) venda de ativos relevantes (>15% patrimônio); (5) endividamento acima de limites; (6) transações com partes relacionadas materiais; (7) alteração do acordo de sócios; (8) liquidação.",
+    "como_corrigir": "Estabelecer: 'Matérias de Veto (aprovação unânime): (i) alteração capital; (ii) mudança objeto; (iii) M&A; (iv) venda ativos >15% do patrimônio; (v) dívida >2x EBITDA; (vi) transações relacionadas >R$ X; (vii) alteração deste acordo; (viii) liquidação.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Tag-along inferior a 100% ou sem proteção",
+    "buscar_em": "tag-along, direito de venda conjunta, co-sale, venda, transferência",
+    "regra_spectra": "Tag-along deve ser 100% (mesmas condições do vendedor controlador) para todas as quotas/ações, independente de classe. Sem distinção entre venda de controle e venda ordinária. Deve incluir venda indireta (venda de holding, reorganização societária).",
+    "como_corrigir": "Definir: 'Tag-along de 100%: todos sócios podem vender suas quotas nas mesmas condições do sócio vendedor (preço, forma de pagamento). Aplica-se a: (i) venda direta; (ii) venda indireta (holding); (iii) reorganizações societárias que resultem em mudança de controle. Sem distinção por classe de quotas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Drag-along sem valuation mínimo ou proteção",
+    "buscar_em": "drag-along, venda forçada, arrasto, obrigação de venda",
+    "regra_spectra": "Drag-along (obrigação de vender) só pode ser exercido se: (1) oferta de terceiro de boa-fé; (2) valuation ≥ último investimento ou >1,5x-2x investimento da Spectra; (3) oferta em dinheiro ou com escrow para parte diferida; (4) comprador qualificado (não competidor direto sem aprovação); (5) termos de R&W razoáveis.",
+    "como_corrigir": "Limitar: 'Drag-along exercível apenas se: (i) oferta bona fide de terceiro; (ii) valuation ≥ 1,5x investimento Spectra ou ≥ valuation da última rodada; (iii) ≥70% em dinheiro no closing; (iv) R&W limitadas (basket 1%, cap 20%, sobrevivência 18 meses); (v) comprador não pode ser competidor sem aprovação Spectra.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Direito de preferência muito amplo ou com prazo curto",
+    "buscar_em": "direito de preferência, right of first refusal, ROFR, ROFO, preempção",
+    "regra_spectra": "Direito de preferência deve ter: (1) prazo razoável para exercício (20-30 dias); (2) mesmas condições da oferta de terceiro; (3) não aplicável em transferências entre fundos do mesmo grupo ou estate planning; (4) vendedor pode aceitar oferta 5-10% superior sem reoferecer.",
+    "como_corrigir": "Estabelecer: 'ROFR: (i) prazo 30 dias para exercer; (ii) mesmas condições da oferta; (iii) exceções: transferências intra-grupo, estate planning, transferências a veículos do mesmo investidor. Se não exercido: vendedor livre para vender ao terceiro por preço ≥95% da oferta original.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Direitos de informação inadequados ou limitados",
+    "buscar_em": "direito de informação, acesso, relatórios, demonstrações financeiras, reuniões",
+    "regra_spectra": "Investidor deve ter: (1) demonstrações financeiras mensais (15 dias após mês); (2) anuais auditadas (120 dias); (3) budget anual e revisões; (4) acesso a management (reuniões trimestrais); (5) direito de indicar auditor; (6) direito de vistoriar livros mediante aviso razoável; (7) notificação imediata de eventos materiais.",
+    "como_corrigir": "Assegurar: 'Informação: (i) financeiro mensal (15 dias); (ii) anual auditado (120 dias); (iii) budget até 30/nov; (iv) reuniões trimestrais com gestão; (v) Spectra pode indicar 1 auditor; (vi) acesso a livros com 5 dias de aviso; (vii) notificação imediata: litígios >R$ X, mudança gestores-chave, eventos adversos materiais.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Distribuição de dividendos sem política ou discricionária",
+    "buscar_em": "dividendos, distribuição, lucros, política de dividendos, payout",
+    "regra_spectra": "Deve haver política de distribuição: (1) percentual mínimo do lucro (ex: 25-50%); (2) periodicidade (anual ou semestral); (3) retenção permitida apenas para investimentos aprovados no budget ou reservas legais/estatutárias; (4) distribuição proporcional à participação (sem preferência); (5) pedidos especiais com aprovação qualificada.",
+    "como_corrigir": "Estabelecer: 'Dividendos: (i) distribuição mínima 40% do lucro líquido anual; (ii) pagamento até março/ano seguinte; (iii) retenção > 60% requer aprovação de 75% dos sócios; (iv) distribuição pro-rata (sem preferência); (v) distribuições extraordinárias podem ser solicitadas por sócios com 66%+.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Proteção anti-diluição ausente ou insuficiente",
+    "buscar_em": "anti-diluição, anti-dilution, down round, proteção, ajuste, diluição",
+    "regra_spectra": "Investidor minoritário deve ter proteção anti-diluição em down rounds: (1) full ratchet (ideal) ou weighted average (aceitável); (2) exceções: diluição por stock options (pool pré-aprovado), conversão de dívida pré-existente; (3) ajuste automático de preço ou direito a quotas adicionais; (4) notificação prévia de nova rodada com direito de participar pro-rata.",
+    "como_corrigir": "Incluir: 'Anti-diluição: se rodada futura a valuation <80% desta rodada, Spectra terá ajuste de preço (weighted average). Exceções: (i) stock options do pool pré-aprovado (15%); (ii) conversão dívida existente. Spectra tem direito de preferência pro-rata em qualquer nova rodada (notificação 20 dias antes).'"
+  }
+]

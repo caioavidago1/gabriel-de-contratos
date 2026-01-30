@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Declarações e garantias sem limitação temporal",
+    "buscar_em": "declarações, garantias, representations, warranties, sobrevivência, survival, prazo",
+    "regra_spectra": "Declarações e garantias devem ter prazo de sobrevivência limitado, idealmente 18 a 24 meses após o closing, exceto para questões tributárias e trabalhistas (3-5 anos) e titularidade das quotas (sem limitação). Evitar sobrevivência indefinida.",
+    "como_corrigir": "Incluir: 'As declarações e garantias desta Cláusula sobreviverão por 24 (vinte e quatro) meses após a Data de Fechamento, exceto: (i) questões tributárias e trabalhistas: 60 (sessenta) meses; (ii) titularidade das Quotas: sem limitação temporal.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Indenização ilimitada ou sem basket/cap",
+    "buscar_em": "indenização, indenizar, perdas, danos, responsabilidade, basket, cap, limite, franquia",
+    "regra_spectra": "Obrigação de indenização deve ter: (1) basket (franquia) de 0,5% a 1% do valor da transação; (2) cap (teto) de 10% a 30% do preço; (3) de minimis por reclamação individual. Questões fundamentais (titularidade, capacidade) podem ter cap mais alto.",
+    "como_corrigir": "Adicionar: 'A indenização terá: (a) basket de 1% do Preço de Compra; (b) cap de 20% do Preço de Compra; (c) de minimis de R$ 10.000 por reclamação, exceto para violações relacionadas à titularidade das Quotas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Condições precedentes excessivas ou subjetivas",
+    "buscar_em": "condições precedentes, conditions precedent, closing, satisfação, aprovação",
+    "regra_spectra": "Condições precedentes devem ser objetivas, verificáveis e com prazo definido. Evitar condições subjetivas como 'a critério exclusivo do Comprador' ou 'satisfação razoável'. Preferir waiver unilateral pelo Comprador para condições em seu benefício.",
+    "como_corrigir": "Limitar a: 'Condições Precedentes objetivas: (i) aprovação do CADE (se aplicável); (ii) ausência de MAC (conforme definido); (iii) cumprimento de obrigações pré-closing. Comprador pode renunciar unilateralmente às condições em seu benefício.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Cláusula MAC (Material Adverse Change) muito ampla",
+    "buscar_em": "material adverse, efeito adverso, MAC, mudança adversa, alteração adversa",
+    "regra_spectra": "Cláusula MAC deve: (1) definir claramente o que constitui MAC (impacto >15-20% no EBITDA ou valor); (2) excluir mudanças gerais de mercado, macroeconômicas, mudanças regulatórias gerais; (3) ter período de análise definido (últimos 12-24 meses).",
+    "como_corrigir": "Definir: 'MAC significa evento que reduza o EBITDA anualizado em mais de 20% comparado aos últimos 12 meses, excluindo: (i) mudanças macroeconômicas gerais; (ii) mudanças no setor aplicáveis a todos os competidores; (iii) atos do Comprador.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Earn-out sem critérios objetivos de cálculo",
+    "buscar_em": "earn-out, earnout, pagamento diferido, contingente, metas, performance",
+    "regra_spectra": "Earn-out deve ter: (1) métricas objetivas e auditáveis (EBITDA, receita); (2) metodologia de cálculo detalhada; (3) controles do vendedor (acesso a informações, direito de auditar); (4) proibição de atos que prejudiquem o earn-out; (5) prazo máximo de 2-3 anos.",
+    "como_corrigir": "Incluir: 'Earn-out baseado em EBITDA auditado conforme práticas contábeis consistentes. Vendedor terá: (i) acesso mensal às informações financeiras; (ii) direito de auditar uma vez por ano; (iii) Comprador não poderá tomar decisões que materialmente prejudiquem o earn-out sem anuência do Vendedor.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Falta de proteção para minoritário no acordo de quotistas",
+    "buscar_em": "minoritário, minoritários, proteção, veto, aprovação, consent, consentimento, drag, tag",
+    "regra_spectra": "Se houver minoritário (vendedor retendo participação), deve haver: (1) matérias de veto (aprovação do minoritário) para decisões estruturais; (2) tag-along de 100%; (3) direito de informação; (4) drag-along apenas se oferta >100% do valuation implícito; (5) proteção anti-diluição.",
+    "como_corrigir": "Adicionar: 'Vendedor (minoritário) terá: (i) veto sobre fusões, venda de ativos relevantes, alteração do objeto social; (ii) tag-along de 100%; (iii) acesso trimestral às demonstrações financeiras; (iv) drag-along apenas se oferta ≥ 120% do valuation desta transação.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ajuste de preço sem proteção para Working Capital",
+    "buscar_em": "ajuste de preço, price adjustment, working capital, capital de giro, dívida líquida, net debt",
+    "regra_spectra": "Mecanismo de ajuste de preço deve: (1) definir target de working capital (média dos últimos 12 meses); (2) definir net debt (incluir/excluir itens específicos); (3) ajuste peso-por-peso (dollar-for-dollar); (4) auditoria por big four; (5) processo de resolução de disputas (expert determinatio).",
+    "como_corrigir": "Definir: 'Preço ajustado por: (i) Working Capital Real vs Target (média últimos 12 meses): ajuste R$ 1,00 por R$ 1,00; (ii) Net Debt (definida no Anexo X): ajuste R$ 1,00 por R$ 1,00. Auditoria pela [Big Four]. Disputas resolvidas por expert determinatio.'"
+  }
+]

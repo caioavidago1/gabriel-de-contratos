@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Declarações Spectra muito amplas em desinvestimento",
+    "buscar_em": "declarações, garantias, vendedor, seller, representations, warranties",
+    "regra_spectra": "Em desinvestimento (Spectra vendendo), limitar declarações ao mínimo: titularidade das quotas, capacidade, ausência de gravames. Evitar declarações operacionais (usar 'as is' ou qualificação severa de conhecimento). Inserir cláusula expressa de 'as is, where is'.",
+    "como_corrigir": "Limitar a: 'Vendedor declara apenas: (i) titularidade plena das Quotas; (ii) capacidade; (iii) ausência de gravames. DEMAIS DECLARAÇÕES: O NEGÓCIO É VENDIDO \"AS IS, WHERE IS\". Comprador teve acesso ao Data Room e renuncia a reclamações sobre informações disponibilizadas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Obrigação de indenizar sem fund para pagamento",
+    "buscar_em": "indenização, indenizar, garantia, escrow, seguro, W&I insurance",
+    "regra_spectra": "Em desinvestimento, preferir: (1) W&I insurance (buy-side) custeada pelo comprador; ou (2) escrow limitado (5-10% por 12-18 meses). Evitar responsabilidade pessoal ilimitada. Cap deve ser limitado ao preço recebido (não múltiplos).",
+    "como_corrigir": "Estabelecer: 'Indenizações limitadas a escrow de 10% do Preço por 18 meses. Vendedor não terá responsabilidade adicional. Comprador poderá contratar W&I insurance às suas expensas para cobertura adicional.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Retenção excessiva de preço (earn-out ou holdback)",
+    "buscar_em": "pagamento, preço, retenção, earn-out, holdback, diferido, parcelas",
+    "regra_spectra": "Em desinvestimento, maximizar pagamento no closing (mínimo 80-90%). Earn-out somente se: (1) Spectra mantiver alguma influência na gestão; (2) métricas objetivas; (3) prazo máximo 24 meses; (4) piso garantido mínimo.",
+    "como_corrigir": "Estruturar: '90% do Preço pago no Closing. Earn-out de até 10% baseado em EBITDA ano 1, com piso mínimo garantido de 5%. Vendedor terá assento no board durante período de earn-out.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Obrigações pós-closing sem limitação temporal",
+    "buscar_em": "obrigações, covenants, pós-closing, transition, transição, assistência",
+    "regra_spectra": "Limitar obrigações de transição a 6-12 meses. Transition services devem ser remunerados (custo + markup). Cooperation em disputas: apenas se reembolsado (tempo + despesas). Proibir non-compete >2 anos.",
+    "como_corrigir": "Limitar a: 'Transition services por 6 meses, remunerados a custo + 15%. Cooperation em litígios: se reembolsado tempo (R$ X/hora) + despesas. Non-compete: 24 meses, território Brasil, escopo limitado ao Negócio vendido.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Condições precedentes controladas pelo comprador",
+    "buscar_em": "condições precedentes, conditions, closing, due diligence, satisfação, aprovação",
+    "regra_spectra": "Evitar condições subjetivas ('satisfação do comprador'). Condições devem ser objetivas, com prazo certo para cumprimento (60-90 dias). Break fee se comprador não cumprir condições sob seu controle. Direito de waiver apenas para condições em benefício do comprador.",
+    "como_corrigir": "Definir: 'Condições objetivas: (i) CADE (90 dias); (ii) ausência de MAC. Se Comprador não obtiver CADE por ato próprio: break fee de 5% do Preço ao Vendedor. Comprador pode waiver condições em seu benefício.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Cláusula de MAC favorecendo o comprador",
+    "buscar_em": "MAC, material adverse, efeito adverso, mudança adversa, rescisão",
+    "regra_spectra": "Em desinvestimento, MAC deve ter threshold alto (>25-30% EBITDA) e período curto de análise (últimos 3-6 meses). Excluir mudanças conhecidas, divulgadas no Data Room, ou resultantes de atos do comprador/pandemia/guerra.",
+    "como_corrigir": "Definir: 'MAC = redução >30% no EBITDA mensal nos 3 meses pré-closing vs média 12 meses anteriores, excluindo: (i) fatos divulgados no Data Room; (ii) COVID/pandemia; (iii) mudanças econômicas gerais; (iv) atos do Comprador após assinatura.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Responsabilidade por contingências sem cut-off date",
+    "buscar_em": "contingências, passivos, liabilities, responsabilidade, fato gerador, cut-off",
+    "regra_spectra": "Definir claramente cut-off: Vendedor responsável por fatos geradores até o Closing, Comprador após. Contingências conhecidas/divulgadas são assumed liabilities. Contingências desconhecidas pré-closing: responsabilidade do vendedor limitada ao escrow/cap.",
+    "como_corrigir": "Estabelecer: 'Cut-off no Closing. Fatos geradores pré-Closing: Vendedor (limitado a escrow). Fatos geradores pós-Closing: Comprador. Contingências divulgadas no Anexo X: assumed liabilities (Comprador). Descoberta posterior: 180 dias para claim.'"
+  }
+]

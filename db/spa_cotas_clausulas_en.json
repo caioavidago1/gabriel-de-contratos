@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Representations and warranties without time limitation",
+    "buscar_em": "representations, warranties, survival, term, period, time limit",
+    "regra_spectra": "Representations and warranties must have limited survival period, ideally 18 to 24 months after closing, except for tax and labor matters (3-5 years) and ownership of quotas (unlimited). Avoid indefinite survival.",
+    "como_corrigir": "Include: 'The representations and warranties in this Clause shall survive for 24 (twenty-four) months after the Closing Date, except: (i) tax and labor matters: 60 (sixty) months; (ii) ownership of Quotas: no time limitation.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Unlimited indemnification or without basket/cap",
+    "buscar_em": "indemnification, indemnify, losses, damages, liability, basket, cap, limit, threshold",
+    "regra_spectra": "Indemnification obligation must have: (1) basket (deductible) of 0.5% to 1% of transaction value; (2) cap (ceiling) of 10% to 30% of price; (3) de minimis per individual claim. Fundamental matters (ownership, capacity) may have higher cap.",
+    "como_corrigir": "Add: 'Indemnification shall have: (a) basket of 1% of Purchase Price; (b) cap of 20% of Purchase Price; (c) de minimis of R$ 10,000 per claim, except for violations related to ownership of Quotas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Excessive or subjective conditions precedent",
+    "buscar_em": "conditions precedent, closing conditions, satisfaction, approval, consent",
+    "regra_spectra": "Conditions precedent must be objective, verifiable and with defined deadline. Avoid subjective conditions like 'at Buyer's sole discretion' or 'reasonable satisfaction'. Prefer unilateral waiver by Buyer for conditions in its benefit.",
+    "como_corrigir": "Limit to: 'Objective Conditions Precedent: (i) CADE approval (if applicable); (ii) absence of MAC (as defined); (iii) compliance with pre-closing obligations. Buyer may unilaterally waive conditions in its benefit.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "MAC (Material Adverse Change) clause too broad",
+    "buscar_em": "material adverse, adverse effect, MAC, adverse change, material change",
+    "regra_spectra": "MAC clause must: (1) clearly define what constitutes MAC (impact >15-20% on EBITDA or value); (2) exclude general market changes, macroeconomic, general regulatory changes; (3) have defined analysis period (last 12-24 months).",
+    "como_corrigir": "Define: 'MAC means event that reduces annualized EBITDA by more than 20% compared to last 12 months, excluding: (i) general macroeconomic changes; (ii) industry changes applicable to all competitors; (iii) Buyer's acts.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Earn-out without objective calculation criteria",
+    "buscar_em": "earn-out, earnout, deferred payment, contingent, targets, performance, milestone",
+    "regra_spectra": "Earn-out must have: (1) objective and auditable metrics (EBITDA, revenue); (2) detailed calculation methodology; (3) seller controls (access to information, right to audit); (4) prohibition of acts that harm earn-out; (5) maximum term of 2-3 years.",
+    "como_corrigir": "Include: 'Earn-out based on audited EBITDA according to consistent accounting practices. Seller shall have: (i) monthly access to financial information; (ii) right to audit once a year; (iii) Buyer may not take decisions that materially harm earn-out without Seller's consent.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Lack of protection for minority in quotaholders agreement",
+    "buscar_em": "minority, minorities, protection, veto, approval, consent, drag, tag",
+    "regra_spectra": "If there is minority (seller retaining participation), there must be: (1) veto matters (minority approval) for structural decisions; (2) 100% tag-along; (3) information rights; (4) drag-along only if offer >100% of implied valuation; (5) anti-dilution protection.",
+    "como_corrigir": "Add: 'Seller (minority) shall have: (i) veto over mergers, sale of relevant assets, change of corporate purpose; (ii) 100% tag-along; (iii) quarterly access to financial statements; (iv) drag-along only if offer ≥ 120% of this transaction's valuation.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Price adjustment without Working Capital protection",
+    "buscar_em": "price adjustment, working capital, net debt, net working capital, adjustment mechanism",
+    "regra_spectra": "Price adjustment mechanism must: (1) define target working capital (average of last 12 months); (2) define net debt (include/exclude specific items); (3) dollar-for-dollar adjustment; (4) audit by big four; (5) dispute resolution process (expert determination).",
+    "como_corrigir": "Define: 'Price adjusted by: (i) Actual Working Capital vs Target (average last 12 months): R$ 1.00 per R$ 1.00 adjustment; (ii) Net Debt (defined in Annex X): R$ 1.00 per R$ 1.00 adjustment. Audit by [Big Four]. Disputes resolved by expert determination.'"
+  }
+]

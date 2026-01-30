@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Spectra representations too broad in divestment",
+    "buscar_em": "representations, warranties, seller, declares, guarantees",
+    "regra_spectra": "In divestment (Spectra selling), limit representations to minimum: ownership of quotas, capacity, absence of liens. Avoid operational representations (use 'as is' or severe knowledge qualification). Insert express 'as is, where is' clause.",
+    "como_corrigir": "Limit to: 'Seller represents only: (i) full ownership of Quotas; (ii) capacity; (iii) absence of liens. OTHER REPRESENTATIONS: BUSINESS IS SOLD \"AS IS, WHERE IS\". Buyer had access to Data Room and waives claims about information made available.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Indemnification obligation without payment fund",
+    "buscar_em": "indemnification, indemnify, guarantee, escrow, insurance, W&I insurance",
+    "regra_spectra": "In divestment, prefer: (1) W&I insurance (buy-side) paid by buyer; or (2) limited escrow (5-10% for 12-18 months). Avoid unlimited personal liability. Cap must be limited to price received (not multiples).",
+    "como_corrigir": "Establish: 'Indemnifications limited to escrow of 10% of Price for 18 months. Seller shall have no additional liability. Buyer may purchase W&I insurance at its expense for additional coverage.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Excessive price retention (earn-out or holdback)",
+    "buscar_em": "payment, price, retention, earn-out, holdback, deferred, installments",
+    "regra_spectra": "In divestment, maximize payment at closing (minimum 80-90%). Earn-out only if: (1) Spectra retains some management influence; (2) objective metrics; (3) maximum 24-month term; (4) guaranteed minimum floor.",
+    "como_corrigir": "Structure: '90% of Price paid at Closing. Earn-out of up to 10% based on year 1 EBITDA, with guaranteed minimum floor of 5%. Seller shall have board seat during earn-out period.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Post-closing obligations without time limitation",
+    "buscar_em": "obligations, covenants, post-closing, transition, assistance, support",
+    "regra_spectra": "Limit transition obligations to 6-12 months. Transition services must be compensated (cost + markup). Cooperation in disputes: only if reimbursed (time + expenses). Prohibit non-compete >2 years.",
+    "como_corrigir": "Limit to: 'Transition services for 6 months, compensated at cost + 15%. Cooperation in litigation: if reimbursed time (R$ X/hour) + expenses. Non-compete: 24 months, Brazil territory, scope limited to sold Business.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Conditions precedent controlled by buyer",
+    "buscar_em": "conditions precedent, closing conditions, due diligence, satisfaction, approval",
+    "regra_spectra": "Avoid subjective conditions ('buyer satisfaction'). Conditions must be objective, with certain deadline for fulfillment (60-90 days). Break fee if buyer fails to fulfill conditions under its control. Waiver right only for conditions benefiting buyer.",
+    "como_corrigir": "Define: 'Objective conditions: (i) CADE (90 days); (ii) absence of MAC. If Buyer fails to obtain CADE due to its own act: break fee of 5% of Price to Seller. Buyer may waive conditions in its benefit.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "MAC clause favoring buyer",
+    "buscar_em": "MAC, material adverse, adverse effect, adverse change, termination",
+    "regra_spectra": "In divestment, MAC must have high threshold (>25-30% EBITDA) and short analysis period (last 3-6 months). Exclude known changes, disclosed in Data Room, or resulting from buyer acts/pandemic/war.",
+    "como_corrigir": "Define: 'MAC = reduction >30% in monthly EBITDA in 3 months pre-closing vs average of prior 12 months, excluding: (i) facts disclosed in Data Room; (ii) COVID/pandemic; (iii) general economic changes; (iv) Buyer acts after signing.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Contingency liability without cut-off date",
+    "buscar_em": "contingencies, liabilities, responsibility, triggering event, cut-off",
+    "regra_spectra": "Clearly define cut-off: Seller responsible for triggering events until Closing, Buyer after. Known/disclosed contingencies are assumed liabilities. Unknown pre-closing contingencies: seller liability limited to escrow/cap.",
+    "como_corrigir": "Establish: 'Cut-off at Closing. Pre-Closing triggering events: Seller (limited to escrow). Post-Closing triggering events: Buyer. Contingencies disclosed in Annex X: assumed liabilities (Buyer). Later discovery: 180 days for claim.'"
+  }
+]

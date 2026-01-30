@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Escopo de consultoria muito amplo ou vago",
+    "buscar_em": "escopo, serviços, atividades, consultoria, advisory, assessoria",
+    "regra_spectra": "Escopo de consultoria/advisory deve ser específico e limitado: (1) horas mensais máximas (ex: 20-40h); (2) tópicos definidos (estratégia, M&A, fundraising); (3) deliverables claros; (4) vedação a trabalho operacional day-to-day; (5) direito de recusa em projetos que ultrapassem escopo; (6) reembolso de despesas pré-aprovadas.",
+    "como_corrigir": "Definir: 'Escopo: (i) até 30h/mês de consultoria estratégica em: fundraising, M&A, governança, relacionamento investidores; (ii) participação em 2 reuniões mensais board/advisory; (iii) Consultor pode recusar trabalhos operacionais; (iv) despesas extraordinárias reembolsadas se pré-aprovadas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Remuneração de consultoria sem teto ou structure",
+    "buscar_em": "remuneração, honorários, fees, pagamento, compensation, retainer",
+    "regra_spectra": "Remuneração deve ter: (1) fee mensal fixo (retainer) razoável; (2) success fee se houver (ex: % do valor arrecadado em fundraising, % do deal em M&A) com teto; (3) vedação a acúmulo com management fee se consultor for GP de fundo investidor; (4) pagamento mensal adiantado ou vencido; (5) ajuste anual por inflação.",
+    "como_corrigir": "Estabelecer: 'Remuneração: (i) retainer R$ X/mês (ajuste anual IPCA); (ii) success fee: 1% do valor arrecadado em fundraising bem-sucedido (cap R$ Y); 1,5% do enterprise value em M&A fechado (cap R$ Z). Se Consultor for GP de fundo investidor: sem acúmulo de retainer (apenas success fee).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Prazo indeterminado sem possibilidade de rescisão",
+    "buscar_em": "prazo, duração, vigência, término, rescisão, denúncia",
+    "regra_spectra": "Contrato deve ter: (1) prazo determinado inicial (12-24 meses) com renovação automática; ou (2) prazo indeterminado com direito de denúncia imotivada mediante aviso prévio (60-90 dias); (3) rescisão imediata por justa causa (descumprimento, conflito de interesses); (4) efeitos da rescisão sobre success fees (pro-rata se deals em andamento).",
+    "como_corrigir": "Definir: 'Prazo: 24 meses, renovação automática por períodos de 12 meses. Qualquer parte pode denunciar imotivadamente com 90 dias de aviso. Rescisão imediata se: violação material, conflito de interesse não divulgado. Success fees: se rescisão durante deal em curso, consultor recebe pro-rata se deal fechar em 180 dias.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Confidencialidade e NDA insuficientes",
+    "buscar_em": "confidencialidade, sigilo, NDA, informações, dados, segredo",
+    "regra_spectra": "Consultor deve assinar NDA robusto: (1) todas informações da empresa são confidenciais; (2) uso exclusivo para fins de consultoria; (3) vedação a compartilhamento com terceiros (exceto advisors com NDA); (4) devolução/destruição de materiais ao término; (5) sobrevivência de 2-3 anos após término; (6) penalidades por violação.",
+    "como_corrigir": "Incluir: 'Confidencialidade: (i) toda informação é confidencial; (ii) uso exclusivo para consultoria; (iii) vedado compartilhar (exceto advisors com NDA); (iv) devolução/destruição ao término; (v) obrigação sobrevive 3 anos; (vi) violação: multa R$ X + indenização por perdas comprovadas + injunction.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Conflitos de interesse mal endereçados",
+    "buscar_em": "conflito, interesse, vedação, concorrência, exclusividade, incompatibilidade",
+    "regra_spectra": "Deve haver: (1) divulgação de todos conflitos atuais e potenciais; (2) vedação a consultoria simultânea para competidores diretos; (3) permissão para outras consultorias não conflitantes; (4) dever de informar novos conflitos; (5) procedimento de resolução se conflito surgir (waiver ou término); (6) sem exclusividade para consultor (pode ter outros clientes).",
+    "como_corrigir": "Estabelecer: 'Conflitos: (i) Consultor divulga todos conflitos atuais (Anexo); (ii) vedado consultoria simultânea a competidores diretos do mesmo setor; (iii) permitido outras consultorias; (iv) dever de informar novos conflitos em 5 dias; (v) se conflito material surgir: Empresa pode exigir término ou Consultor cessa relação conflitante.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "IP e trabalhos derivados sem cessão clara",
+    "buscar_em": "propriedade intelectual, IP, trabalhos, deliverables, cessão, direitos autorais",
+    "regra_spectra": "Clarificar titularidade de IP: (1) work product e deliverables são 'work for hire' e pertencem à empresa; (2) cessão total de direitos autorais e IP gerado; (3) consultor renuncia a direitos morais no permitido por lei; (4) direito de uso/modificação ilimitado pela empresa; (5) consultor garante não violação de IP de terceiros.",
+    "como_corrigir": "Definir: 'IP: (i) todos work products são work for hire da Empresa; (ii) cessão total, irrevogável, mundial de direitos autorais e IP ao Consultor; (iii) renúncia a direitos morais no máximo da lei; (iv) Empresa pode usar, modificar, licenciar livremente; (v) Consultor garante não violação de IP de terceiros; indenizará se violação.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Falta de cláusula de independência (não vínculo trabalhista)",
+    "buscar_em": "independência, autônomo, vínculo, trabalhista, subordinação, PJ",
+    "regra_spectra": "Deixar claro que é relação de prestação de serviços, não trabalhista: (1) consultor é independente; (2) sem subordinação, horário fixo ou exclusividade; (3) consultor pode ter outros clientes; (4) sem benefícios trabalhistas (férias, 13º, FGTS); (5) cada parte arca com suas obrigações fiscais/previdenciárias; (6) consultor presta serviços via PJ (idealmente).",
+    "como_corrigir": "Incluir: 'Relação Independente: (i) Consultor é prestador autônomo, sem vínculo trabalhista; (ii) sem subordinação, horário ou exclusividade; (iii) Consultor pode ter outros clientes; (iv) sem benefícios trabalhistas; (v) Consultor arca com seus impostos/INSS; (vi) Consultor presta via PJ [nome]. Qualquer reclamação trabalhista: Consultor indenizará Empresa.'"
+  }
+]

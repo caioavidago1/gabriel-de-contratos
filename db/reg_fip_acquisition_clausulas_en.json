@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Transaction approval with very low quorum",
+    "buscar_em": "approval, transaction, acquisition, investment, meeting, quorum, voting",
+    "regra_spectra": "Acquisition transaction (main investment) must have investor approval: (1) qualified quorum 75-80% to approve; (2) veto possibility by anchor investor if any; (3) right to not participate (without dilution) if disagreeing; (4) detailed business plan and valuation presented 30 days in advance.",
+    "como_corrigir": "Establish: 'Main Investment requires: (i) approval by 75% of investors in meeting; (ii) presentation of business plan, valuation and terms 30 days before; (iii) investors who voted against may opt not to contribute their pro-rata share (without dilution).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Capital calls without limitation or deadline",
+    "buscar_em": "capital call, drawdown, contribution, funding, investment",
+    "regra_spectra": "Capital calls must have: (1) minimum advance notice of 10-15 business days; (2) maximum 3-4 calls per year (except emergencies); (3) interest and fine for delay; (4) default consequences (dilution, guarantee enforcement); (5) prohibition of calls to cover portfolio company operational losses.",
+    "como_corrigir": "Define: 'Capital Calls: (i) 15 business days notice before; (ii) maximum 4 per year; (iii) default: 1% p.m. interest + 2% fine + dilution after 30 days or guarantee enforcement. Prohibited calls to cover operational losses (only investments, fund expenses).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Portfolio company governance without investor protection",
+    "buscar_em": "governance, board, administration, veto, approval, portfolio company",
+    "regra_spectra": "Portfolio company governance must have: (1) board majority appointed by fund; (2) reserved matters (mandatory fund approval): mergers, relevant debt, related party transactions, asset sales, change of corporate purpose; (3) unrestricted information rights; (4) right to replace portfolio company managers.",
+    "como_corrigir": "Establish: 'Fund shall have: (i) portfolio company Board majority; (ii) veto over: mergers, debt >R$ X, related transactions >R$ Y, asset sales >10% equity, purpose change; (iii) unrestricted information access; (iv) right to replace CEO/CFO with 75% board approval.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Exit without defined liquidity mechanisms",
+    "buscar_em": "liquidity, exit, IPO, sale, trade sale, put, call",
+    "regra_spectra": "Exit strategy must provide: (1) target deadline for divestment (5-7 years); (2) mechanisms: IPO, strategic sale, secondary sale; (3) put to remaining partner after deadline; (4) right to force sale (100% drag-along) if reasonable offer; (5) 100% tag-along; (6) liquidity priority to fund.",
+    "como_corrigir": "Define: 'Target exit: 7 years. Mechanisms: (i) IPO; (ii) strategic sale. After 7 years: Fund has put to remaining partner at fair value (independent valuation). Fund may force sale (100% drag) if offer >1.2x investment + hurdle. 100% tag-along. Waterfall: Fund has 1x capital + hurdle priority.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Operating partners with disproportionate rights",
+    "buscar_em": "partners, founders, management, founders shares, sweat equity, vesting",
+    "regra_spectra": "Operating partners/management participation must have: (1) 3-4 year vesting; (2) 1-year cliff; (3) good leaver/bad leaver with repurchase; (4) economic subordination (fund receives preference); (5) no fund dilution in future rounds (full anti-dilution); (6) performance milestones for earn-in.",
+    "como_corrigir": "Establish: 'Management: (i) 15% of capital; (ii) 4-year vesting, 1-year cliff; (iii) bad leaver: repurchase at cost; good leaver: independent valuation; (iv) subordination: Fund receives 1x capital + 10% IRR first; (v) Fund full anti-dilution; (vi) earn-in: 10% upfront, 5% if achieves year 3 EBITDA.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Extraordinary expenses without approval",
+    "buscar_em": "expenses, costs, transaction costs, broken deal, advisory, due diligence",
+    "regra_spectra": "Fund expenses must have: (1) annual budget approved by investors; (2) transaction expenses (due diligence, legal, advisory) limited to 3-5% of value; (3) broken deal costs shared; (4) prohibition of double-dipping (manager charging fee AND advisory fees); (5) full transparency (quarterly cost report).",
+    "como_corrigir": "Define: 'Expenses: (i) annual budget approved in meeting; (ii) transaction expenses <5% of investment; (iii) broken deals: shared among all investors pro-rata; (iv) prohibited manager charging advisory fees beyond management fee; (v) detailed quarterly cost report.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of proportional co-sale right",
+    "buscar_em": "tag-along, co-sale, sale, transfer, drag-along",
+    "regra_spectra": "Minority investors must have: (1) 100% tag-along in any sale; (2) drag-along exercisable by fund if offer >1.2x initial investment; (3) right of first refusal in sales between investors; (4) post-IPO lock-up applicable to all equally; (5) prohibition of transfers to competitors without approval.",
+    "como_corrigir": "Establish: '100% tag-along for investors. Drag-along: Fund may force sale if offer ≥1.2x investment + 8% IRR. Right of first refusal: investors have 30 days in secondary sales. Post-IPO lock-up: 180 days for all. Sale to competitors prohibited without 75% approval.'"
+  }
+]

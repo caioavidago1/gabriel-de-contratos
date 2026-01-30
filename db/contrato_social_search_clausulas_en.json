@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Corporate purpose too restrictive limiting pivot",
+    "buscar_em": "corporate purpose, business, activity, object, scope",
+    "regra_spectra": "Corporate purpose must be sufficiently broad to allow pivots and expansion without need for contractual amendment: 'development, commercialization and provision of technology, software, consulting services and related activities'. Avoid very restrictive specifications of single product.",
+    "como_corrigir": "Broaden to: 'Purpose: (i) development and commercialization of software, applications and technology solutions; (ii) provision of technology services, consulting, advisory; (iii) licensing of intellectual property; (iv) any related or complementary activities, in Brazil or abroad.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Excessively high quorum for contractual amendment",
+    "buscar_em": "amendment, modification, reform, quorum, unanimity, qualified majority",
+    "regra_spectra": "Amendments to articles of association must require reasonable qualified majority (75-80%), not unanimity. Unanimity only for: (i) change of control; (ii) amendment of tag/drag rules; (iii) liquidation. Other amendments: 75%. Administrative changes (address, representatives): simple majority or administrators.",
+    "como_corrigir": "Establish: 'Amendments: (i) 75% majority for general amendments; (ii) unanimity only for: control change, tag/drag amendment, liquidation; (iii) administrative changes (headquarters, representative): simple majority or administrators' resolution.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Management without protection for minority investor",
+    "buscar_em": "management, directors, administration, representation, powers",
+    "regra_spectra": "If there is relevant minority investor: (1) require prior approval of advisory board/quotaholders for relevant acts; (2) limit administrators' powers (contracts >R$ X, debt); (3) administrators appointed jointly or with veto right for strategic operations.",
+    "como_corrigir": "Include: 'Administrators may practice ordinary management acts. Require prior Meeting/Board approval: (i) debt >R$ X; (ii) contracts >R$ Y or >12 months; (iii) asset acquisition/sale >R$ Z; (iv) related party transactions; (v) C-level hiring.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Lack of non-dilution clause for investor",
+    "buscar_em": "issuance, new quotas, capital increase, subscription, preemption",
+    "regra_spectra": "Minority investor must have: (1) proportional preemptive right in any capital increase; (2) reasonable exercise period (20-30 days); (3) same conditions as new investors; (4) economic anti-dilution protection in down rounds; (5) exceptions: conversion of pre-existing debt, pre-approved stock option pool.",
+    "como_corrigir": "Add: 'Capital Increase: (i) proportional preemptive right to all quotaholders; (ii) 30-day exercise period; (iii) same conditions as new investors. If down round (<80% prior valuation): anti-dilution adjustment (weighted average). Exceptions: stock options (15% pre-approved pool), debt conversion.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Profit distribution without defined policy",
+    "buscar_em": "profit distribution, dividends, profits, withdrawal, management fee",
+    "regra_spectra": "Articles of association must provide: (1) resolution on profit allocation in annual meeting (by March); (2) minimum distribution percentage (e.g.: 25%); (3) retention for investments must be justified and approved; (4) partners/administrators' management fees set in meeting; (5) distribution proportional to quotas (no preference in articles).",
+    "como_corrigir": "Establish: 'Profits: (i) allocation decided in annual Meeting (by March); (ii) minimum distribution 25% of net profit, except retention approved by 75%; (iii) retention justified by investments in approved budget; (iv) management fees set annually in Meeting; (v) distribution proportional to quotas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Partner withdrawal or exclusion poorly regulated",
+    "buscar_em": "withdrawal, exit, exclusion, partial dissolution, appraisal",
+    "regra_spectra": "Contract must provide: (1) grounds for partner exclusion (just cause: competition, serious violation); (2) procedure: specific meeting, qualified quorum; (3) appraisal: clear criterion (book value, market value, last transaction), payment term; (4) unmotivated withdrawal: possible after X years with prior notice; (5) non-compete after exit.",
+    "como_corrigir": "Define: 'Partner Exclusion: (i) just cause (competition, material breach of this contract, harmful acts); (ii) specific meeting, 75% excluding excludee; (iii) appraisal: last transaction value or independent valuation; 12-installment payment. Unmotivated withdrawal: possible after 5 years with 180-day notice. 24-month non-compete.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Arbitration compromise clause absent",
+    "buscar_em": "arbitration, jurisdiction, venue, dispute resolution, litigation",
+    "regra_spectra": "Articles of association must have arbitration compromise clause: (1) Spectra preference: arbitration (CAM-CCBC, CMA, FGV) in SP; (2) 1 or 3 arbitrators depending on amount; (3) Brazilian law; (4) confidentiality; (5) disputes between partners or partner vs company. Arbitration is faster and more confidential than judicial for corporate conflicts.",
+    "como_corrigir": "Include: 'Arbitration: Conflicts between partners or partner vs company shall be resolved by arbitration at CAM-CCBC (SP), Brazilian law, confidential. 1 arbitrator if amount <R$ 1M, 3 arbitrators if above. Each party appoints 1 arbitrator, both appoint third (chairman). Costs shared equally unless arbitral decision otherwise.'"
+  }
+]

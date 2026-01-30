@@ -74,81 +74,61 @@ def sidebar_informacoes(tipo_nome: str):
     from analise.agent import AGENTES, VARIAVEIS_POR_AGENTE, DESCRICOES_AGENTES
     
     with st.sidebar:
-        with st.expander("ℹ️ Guia: Como editar Prompts e Cláusulas", expanded=False):
-            st.markdown("### 📝 Como Editar Prompts dos Agentes")
+        with st.expander("ℹ️ Guia: Como editar instruções e regras", expanded=False):
+            st.markdown("### 📝 Como Editar Instruções da IA")
             
-            st.markdown("Os prompts são as instruções que os agentes de IA seguem para analisar os contratos. Você pode personalizá-los por tipo de contrato (NDA, SPA, etc.).")
+            st.markdown("As instruções são orientações que a IA segue ao analisar contratos. Você pode personalizá-las por tipo de contrato (NDA, SPA, etc.).")
             
             st.markdown("**Passo a passo:**")
-            st.markdown("1. Na sidebar, clique em **'Editar Prompts dos Agentes'**")
-            st.markdown("2. Digite a **senha de administrador** quando solicitado (para Salvar ou Reset)")
-            st.markdown("3. O editor abre com **uma aba por agente** (Verificador e Reescritor)")
-            st.markdown("4. Em cada aba, edite **Mensagem System** e **Mensagem User** conforme necessário")
-            st.markdown("5. Clique em **'Salvar Todos'** para aplicar as alterações (ou **'Fechar'** para sair sem salvar)")
+            st.markdown("1. Em **Configurações**, clique em **'Editar prompt'** (abaixo de Atualizar Base de Regras)")
+            st.markdown("2. Digite a **senha de administrador** no bloco de acesso quando solicitado")
+            st.markdown("3. O editor abre com **abas para cada tipo de análise**")
+            st.markdown("4. Edite as instruções conforme necessário")
+            st.markdown("5. Clique em **'Salvar Todos'** para aplicar (ou **'Fechar'** para sair sem salvar)")
             
-            st.markdown("**Agentes com prompts editáveis:**")
-            for agent in AGENTES:
+            st.markdown("**Tipos de análise editáveis:**")
+            agentes_editaveis_guia = [a for a in AGENTES if a != "extrator"]
+            for agent in agentes_editaveis_guia:
                 vars_agente = VARIAVEIS_POR_AGENTE.get(agent, [])
                 vars_str = ", ".join([f"`{v}`" for v in vars_agente])
-                st.markdown(f"- **{agent}** — {DESCRICOES_AGENTES.get(agent, '')}")
+                st.markdown(f"- **{DESCRICOES_AGENTES.get(agent, agent)}**")
                 if vars_agente:
-                    st.caption(f"  Variáveis obrigatórias no template User: {vars_str}")
+                    st.caption(f"  Variáveis obrigatórias: {vars_str}")
             
-            st.markdown("**Tipos de prompts:**")
-            st.markdown("- **Mensagem System**: Comportamento geral do agente")
-            st.markdown("- **Mensagem User**: Template com variáveis que recebe os dados do documento")
+            st.markdown("**Tipos de mensagem:**")
+            st.markdown("- **Mensagem System**: Comportamento geral da análise")
+            st.markdown("- **Mensagem User**: Template que recebe os dados do documento")
             
             st.markdown("**Importante:**")
-            st.markdown("- O sistema valida se todas as variáveis obrigatórias estão no template User")
-            st.markdown("- Se faltar alguma variável, um erro será exibido e o salvamento bloqueado")
-            st.markdown("- Use **'Reset Todos'** para restaurar os prompts padrão do tipo de contrato")
+            st.markdown("- Todas as variáveis obrigatórias devem permanecer no template")
+            st.markdown("- Use **'Reset Todos'** para restaurar as instruções padrão")
             
             st.markdown("---")
             
-            st.markdown("### 📄 Como Gerenciar Cláusulas de Referência")
+            st.markdown("### 📄 Como Gerenciar Regras de Conformidade")
             
-            st.markdown("As cláusulas de referência definem as regras que a IA verifica no contrato (busca por similaridade e análise de conformidade).")
+            st.markdown("As regras definem o que a IA verifica no contrato (conformidade com suas cláusulas de referência).")
             
-            st.markdown("**Adicionar nova cláusula:**")
-            st.markdown("1. Na sidebar, em **Configurações**, clique em **'Adicionar cláusula'**")
-            st.markdown("2. Preencha os campos:")
-            st.markdown("   - **Nome da cláusula** (obrigatório): Identificador da regra. Ex.: _Confidencialidade de dados_, _Prazo de vigência_.")
-            st.markdown("   - **Descrição** (obrigatório): O que a IA deve verificar — critério de conformidade. Ex.: _Garante que dados confidenciais não podem ser divulgados a terceiros sem autorização._")
-            st.markdown("   - **Buscar em** (obrigatório): Palavras-chave para busca por similaridade. Ex.: _vigência_, _prazo_, _confidencialidade_.")
-            st.markdown("   - **Como corrigir** (opcional): Sugestão de redação para correção.")
-            st.markdown("   - **Cláusula ativa**: Marque para incluir a regra na análise; desmarque para desativar sem excluir.")
-            st.markdown("3. Clique em **'Salvar Cláusula'** — a cláusula é salva e a base vetorial é atualizada automaticamente")
+            st.markdown("**Adicionar nova regra:**")
+            st.markdown("1. Em **Configurações**, clique em **'Adicionar cláusula'**")
+            st.markdown("2. Preencha:")
+            st.markdown("   - **Nome da cláusula** (obrigatório): Ex.: _Confidencialidade de dados_, _Prazo de vigência_")
+            st.markdown("   - **Descrição** (obrigatório): O que deve ser verificado no contrato")
+            st.markdown("   - **Buscar em** (obrigatório): Palavras-chave para localizar trechos relevantes. Ex.: _vigência_, _prazo_, _confidencialidade_")
+            st.markdown("   - **Como corrigir** (opcional): Sugestão de redação para correção")
+            st.markdown("   - **Cláusula ativa**: Marque para incluir na análise")
+            st.markdown("3. Clique em **'Salvar Cláusula'** — a base de regras é atualizada automaticamente")
             
-            st.markdown("**Editar cláusulas existentes:**")
-            st.markdown("1. Na lista de cláusulas na sidebar, clique no botão **✏️** ao lado da cláusula")
-            st.markdown("2. Altere os campos desejados e clique em **'Salvar'** (ou **'Cancelar'** para desistir)")
+            st.markdown("**Editar ou excluir:**")
+            st.markdown("- Use o botão **✏️** para editar uma regra e **❌** para excluir")
+            st.markdown("- Confirme em **'Confirmar Exclusão'** quando for excluir")
             
-            st.markdown("**Excluir cláusulas:**")
-            st.markdown("1. Na lista de cláusulas, clique no botão **❌** ao lado da cláusula")
-            st.markdown("2. Confirme em **'Confirmar Exclusão'** (ou **'Cancelar'** para desistir)")
+            st.markdown("**Atualização da base:**")
+            st.markdown("- Ao **adicionar**, **editar** ou **excluir** regras, a base é atualizada automaticamente")
+            st.markdown("- Use **'Atualizar Base de Regras'** ao trocar o **modelo de IA** ou o **idioma do contrato**")
             
-            st.markdown("**Estrutura de uma cláusula (JSON):**")
-            st.code("""{
-  "ativa": true,
-  "titulo": "Nome da cláusula",
-  "regra_spectra": "Descrição do que deve ser verificado",
-  "buscar_em": "Palavras-chave para busca por similaridade (obrigatório)",
-  "como_corrigir": "Sugestão de redação (opcional)"
-}""", language="json")
-            
-            st.markdown("**Campos explicados:**")
-            st.markdown("- **ativa**: Se a regra entra na análise (true) ou fica desativada (false)")
-            st.markdown("- **titulo**: Identificador da regra na plataforma e nos relatórios (obrigatório)")
-            st.markdown("- **regra_spectra**: O que a IA deve verificar no contrato — critério de conformidade (obrigatório)")
-            st.markdown("- **buscar_em**: Palavras-chave para busca por similaridade (obrigatório)")
-            st.markdown("- **como_corrigir**: Sugestão de redação para correção (opcional)")
-            
-            st.markdown("**Reindexação:**")
-            st.markdown("- Ao **adicionar**, **editar** ou **excluir** cláusulas, a base vetorial (Vector Store) é atualizada automaticamente.")
-            st.markdown("- Use o botão **'Reindexar Vector Store'** quando trocar o **modelo de embedding**, o **idioma do contrato** ou para forçar a atualização da base.")
-            
-            st.markdown("**Visualizar cláusulas:**")
-            st.markdown("- As cláusulas do tipo de contrato atual aparecem na sidebar, com opção de editar (✏️) ou excluir (❌).")
+            st.markdown("**Visualizar:**")
+            st.markdown("- As regras do tipo de contrato atual aparecem na sidebar, com opção de editar (✏️) ou excluir (❌).")
 
 # ========= Sidebar - Botões de Ação =========
 def sidebar_botoes(tipo_nome: str):
@@ -183,13 +163,13 @@ def sidebar_botoes(tipo_nome: str):
         # Pegar embedding do session_state
         embedding_id = st.session_state.get('embedding_selecionado')
         if not embedding_id:
-            st.warning("Selecione um modelo de embedding para reindexar.")
+            st.warning("Selecione um modelo de IA para atualizar a base.")
             return False
         
         try:
             embedding_config = GerenciadorEmbeddings.obter_embedding(embedding_id)
             if not embedding_config:
-                st.error(f"Modelo de embedding '{embedding_id}' não encontrado.")
+                st.error(f"Modelo de IA '{embedding_id}' não encontrado.")
                 return False
             
             embedding_function = GerenciadorEmbeddings.criar_embedding_function(embedding_config)
@@ -199,10 +179,10 @@ def sidebar_botoes(tipo_nome: str):
             idioma_indexacao = idioma_param if idioma_param else st.session_state.get('idioma_contrato', 'pt')
             
             total = gerenciador.indexar_clausulas(tipo_nome, clausulas_lista, embedding_function, idioma=idioma_indexacao)
-            st.success(f"Vector store atualizada com {total} cláusulas (idioma: {idioma_indexacao}).")
+            st.success(f"Base de regras atualizada com {total} regras (idioma: {idioma_indexacao}).")
             return True
         except Exception as e:
-            st.error(f"Erro ao reindexar: {e}")
+            st.error(f"Erro ao atualizar base: {e}")
             return False
 
     with st.sidebar:
@@ -272,15 +252,23 @@ def sidebar_botoes(tipo_nome: str):
                     st.session_state[f"adicionar_clausula_{tipo_nome}"] = False
                     st.rerun()
 
-        # Botão para forçar reindexação
+        # Botão para forçar atualização da base de regras
         if st.button(
-            "Reindexar Vector Store",
+            "Atualizar Base de Regras",
             key=f"btn_reindexar_{tipo_nome}",
-            help="Atualiza a base vetorial (ChromaDB) com as cláusulas atuais. Use após editar, adicionar ou excluir cláusulas; ao trocar o modelo de embedding; ou ao mudar o idioma do contrato. Garante que as análises usem as regras mais recentes."
+            help="Atualiza o banco de dados com as regras atuais. Use após adicionar, editar ou excluir regras; ao trocar o modelo de IA; ou para forçar a sincronização."
         ):
             clausulas_atuais = carregar_clausulas(tipo_nome, idioma=idioma)
-            # Reindexar com o idioma correto
             _reindexar_clausulas(clausulas_atuais, idioma_param=idioma)
+
+        # Botão para editar prompts dos agentes
+        if st.button(
+            "Editar prompt",
+            key=f"btn_editar_prompt_{tipo_nome}",
+            help="Abre o editor de instruções da IA (Análise de Conformidade, Sugestão de Redação, etc.) para o tipo de contrato atual. Requer senha de administrador para salvar ou resetar."
+        ):
+            st.session_state[f"editar_prompt_{tipo_nome}"] = True
+            st.rerun()
 
 
 # ========= Sidebar - Lista de Cláusulas =========
@@ -303,13 +291,13 @@ def sidebar_lista_clausulas(tipo_nome: str):
         """
         embedding_id = st.session_state.get('embedding_selecionado')
         if not embedding_id:
-            st.warning("Selecione um modelo de embedding para reindexar.")
+            st.warning("Selecione um modelo de IA para atualizar a base.")
             return False
         
         try:
             embedding_config = GerenciadorEmbeddings.obter_embedding(embedding_id)
             if not embedding_config:
-                st.error(f"Modelo de embedding '{embedding_id}' não encontrado.")
+                st.error(f"Modelo de IA '{embedding_id}' não encontrado.")
                 return False
             
             embedding_function = GerenciadorEmbeddings.criar_embedding_function(embedding_config)
@@ -318,10 +306,10 @@ def sidebar_lista_clausulas(tipo_nome: str):
             idioma_indexacao = idioma_param if idioma_param else st.session_state.get('idioma_contrato', 'pt')
             
             total = gerenciador.indexar_clausulas(tipo_nome, clausulas_lista, embedding_function, idioma=idioma_indexacao)
-            st.success(f"Vector store atualizada com {total} cláusulas (idioma: {idioma_indexacao}).")
+            st.success(f"Base de regras atualizada com {total} regras (idioma: {idioma_indexacao}).")
             return True
         except Exception as e:
-            st.error(f"Erro ao reindexar: {e}")
+            st.error(f"Erro ao atualizar base: {e}")
             return False
     
     with st.sidebar:
@@ -797,6 +785,133 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
 
 # ========= Função Genérica de Análise com Cache =========
 
+# ========= Editor de Prompts dos Agentes =========
+
+def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
+    """
+    Renderiza o editor de prompts dos agentes para o tipo de contrato e idioma.
+    Exibe abas por agente (agent1, agent3, agent4) com System e User.
+    Extrator não é editável (formato técnico).
+    Botões: Salvar Todos e Reset Todos (requerem auth admin), Fechar.
+    """
+    from analise.agent import (
+        AGENTES,
+        DESCRICOES_AGENTES,
+        VARIAVEIS_POR_AGENTE,
+        carregar_prompt_tipo,
+        salvar_prompt_tipo,
+        validar_prompt_user,
+        restaurar_todos_prompts_padrao,
+    )
+    from modulos.auth import esta_autenticado, autenticar, obter_senha_admin
+
+    tipo_nome = tipo_contrato
+    session_key_aberto = f"editar_prompt_{tipo_nome}"
+    
+    # Agentes editáveis (excluir extrator - formato técnico)
+    AGENTES_EDITAVEIS = [a for a in AGENTES if a != "extrator"]
+
+    # Inicializar conteúdo dos prompts na primeira abertura do editor
+    for agent in AGENTES_EDITAVEIS:
+        for parte in ["system", "user"]:
+            key = f"prompt_edit_{parte}_{tipo_nome}_{agent}_{idioma}"
+            if key not in st.session_state:
+                st.session_state[key] = carregar_prompt_tipo(tipo_nome, agent, parte, idioma)
+
+    st.subheader(f"📝 Editar Prompts dos Agentes — {tipo_nome}")
+    st.caption("Altere as instruções (system) e o template (user) por agente. Salvar e Reset exigem senha de administrador.")
+
+    # Bloco de autenticação de administrador (para Salvar/Reset)
+    if obter_senha_admin():
+        if not esta_autenticado():
+            with st.expander("🔐 Acesso de administrador (para Salvar ou Reset)", expanded=True):
+                senha_admin = st.text_input(
+                    "Senha de administrador",
+                    type="password",
+                    key=f"input_senha_admin_prompts_{tipo_nome}",
+                    help="Necessária para salvar ou resetar os prompts.",
+                )
+                if st.button("Entrar como administrador", key=f"btn_admin_prompts_{tipo_nome}"):
+                    if senha_admin and autenticar(senha_admin):
+                        st.success("Autenticado. Agora você pode Salvar ou Reset.")
+                        st.rerun()
+                    elif senha_admin:
+                        st.error("Senha incorreta.")
+                    else:
+                        st.warning("Digite a senha.")
+        else:
+            st.caption("✅ Autenticado como administrador — você pode Salvar ou Reset.")
+
+    tabs = st.tabs([f"{agent} — {DESCRICOES_AGENTES.get(agent, agent)}" for agent in AGENTES_EDITAVEIS])
+    for idx, agent in enumerate(AGENTES_EDITAVEIS):
+        with tabs[idx]:
+            vars_agente = VARIAVEIS_POR_AGENTE.get(agent, [])
+            if vars_agente:
+                st.caption(f"Variáveis obrigatórias no User: {', '.join(vars_agente)}")
+            key_sys = f"prompt_edit_system_{tipo_nome}_{agent}_{idioma}"
+            key_user = f"prompt_edit_user_{tipo_nome}_{agent}_{idioma}"
+            st.text_area(
+                "Mensagem System",
+                height=180,
+                key=key_sys,
+                help="Instruções gerais do agente.",
+            )
+            st.text_area(
+                "Mensagem User",
+                height=180,
+                key=key_user,
+                help="Template com variáveis que recebem os dados do documento.",
+            )
+
+    col_salvar, col_reset, col_fechar = st.columns([1, 1, 2])
+    with col_salvar:
+        if st.button("Salvar Todos", key=f"btn_salvar_prompts_{tipo_nome}", type="primary"):
+            if not esta_autenticado():
+                st.warning("Entre como administrador no bloco acima para poder salvar.")
+            else:
+                erros = []
+                for agent in AGENTES_EDITAVEIS:
+                    key_user = f"prompt_edit_user_{tipo_nome}_{agent}_{idioma}"
+                    conteudo_user = st.session_state.get(key_user, "")
+                    val = validar_prompt_user(conteudo_user, agent=agent)
+                    if not val["valido"]:
+                        vars_faltando = ", ".join(val['faltando'])
+                        erros.append(f"**{agent}**: faltam variáveis obrigatórias: {vars_faltando}")
+                if erros:
+                    st.error("❌ Erro de validação. Corrija antes de salvar:")
+                    for e in erros:
+                        st.error(e)
+                else:
+                    for agent in AGENTES_EDITAVEIS:
+                        key_sys = f"prompt_edit_system_{tipo_nome}_{agent}_{idioma}"
+                        key_user = f"prompt_edit_user_{tipo_nome}_{agent}_{idioma}"
+                        salvar_prompt_tipo(tipo_nome, agent, "system", st.session_state.get(key_sys, ""), idioma)
+                        salvar_prompt_tipo(tipo_nome, agent, "user", st.session_state.get(key_user, ""), idioma)
+                    st.success("✅ Prompts salvos com sucesso.")
+    with col_reset:
+        if st.button("Reset Todos", key=f"btn_reset_prompts_{tipo_nome}"):
+            if not esta_autenticado():
+                st.warning("Entre como administrador no bloco acima para poder resetar.")
+            else:
+                restaurar_todos_prompts_padrao(tipo_nome)
+                for agent in AGENTES_EDITAVEIS:
+                    for parte in ["system", "user"]:
+                        key = f"prompt_edit_{parte}_{tipo_nome}_{agent}"
+                        if key in st.session_state:
+                            st.session_state[key] = carregar_prompt_tipo(tipo_nome, agent, parte)
+                st.success("✅ Prompts restaurados ao padrão.")
+                st.rerun()
+    with col_fechar:
+        if st.button("Fechar", key=f"btn_fechar_prompts_{tipo_nome}"):
+            st.session_state[session_key_aberto] = False
+            for agent in AGENTES_EDITAVEIS:
+                for parte in ["system", "user"]:
+                    key = f"prompt_edit_{parte}_{tipo_nome}_{agent}_{idioma}"
+                    if key in st.session_state:
+                        del st.session_state[key]
+            st.rerun()
+
+
 def _gerar_chave_cache_config(
     nome_arquivo: str,
     idioma: str,
@@ -850,6 +965,14 @@ def render_pagina_analise(
     sidebar_botoes(tipo_contrato)
     sidebar_lista_clausulas(tipo_contrato)
 
+    # Obter idioma primeiro (necessário para o editor de prompts)
+    idioma = st.session_state.get('idioma_contrato', 'pt')
+    
+    # Se o usuário clicou em "Editar prompt", mostrar o editor e sair
+    if st.session_state.get(f"editar_prompt_{tipo_contrato}"):
+        render_editor_prompts(tipo_contrato, idioma)
+        return
+
     st.title(titulo)
     
     # Botão voltar com limpeza de cache
@@ -863,9 +986,6 @@ def render_pagina_analise(
     embedding_id = selecionar_embedding_ia() 
 
     arquivo = upload_docx(label_upload, key=f"upload_{key_prefix}")
-
-    # Obter idioma e configurações do session_state
-    idioma = st.session_state.get('idioma_contrato', 'pt')
     threshold = st.session_state.get('threshold_similaridade', 0.45)
     temperatura = st.session_state.get('temperatura', 0.2)
     gerar_sugestoes_reescrita = True  # sempre ativo: sugestões de reescrita são geradas em toda análise

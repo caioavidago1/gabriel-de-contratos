@@ -1,0 +1,7 @@
+REGRA ({nome_regra}):
+{descricao_regra}
+
+TRECHOS DO CONTRATO ANALISADO:
+{trechos_contrato}
+
+Algum trecho infringe a regra? Responda no formato estruturado.

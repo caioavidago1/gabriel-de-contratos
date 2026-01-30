@@ -4,42 +4,58 @@ from typing import Dict, List, Optional
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 DEFAULTS_DIR = PROMPTS_DIR / "_defaults"
 
-# Agentes em uso (Verificador + Reescritor; extrator docx não usa prompts daqui)
-AGENTES = ["agent1", "agent4"]
+# Agentes em uso: extrator (docx → cláusulas), agent1 (UI), agent3 (verificador), agent4 (reescritor)
+AGENTES = ["extrator", "agent1", "agent3", "agent4"]
 
 VARIAVEIS_POR_AGENTE = {
-    "agent1": ["{titulo}", "{texto}", "{clausulas_referencia}"],
+    "extrator": ["{text}"],
+    "agent1": ["{titulo}", "{texto}", "{regras_referencia}"],
+    "agent3": ["{nome_regra}", "{descricao_regra}", "{trechos_contrato}"],
     "agent4": ["{titulo}", "{texto_original}", "{regra_violada}", "{motivo}", "{contexto_global}"]
 }
 
 DESCRICOES_AGENTES = {
-    "agent1": "Verificador - Analisa possíveis violações (regra + chunks)",
-    "agent4": "Reescritor - Sugere reescrita de cláusulas problemáticas"
+    "extrator": "Extrator de Cláusulas",
+    "agent1": "Análise de Conformidade",
+    "agent3": "Verificação de Cláusulas",
+    "agent4": "Sugestão de Redação"
 }
 
 
-def carregar_prompt_tipo(tipo_contrato: str, agent: str, parte: str) -> str:
+def carregar_prompt_tipo(tipo_contrato: str, agent: str, parte: str, idioma: str = "pt") -> str:
     """
-    Carrega prompt customizado por tipo de contrato.
+    Carrega prompt customizado por tipo de contrato e idioma.
     Se não existir customizado, retorna o default.
     
     Args:
-        tipo_contrato: "NDA", "TIPO 2", etc
-        agent: "agent1" ou "agent4"
+        tipo_contrato: "NDA", "TIPO 2", "_defaults", etc
+        agent: "extrator", "agent1", "agent3" ou "agent4"
         parte: "system" ou "user"
+        idioma: "pt" ou "en" (padrão: "pt")
     
     Returns:
         Conteúdo do prompt
     """
-    nome_arquivo = f"{agent}_{parte}.txt"
     tipo_normalizado = tipo_contrato.lower().replace(" ", "_")
     
-    # Tentar carregar customizado
+    # Tentar carregar customizado com idioma específico
+    nome_arquivo_idioma = f"{agent}_{parte}_{idioma}.txt"
+    custom_path_idioma = PROMPTS_DIR / tipo_normalizado / nome_arquivo_idioma
+    if custom_path_idioma.exists():
+        return custom_path_idioma.read_text(encoding="utf-8")
+    
+    # Tentar carregar customizado sem sufixo de idioma (fallback legado)
+    nome_arquivo = f"{agent}_{parte}.txt"
     custom_path = PROMPTS_DIR / tipo_normalizado / nome_arquivo
     if custom_path.exists():
         return custom_path.read_text(encoding="utf-8")
     
-    # Fallback para default
+    # Fallback para default com idioma
+    default_path_idioma = DEFAULTS_DIR / nome_arquivo_idioma
+    if default_path_idioma.exists():
+        return default_path_idioma.read_text(encoding="utf-8")
+    
+    # Fallback para default sem sufixo de idioma (compatibilidade)
     default_path = DEFAULTS_DIR / nome_arquivo
     if default_path.exists():
         return default_path.read_text(encoding="utf-8")
@@ -47,20 +63,21 @@ def carregar_prompt_tipo(tipo_contrato: str, agent: str, parte: str) -> str:
     return ""
 
 
-def salvar_prompt_tipo(tipo_contrato: str, agent: str, parte: str, conteudo: str) -> bool:
+def salvar_prompt_tipo(tipo_contrato: str, agent: str, parte: str, conteudo: str, idioma: str = "pt") -> bool:
     """
-    Salva prompt customizado para um tipo de contrato.
+    Salva prompt customizado para um tipo de contrato e idioma.
     
     Args:
-        tipo_contrato: "NDA", "TIPO 2", etc
-        agent: "agent1" ou "agent4"
+        tipo_contrato: "NDA", "TIPO 2", "_defaults", etc
+        agent: "extrator", "agent1", "agent3" ou "agent4"
         parte: "system" ou "user"
         conteudo: Conteúdo do prompt
+        idioma: "pt" ou "en" (padrão: "pt")
     
     Returns:
         True se salvou com sucesso
     """
-    nome_arquivo = f"{agent}_{parte}.txt"
+    nome_arquivo = f"{agent}_{parte}_{idioma}.txt"
     tipo_normalizado = tipo_contrato.lower().replace(" ", "_")
     
     # Criar diretório do tipo se não existir
@@ -79,7 +96,7 @@ def validar_prompt_user(conteudo: str, agent: str = None) -> Dict:
     
     Args:
         conteudo: Conteúdo do prompt a validar
-        agent: Nome do agente (agent1, agent4). Se None, usa variáveis legadas.
+        agent: Nome do agente (extrator, agent1, agent3, agent4). Se None, usa variáveis legadas.
     
     Returns:
         {"valido": True/False, "faltando": [...]}
@@ -101,24 +118,29 @@ def validar_prompt_user(conteudo: str, agent: str = None) -> Dict:
     }
 
 
-def restaurar_prompt_padrao(tipo_contrato: str, agent: str, parte: str) -> str:
+def restaurar_prompt_padrao(tipo_contrato: str, agent: str, parte: str, idioma: str = "pt") -> str:
     """
-    Restaura prompt do arquivo _defaults para o tipo de contrato.
+    Restaura prompt do arquivo _defaults para o tipo de contrato e idioma.
     
     Args:
-        tipo_contrato: "NDA", "TIPO 2", etc
-        agent: "agent1" ou "agent4"
+        tipo_contrato: "NDA", "TIPO 2", "_defaults", etc
+        agent: "extrator", "agent1", "agent3" ou "agent4"
         parte: "system" ou "user"
+        idioma: "pt" ou "en" (padrão: "pt")
     
     Returns:
         Conteúdo do prompt padrão restaurado
     """
-    nome_arquivo = f"{agent}_{parte}.txt"
+    nome_arquivo = f"{agent}_{parte}_{idioma}.txt"
     tipo_normalizado = tipo_contrato.lower().replace(" ", "_")
     
     default_path = DEFAULTS_DIR / nome_arquivo
     if not default_path.exists():
-        return ""
+        # Fallback para arquivo sem sufixo de idioma (compatibilidade)
+        nome_arquivo_legado = f"{agent}_{parte}.txt"
+        default_path = DEFAULTS_DIR / nome_arquivo_legado
+        if not default_path.exists():
+            return ""
     
     conteudo_padrao = default_path.read_text(encoding="utf-8")
     
@@ -131,17 +153,18 @@ def restaurar_prompt_padrao(tipo_contrato: str, agent: str, parte: str) -> str:
     return conteudo_padrao
 
 
-def restaurar_todos_prompts_padrao(tipo_contrato: str) -> bool:
+def restaurar_todos_prompts_padrao(tipo_contrato: str, idioma: str = "pt") -> bool:
     """
-    Restaura todos os prompts padrão para um tipo de contrato.
+    Restaura todos os prompts padrão para um tipo de contrato e idioma.
     
     Args:
         tipo_contrato: "NDA", "TIPO 2", etc
+        idioma: "pt" ou "en" (padrão: "pt")
     
     Returns:
         True se restaurou com sucesso
     """
     for agent in AGENTES:
         for parte in ["system", "user"]:
-            restaurar_prompt_padrao(tipo_contrato, agent, parte)
+            restaurar_prompt_padrao(tipo_contrato, agent, parte, idioma)
     return True

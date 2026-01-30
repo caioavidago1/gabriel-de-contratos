@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Objeto social muito restrito limitando pivot",
+    "buscar_em": "objeto social, atividade, finalidade, propósito, escopo",
+    "regra_spectra": "Objeto social deve ser suficientemente amplo para permitir pivots e expansão sem necessidade de alteração contratual: 'desenvolvimento, comercialização e prestação de serviços de tecnologia, software, consultoria e atividades correlatas'. Evitar especificações muito restritivas de produto único.",
+    "como_corrigir": "Ampliar para: 'Objeto: (i) desenvolvimento e comercialização de software, aplicativos e soluções tecnológicas; (ii) prestação de serviços de tecnologia, consultoria, assessoria; (iii) licenciamento de propriedade intelectual; (iv) quaisquer atividades correlatas ou complementares, no Brasil ou exterior.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Quorum de alteração contratual excessivamente alto",
+    "buscar_em": "alteração, modificação, reforma, quorum, unanimidade, maioria qualificada",
+    "regra_spectra": "Alterações do contrato social devem requerer maioria qualificada razoável (75-80%), não unanimidade. Unanimidade apenas para: (i) mudança de controle; (ii) alteração de regras de tag/drag; (iii) liquidação. Demais alterações: 75%. Mudanças administrativas (endereço, representantes): maioria simples ou administradores.",
+    "como_corrigir": "Estabelecer: 'Alterações: (i) maioria 75% para alterações gerais; (ii) unanimidade apenas para: mudança controle, alteração tag/drag, liquidação; (iii) mudanças administrativas (sede, representante): maioria simples ou deliberação dos administradores.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Administração sem proteção para minoritário investidor",
+    "buscar_em": "administração, diretoria, gestão, representação, poderes",
+    "regra_spectra": "Se houver investidor minoritário relevante: (1) exigir aprovação prévia do conselho consultivo/quotistas para atos relevantes; (2) limitar poderes dos administradores (contratos >R$ X, endividamento); (3) administradores indicados em conjunto ou com direito de veto para operações estratégicas.",
+    "como_corrigir": "Incluir: 'Administradores podem praticar atos de gestão ordinária. Requerem aprovação prévia da Assembleia/Conselho: (i) endividamento >R$ X; (ii) contratos >R$ Y ou >12 meses; (iii) aquisição/venda de ativos >R$ Z; (iv) transações com partes relacionadas; (v) contratação C-level.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Falta de cláusula de não-diluição para investidor",
+    "buscar_em": "emissão, novas quotas, aumento capital, subscrição, preferência",
+    "regra_spectra": "Investidor minoritário deve ter: (1) direito de preferência proporcional em qualquer aumento de capital; (2) prazo razoável para exercer (20-30 dias); (3) mesmas condições de novos investidores; (4) proteção anti-diluição econômica em down rounds; (5) exceções: conversão de dívida pré-existente, stock option pool pré-aprovado.",
+    "como_corrigir": "Adicionar: 'Aumento de Capital: (i) direito de preferência proporcional a todos quotistas; (ii) prazo 30 dias para exercer; (iii) mesmas condições dos novos investidores. Se down round (<80% valuation anterior): ajuste anti-diluição (weighted average). Exceções: stock options (pool 15% pré-aprovado), conversão dívida.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Distribuição de lucros sem política definida",
+    "buscar_em": "distribuição de lucros, dividendos, lucros, retirada, pro-labore",
+    "regra_spectra": "Contrato social deve prever: (1) deliberação sobre destinação de lucros em assembleia anual (até março); (2) percentual mínimo de distribuição (ex: 25%); (3) retenção para investimentos deve ser justificada e aprovada; (4) pro-labore de sócios/administradores fixado em assembleia; (5) distribuição proporcional às quotas (sem preferência no contrato social).",
+    "como_corrigir": "Estabelecer: 'Lucros: (i) destinação decidida em Assembleia anual (até março); (ii) distribuição mínima 25% do lucro líquido, salvo retenção aprovada por 75%; (iii) retenção justificada por investimentos no budget aprovado; (iv) pro-labore fixado anualmente em Assembleia; (v) distribuição proporcional às quotas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Retirada ou exclusão de sócio mal regulamentada",
+    "buscar_em": "retirada, saída, exclusão, dissolução parcial, apuração de haveres",
+    "regra_spectra": "Contrato deve prever: (1) hipóteses de exclusão de sócio (justa causa: concorrência, violação grave); (2) procedimento: assembleia específica, quorum qualificado; (3) apuração de haveres: critério claro (valor patrimonial, valor de mercado, última transação), prazo de pagamento; (4) retirada imotivada: possível após X anos com aviso prévio; (5) não-compete após saída.",
+    "como_corrigir": "Definir: 'Exclusão sócio: (i) justa causa (concorrência, violação material deste contrato, atos prejudiciais); (ii) assembleia específica, 75% excluindo o excluendo; (iii) haveres: valor da última transação ou valuation independente; pagamento em 12 parcelas. Retirada imotivada: possível após 5 anos com aviso 180 dias. Non-compete 24 meses.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Cláusula compromissória de arbitragem ausente",
+    "buscar_em": "arbitragem, foro, jurisdição, solução de conflitos, litígios",
+    "regra_spectra": "Contrato social deve ter cláusula compromissória de arbitragem: (1) preferência Spectra: arbitragem (CAM-CCBC, CMA, FGV) em SP; (2) 1 ou 3 árbitros conforme valor; (3) lei brasileira; (4) confidencialidade; (5) disputas entre sócios ou sócio vs sociedade. Arbitragem é mais rápida e confidencial que judicial para conflitos societários.",
+    "como_corrigir": "Incluir: 'Arbitragem: Conflitos entre sócios ou sócio vs sociedade serão resolvidos por arbitragem na CAM-CCBC (SP), lei brasileira, confidencial. 1 árbitro se valor <R$ 1M, 3 árbitros se acima. Cada parte indica 1 árbitro, os dois indicam o terceiro (presidente). Custas rateadas igualmente salvo decisão arbitral diversa.'"
+  }
+]

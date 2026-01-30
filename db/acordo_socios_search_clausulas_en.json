@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Insufficient reserved matters for minority",
+    "buscar_em": "reserved matters, veto, approval, qualified quorum, resolutions",
+    "regra_spectra": "Minority investor (Spectra in search/venture deals) must have veto over: (1) capital change; (2) change of corporate purpose; (3) merger, consolidation, spin-off; (4) sale of relevant assets (>15% equity); (5) debt above limits; (6) material related party transactions; (7) amendment of shareholders agreement; (8) liquidation.",
+    "como_corrigir": "Establish: 'Veto Matters (unanimous approval): (i) capital change; (ii) purpose change; (iii) M&A; (iv) asset sales >15% of equity; (v) debt >2x EBITDA; (vi) related transactions >R$ X; (vii) amendment of this agreement; (viii) liquidation.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Tag-along below 100% or without protection",
+    "buscar_em": "tag-along, co-sale right, sale, transfer",
+    "regra_spectra": "Tag-along must be 100% (same conditions as controlling seller) for all quotas/shares, regardless of class. No distinction between control sale and ordinary sale. Must include indirect sale (holding sale, corporate reorganization).",
+    "como_corrigir": "Define: '100% tag-along: all partners can sell their quotas under same conditions as selling partner (price, payment terms). Applies to: (i) direct sale; (ii) indirect sale (holding); (iii) corporate reorganizations resulting in control change. No distinction by quota class.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Drag-along without minimum valuation or protection",
+    "buscar_em": "drag-along, forced sale, obligation to sell",
+    "regra_spectra": "Drag-along (obligation to sell) can only be exercised if: (1) bona fide third party offer; (2) valuation ≥ last investment or >1.5x-2x Spectra investment; (3) cash offer or with escrow for deferred portion; (4) qualified buyer (not direct competitor without approval); (5) reasonable R&W terms.",
+    "como_corrigir": "Limit: 'Drag-along exercisable only if: (i) bona fide third party offer; (ii) valuation ≥ 1.5x Spectra investment or ≥ last round valuation; (iii) ≥70% cash at closing; (iv) limited R&W (1% basket, 20% cap, 18-month survival); (v) buyer cannot be competitor without Spectra approval.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Right of first refusal too broad or with short deadline",
+    "buscar_em": "right of first refusal, ROFR, ROFO, preemption",
+    "regra_spectra": "Right of first refusal must have: (1) reasonable exercise period (20-30 days); (2) same conditions as third party offer; (3) not applicable to transfers between funds of same group or estate planning; (4) seller may accept offer 5-10% higher without re-offering.",
+    "como_corrigir": "Establish: 'ROFR: (i) 30-day exercise period; (ii) same offer conditions; (iii) exceptions: intra-group transfers, estate planning, transfers to same investor vehicles. If not exercised: seller free to sell to third party at price ≥95% of original offer.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Inadequate or limited information rights",
+    "buscar_em": "information rights, access, reports, financial statements, meetings",
+    "regra_spectra": "Investor must have: (1) monthly financial statements (15 days after month); (2) audited annual (120 days); (3) annual budget and revisions; (4) management access (quarterly meetings); (5) right to appoint auditor; (6) right to inspect books with reasonable notice; (7) immediate notification of material events.",
+    "como_corrigir": "Ensure: 'Information: (i) monthly financials (15 days); (ii) audited annual (120 days); (iii) budget by Nov 30; (iv) quarterly management meetings; (v) Spectra may appoint 1 auditor; (vi) book access with 5-day notice; (vii) immediate notification: litigation >R$ X, key manager changes, material adverse events.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Dividend distribution without policy or discretionary",
+    "buscar_em": "dividends, distribution, profits, dividend policy, payout",
+    "regra_spectra": "There must be distribution policy: (1) minimum percentage of profit (e.g.: 25-50%); (2) frequency (annual or semi-annual); (3) retention allowed only for investments approved in budget or legal/statutory reserves; (4) distribution proportional to participation (no preference); (5) special requests with qualified approval.",
+    "como_corrigir": "Establish: 'Dividends: (i) minimum distribution 40% of annual net profit; (ii) payment by March/following year; (iii) retention > 60% requires 75% partner approval; (iv) pro-rata distribution (no preference); (v) extraordinary distributions may be requested by 66%+ partners.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Anti-dilution protection absent or insufficient",
+    "buscar_em": "anti-dilution, down round, protection, adjustment, dilution",
+    "regra_spectra": "Minority investor must have anti-dilution protection in down rounds: (1) full ratchet (ideal) or weighted average (acceptable); (2) exceptions: dilution from stock options (pre-approved pool), conversion of pre-existing debt; (3) automatic price adjustment or right to additional quotas; (4) prior notice of new round with pro-rata participation right.",
+    "como_corrigir": "Include: 'Anti-dilution: if future round at valuation <80% of this round, Spectra shall have price adjustment (weighted average). Exceptions: (i) stock options from pre-approved pool (15%); (ii) existing debt conversion. Spectra has pro-rata preemptive right in any new round (20-day notice before).'"
+  }
+]

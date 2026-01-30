@@ -1,0 +1,3 @@
+TEXTO PARA EXTRAÇÃO:
+
+{text}

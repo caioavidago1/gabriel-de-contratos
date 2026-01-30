@@ -1,0 +1,10 @@
+Title: {titulo}
+
+Clause text:
+{texto}
+
+Reference Rules:
+{regras_referencia}
+
+---
+Analyze this specific excerpt. Respond in the mandatory structured format.

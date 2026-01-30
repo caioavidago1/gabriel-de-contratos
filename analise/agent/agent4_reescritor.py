@@ -21,8 +21,8 @@ class AgentReescritor:
         # Sempre carregar prompts de arquivos .txt
         # Se nenhum tipo foi informado, usar os defaults em `prompts/_defaults`
         tipo = self.tipo_contrato or "_defaults"
-        system_msg = carregar_prompt_tipo(tipo, "agent4", "system")
-        user_msg = carregar_prompt_tipo(tipo, "agent4", "user")
+        system_msg = carregar_prompt_tipo(tipo, "agent4", "system", self.idioma)
+        user_msg = carregar_prompt_tipo(tipo, "agent4", "user", self.idioma)
 
         return ChatPromptTemplate.from_messages([
             ("system", system_msg),

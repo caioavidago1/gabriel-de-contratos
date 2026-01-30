@@ -1,79 +1,65 @@
 [
   {
-    "nome": "Confidentiality term duration",
-    "descricao": "Ensure that the confidentiality obligation term is 1 year, accepting a maximum of 2 years, counted from the signing or closing of negotiations, as negotiated.",
-    "exemplos": [
-      "Clause providing for confidentiality for an indefinite term.",
-      "Clause imposing confidentiality obligation for more than 2 years.",
-      "Absence of clear definition of when the confidentiality term begins and ends."
-    ],
-    "localizacao_tipica": "Agreement Termination or Validity Chapter (e.g., clause 3.x)",
-    "palavras_chave": ["validity", "term", "years", "months", "termination", "closing", "duration", "period"]
+    "ativa": true,
+    "titulo": "Excessive confidentiality term",
+    "buscar_em": "term, duration, validity, termination, years, months, confidentiality",
+    "regra_spectra": "Confidentiality term must be maximum 2 years (24 months), counted from signature or termination of negotiations. Ideal: 1 year (12 months).",
+    "como_corrigir": "Change to: 'The parties shall protect the Confidential Information for a period of 24 (twenty-four) months, counted from the date of signature of this Agreement.'"
   },
   {
-    "nome": "Definition of Spectra representatives",
-    "descricao": "Restrict the definition of 'Representatives' to not include GPs or related parties that are not directly involved in the opportunity, avoiding unnecessary conflicts of interest.",
-    "exemplos": [
-      "Definition of Representatives that generically includes 'affiliates' without limitation.",
-      "Clause that expands Representatives to any person linked to Spectra's economic group.",
-      "Sections mentioning that any fund or vehicle managed by Spectra is considered a Representative for liability purposes."
-    ],
-    "localizacao_tipica": "Definitions Clause (e.g., clause 2.1.1 or definitions section)",
-    "palavras_chave": ["representatives", "affiliates", "external representatives", "advisors", "directors", "employees", "consultants"]
+    "ativa": true,
+    "titulo": "Incomplete confidentiality exceptions",
+    "buscar_em": "exceptions, exclusions, shall not apply, shall not constitute, confidential information, public domain",
+    "regra_spectra": "Must include ALL 4 mandatory exceptions: (1) publicly available information, (2) information already in possession of the party before the NDA, (3) information received from third parties in good faith without confidentiality obligation, (4) information required by CVM, regulatory authority or court order.",
+    "como_corrigir": "Add or complete with: 'Confidential Information does not include: (i) publicly available information or that becomes public without breach of this Agreement; (ii) information provably already in the Party's possession before this Agreement; (iii) information received from third parties not subject to confidentiality obligation; (iv) information required by CVM, regulatory authority or court order.'"
   },
   {
-    "nome": "Exclusivity / Non-circumvention",
-    "descricao": "Avoid broad non-circumvention clauses; limit, when necessary, only to direct negotiation with third parties linked to the same opportunity, without restricting Spectra's general business.",
-    "exemplos": [
-      "Clause prohibiting Spectra from doing any business with companies in the sector, regardless of the specific opportunity.",
-      "Text preventing Spectra from speaking with any investor or disclosed target, even for other unrelated transactions.",
-      "Non-circumvention extending for several years without scope limitation."
-    ],
-    "localizacao_tipica": "General Provisions or specific exclusivity clause",
-    "palavras_chave": ["exclusivity", "non-circumvention", "prohibition", "prohibited", "prevented", "direct business"]
+    "ativa": true,
+    "titulo": "Broad definition of Representatives",
+    "buscar_em": "representatives, definitions, affiliates, advisors, consultants, external, economic group, mean",
+    "regra_spectra": "Definition of 'Representatives' must be limited EXCLUSIVELY to persons DIRECTLY involved in the evaluation of this specific opportunity. Must NOT include: generic affiliates, GPs, managed funds, anyone from the economic group, or 'advisors' without additional qualification.",
+    "como_corrigir": "Restrict to: 'Representatives means exclusively board members, officers and employees DIRECTLY involved in the evaluation of this specific opportunity and who have an effective need to know the Confidential Information.'"
   },
   {
-    "nome": "Indemnification limited to direct damages",
-    "descricao": "Spectra's liability must be limited to indemnification for judicially proven direct damages, expressly excluding lost profits, indirect damages, consequential damages, and immaterial damages.",
-    "exemplos": [
-      "Clause mentioning 'damages and losses, including lost profits and indirect damages'.",
-      "Text providing for liability for 'any resulting losses, direct or indirect'.",
-      "Provision of disproportionate penalty without connection to damage actually proven in court."
-    ],
-    "localizacao_tipica": "Damage Compensation or Liability Chapter (e.g., clause 4.x)",
-    "palavras_chave": ["indemnification", "damages", "losses", "lost profits", "indirect damages", "liability", "compensation", "penalty", "fine"]
+    "ativa": true,
+    "titulo": "Liability without limitation to direct damages",
+    "buscar_em": "indemnification, compensation, damages, losses, liability, lost profits, indirect, consequential",
+    "regra_spectra": "Spectra's liability must be EXPRESSLY LIMITED to direct damages judicially proven. Must be EXCLUDED: lost profits, indirect damages, consequential damages, immaterial damages, non-quantifiable losses.",
+    "como_corrigir": "Replace with: 'The Party shall be liable EXCLUSIVELY for direct damages judicially proven, arising from breach of this Agreement, expressly excluding lost profits, indirect, consequential, immaterial damages or non-quantified losses.'"
   },
   {
-    "nome": "Non-solicitation of employees",
-    "descricao": "Restrict non-solicitation to direct hiring of employees/collaborators for a maximum period of 1 year, with exceptions for candidates who contact spontaneously or via general advertisement.",
-    "exemplos": [
-      "Non-solicitation with term exceeding 12 months.",
-      "Prohibition on hiring former collaborators even after termination of relationship with the other party.",
-      "Clause prohibiting hiring even in public selection processes or via recruitment consulting."
-    ],
-    "localizacao_tipica": "General Provisions or specific non-solicitation clause",
-    "palavras_chave": ["non-solicitation", "employees", "collaborators", "hiring", "recruitment", "staff"]
+    "ativa": true,
+    "titulo": "Non-circumvention or implied exclusivity clause",
+    "buscar_em": "use, benefit, profit, own, circumvention, exclusivity, prohibition, forbidden, prevented",
+    "regra_spectra": "Avoid broad prohibitions on use that may operate as non-circumvention or undue exclusivity. Use of confidential information must be restricted only to the purpose of the specific transaction, BUT without blocking Spectra's legitimate business activities or permissible internal uses.",
+    "como_corrigir": "Replace absolute wording such as 'in no way for its own benefit' with: 'use the Confidential Information exclusively for purposes of evaluating the Transaction, without unauthorized disclosure or reproduction, except for legitimate internal uses not related to misappropriation.'"
   },
   {
-    "nome": "Applicable law and jurisdiction",
-    "descricao": "Preference for Brazilian law and jurisdiction of São Paulo/SP, with waiver of any other jurisdiction, whenever possible in negotiation.",
-    "exemplos": [
-      "Jurisdiction defined outside São Paulo, such as Rio de Janeiro or foreign jurisdiction.",
-      "Clause allowing the counterparty to choose alternative jurisdiction at its discretion.",
-      "Absence of jurisdiction clause, leaving room for future discussions."
-    ],
-    "localizacao_tipica": "Final Chapter on Applicable Law and Jurisdiction (e.g., clause 6.x)",
-    "palavras_chave": ["jurisdiction", "applicable law", "legislation", "venue", "São Paulo", "competence", "forum"]
+    "ativa": true,
+    "titulo": "Missing independent development exception",
+    "buscar_em": "exceptions, exclusions, shall not apply, independent development, independently developed",
+    "regra_spectra": "In addition to the 4 standard exceptions, must include exception for information INDEPENDENTLY DEVELOPED by the Party, without use of the Confidential Information received.",
+    "como_corrigir": "Add to the list of exceptions: '(v) information independently developed by the Party without access to or use of the Confidential Information provided.'"
   },
   {
-    "nome": "Exceptions to confidentiality",
-    "descricao": "Ensure that the following are not considered confidential information: (i) information already in Spectra's possession before the NDA; (ii) publicly available information; (iii) information received from third parties not bound by confidentiality obligation, in good faith; and (iv) information required by regulatory or judicial authority.",
-    "exemplos": [
-      "Clause that does not mention the exception for information already known by Spectra.",
-      "Absence of exception for information required by CVM or other authorities.",
-      "Text requiring prior authorization from the disclosing party for any disclosure to regulatory body."
-    ],
-    "localizacao_tipica": "Confidentiality exceptions clause (e.g., clause 2.6, 2.7 or similar)",
-    "palavras_chave": ["exceptions", "public domain", "prior possession", "third parties", "authority", "judicial", "CVM", "regulator", "shall not constitute"]
+    "ativa": true,
+    "titulo": "Jurisdiction outside São Paulo",
+    "buscar_em": "jurisdiction, applicable law, venue, district, competence, disputes, controversies",
+    "regra_spectra": "Preference for Brazilian law and jurisdiction of São Paulo/SP, with waiver of any other jurisdiction, whenever possible in negotiation.",
+    "como_corrigir": "Change to: 'The jurisdiction of the District of the Capital of the State of São Paulo is elected to resolve disputes, controversies and disputes related to or arising from this Agreement, to the exclusion of any other, however privileged it may be.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Non-solicitation of employees without time limit",
+    "buscar_em": "non-solicitation, employees, staff, workers, hiring, recruitment, non-solicitation",
+    "regra_spectra": "If there is a non-solicitation clause, restrict to direct hiring of employees/collaborators for a maximum period of 1 year, with exceptions for candidates who contact spontaneously or via general advertisement.",
+    "como_corrigir": "Limit to: 'For a period of 12 (twelve) months from the termination of this Agreement, the Parties shall not directly hire employees of the other Party, except those who apply spontaneously or through public selection processes.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Personal data processing with limited scope",
+    "buscar_em": "personal data, LGPD, GDPR, processing, protection, data subject, legal representatives",
+    "regra_spectra": "If there is a personal data processing clause, it must cover ALL relevant data subjects (not just legal representatives), specify retention periods, clear legal bases, detailed purposes and anonymization/deletion mechanisms.",
+    "como_corrigir": "Expand definition of Personal Data to include: representatives, employees, advisors and third parties. Specify retention period aligned with NDA term. Detail legal bases according to LGPD/GDPR."
   }
 ]

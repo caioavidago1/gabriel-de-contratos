@@ -87,12 +87,12 @@ class OrquestradorAnalise:
         
         try:
             # === ETAPA 1: Validar e Criar Embedding Function ===
-            self._log(on_log, "Configurando modelo de embedding...")
-            self._progress(on_progress, "Configurando embedding", 0.02)
+            self._log(on_log, "Preparando sistema de análise...")
+            self._progress(on_progress, "Preparando sistema de análise", 0.02)
             
             embedding_config = GerenciadorEmbeddings.obter_embedding(modelo_embedding_id)
             if not embedding_config:
-                return self._erro(f"Modelo de embedding '{modelo_embedding_id}' não encontrado")
+                return self._erro(f"Modelo de IA '{modelo_embedding_id}' não encontrado")
             
             # Validar API key do embedding
             validacao_embedding = GerenciadorEmbeddings.validar_api_keys(embedding_config)
@@ -111,12 +111,13 @@ class OrquestradorAnalise:
                 return self._erro(validacao["mensagem"])
             
             # === ETAPA 3: Agente 1 – Extrator DOCX (lógica ia.py) ===
-            self._log(on_log, f"Agente 1: extraindo cláusulas de {nome_arquivo}...")
-            self._progress(on_progress, "Agente 1 – Extração", 0.15)
+            self._log(on_log, "Extraindo cláusulas do documento...")
+            self._progress(on_progress, "Extração de Cláusulas", 0.15)
             
             resultado_ag1 = extrair_clausulas_docx(
                 arquivo_bytes,
                 on_log=lambda msg: self._log(on_log, msg),
+                idioma=idioma,
             )
             clausulas = resultado_ag1.get("clausulas", [])
             self._log(on_log, f"Encontradas {len(clausulas)} cláusulas")
@@ -140,10 +141,10 @@ class OrquestradorAnalise:
             from modulos.comum import carregar_clausulas
             regras = carregar_clausulas(tipo_contrato, idioma=idioma)
             regras_ativas = [r for r in regras if r.get("ativa", True)]
-            self._log(on_log, f"{len(regras_ativas)} regras ativas")
+            self._log(on_log, f"Aplicando {len(regras_ativas)} regras de conformidade")
 
-            self._log(on_log, f"Agente 2: Matcher (threshold={threshold_similaridade}) + Verificador...")
-            self._progress(on_progress, "Agente 2 – Matcher", 0.38)
+            self._log(on_log, "Buscando trechos relevantes para análise...")
+            self._progress(on_progress, "Busca e Comparação", 0.38)
             matcher = AgentMatcher(embedding_function, db_path=str(self.gerenciador_clausulas.db_path))
             match_resultado = matcher.match_regras_chunks(
                 chunks, regras_ativas,
@@ -159,7 +160,7 @@ class OrquestradorAnalise:
             if not validacao_llm["valido"]:
                 return self._erro(validacao_llm["mensagem"])
             llm = GerenciadorModelos.criar_llm(modelo_config, temperature=temperatura)
-            agent_verificador = AgentVerificador(llm)
+            agent_verificador = AgentVerificador(llm, tipo_contrato=tipo_contrato, idioma=idioma)
 
             self._log(on_log, "Verificador: analisando regra + 5 chunks...")
             self._progress(on_progress, "Verificador", 0.55)
@@ -171,7 +172,7 @@ class OrquestradorAnalise:
                     res = agent_verificador.analisar_regra_chunks(regra, top_5)
                     verificacoes.append(res)
                 except Exception as e:
-                    self._log(on_log, f"Aviso: falha ao verificar regra '{regra.get('titulo', '')}': {e}")
+                    self._log(on_log, f"Atenção: não foi possível analisar regra '{regra.get('titulo', '')}': {e}")
                     verificacoes.append({"eh_violacao": False, "problema": "", "chunk": None, "regra": regra})
 
             violacoes_validadas = [v for v in verificacoes if v.get("eh_violacao") and v.get("chunk")]
@@ -182,20 +183,20 @@ class OrquestradorAnalise:
 
             # Reescritor (violação → sugestao_reescrita): sempre ativo quando há violações
             if violacoes_validadas:
-                self._log(on_log, "Reescritor: gerando sugestões para violações...")
-                self._progress(on_progress, "Reescritor", 0.85)
+                self._log(on_log, "Preparando sugestões de redação...")
+                self._progress(on_progress, "Sugestões de Redação", 0.85)
                 agent4_reesc = AgentReescritor(llm, tipo_contrato=tipo_contrato, idioma=idioma)
                 for idx, v in enumerate(violacoes_validadas):
                     try:
                         sugestao = agent4_reesc.reescrever_clausula(v, contexto_global)
                         v["sugestao_reescrita"] = sugestao
-                        self._log(on_log, f"Sugestão {idx + 1}/{len(violacoes_validadas)} gerada")
+                        self._log(on_log, f"Sugestão {idx + 1} de {len(violacoes_validadas)} preparada")
                     except Exception as e:
                         self._log(on_log, f"Aviso: falha ao reescrever violação {idx + 1}: {e}")
                         v["sugestao_reescrita"] = None
 
             # === ETAPA 8: Gerar problemas, solução e explicacao = Compare(problemas, solução) ===
-            self._progress(on_progress, "Gerando DOCX", 0.92)
+            self._progress(on_progress, "Finalizando Documentos", 0.92)
             from output.docx import gerar_problemas_docx, gerar_solucao_docx
             from output.comparar_docx import gerar_doc_comparado
             from pathlib import Path

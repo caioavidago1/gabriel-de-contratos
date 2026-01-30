@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Critérios de elegibilidade de recebíveis muito amplos",
+    "buscar_em": "critérios de elegibilidade, eligible receivables, recebíveis, créditos, cessão",
+    "regra_spectra": "Critérios de elegibilidade devem ser restritivos: (1) inadimplência máxima do devedor (<5% histórico); (2) prazo máximo do recebível (360 dias); (3) concentração por devedor (<10%); (4) rating mínimo devedor; (5) vedação a recebíveis de partes relacionadas ao cedente; (6) recebíveis em judicial apenas se garantidos.",
+    "como_corrigir": "Estabelecer: 'Recebíveis Elegíveis: (i) devedor com inadimplência histórica <5%; (ii) prazo <360 dias; (iii) máximo 10% por devedor; (iv) rating mínimo B+; (v) vedados: partes relacionadas ao Cedente, recebíveis judicializados sem garantia real.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Subordinação insuficiente para cotas sênior",
+    "buscar_em": "subordinação, subordinated, cotas subordinadas, mezanino, sênior, júnior",
+    "regra_spectra": "Cotas subordinadas devem representar mínimo 10-20% do patrimônio como colchão de proteção. Pagamentos devem seguir waterfall rígido: (1) despesas/impostos; (2) rendimento cotas sênior; (3) amortização sênior; (4) rendimento subordinadas; (5) amortização subordinadas. Subordinadas absorvem primeira perda.",
+    "como_corrigir": "Estabelecer: 'Cotas Subordinadas: mínimo 15% do patrimônio. Waterfall: (i) despesas; (ii) rendimento Sênior (CDI+4%); (iii) amortização Sênior; (iv) rendimento Subordinadas; (v) amortização Subordinadas. Perdas: 100% Subordinadas primeiro, depois Sênior pro-rata.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Recompra de recebíveis sem limitação ou penalidade",
+    "buscar_em": "recompra, put, obrigação de recompra, buyback, recebíveis inadimplentes",
+    "regra_spectra": "Cessão deve ser definitiva (sem coobrigação do cedente). Se houver obrigação de recompra de inadimplentes, deve ser limitada: (1) apenas inadimplência >90 dias; (2) limite de 20-30% do valor cedido; (3) preço: valor de face + deságio; (4) penalidade se cedente não recomprar (juros + multa).",
+    "como_corrigir": "Definir: 'Cessão definitiva. Recompra obrigatória apenas se: (i) inadimplência >90 dias; (ii) máximo 25% do valor total cedido; (iii) preço: 80% do valor de face. Se Cedente não recomprar em 30 dias: juros 2% a.m. + execução de garantias.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Garantias insuficientes ou de difícil execução",
+    "buscar_em": "garantias, collateral, alienação fiduciária, penhor, coobrigação, fiança",
+    "regra_spectra": "Garantias devem ser: (1) alienação fiduciária dos recebíveis (Registro de Títulos); (2) coobrigação/fiança do cedente ou sócios (limitada); (3) conta vinculada para recebimentos; (4) fiança bancária ou seguro-garantia (se possível); (5) perfuração de SPE se fraude. Over-collateralization mínimo 120%.",
+    "como_corrigir": "Estabelecer: 'Garantias: (i) alienação fiduciária dos Recebíveis (Registro Central de Cessões); (ii) fiança limitada do Cedente (30% do valor); (iii) conta vinculada exclusiva; (iv) over-collateralization 130%. Cessão irrevogável, irretratável, em caráter fiduciário.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Eventos de vencimento antecipado mal definidos",
+    "buscar_em": "vencimento antecipado, early amortization, eventos de liquidação, default, gatilhos",
+    "regra_spectra": "Eventos de vencimento antecipado devem incluir: (1) inadimplência >10% da carteira por >60 dias; (2) descumprimento de covenants; (3) deterioração do rating/saúde financeira do cedente; (4) quebra de over-collateralization; (5) fraude/declarações falsas; (6) recuperação judicial/falência cedente ou devedores relevantes.",
+    "como_corrigir": "Definir: 'Vencimento Antecipado se: (i) inadimplência >10% por >60 dias; (ii) over-collateralization <110%; (iii) violação de covenants por 30 dias; (iv) RJ/falência Cedente ou devedores >20% carteira; (v) fraude. Assembleia pode dispensar com 75% Sênior.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de testes de performance e triggers",
+    "buscar_em": "covenants, testes, performance, triggers, indicadores, métricas, relatórios",
+    "regra_spectra": "Regulamento deve prever testes mensais: (1) over-collateralization mínimo; (2) inadimplência máxima; (3) concentração por devedor; (4) cobertura de despesas; (5) índice de recuperação mínimo. Triggers devem escalonar: amarelo (alerta), laranja (suspensão novas cessões), vermelho (vencimento antecipado).",
+    "como_corrigir": "Estabelecer: 'Testes Mensais: (i) over-collateralization ≥120%; (ii) inadimplência ≤8%; (iii) top 10 devedores ≤60%. Trigger Amarelo (≥1 teste): alerta cotistas. Laranja (≥2 testes): suspensão cessões. Vermelho (3 meses consecutivos): vencimento antecipado.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Remuneração do administrador sem alinhamento de interesses",
+    "buscar_em": "remuneração, taxa, administrador, servicer, performance fee, subordinada",
+    "regra_spectra": "Administrador deve: (1) deter cotas subordinadas (mínimo 5% do total) para alinhamento; (2) taxa de administração competitiva (0,5-1,5% a.a. sobre patrimônio); (3) taxa de performance após cotas sênior receberem retorno mínimo; (4) servicer deve ter performance fee vinculada a taxa de recuperação.",
+    "como_corrigir": "Estabelecer: 'Administrador subscreverá 10% das Cotas Subordinadas. Taxa Administração: 1% a.a. sobre patrimônio. Taxa Performance: 20% do excesso após Sênior receber CDI+4%. Servicer: taxa fixa 0,5% + performance fee 15% sobre recuperações >95%.'"
+  }
+]

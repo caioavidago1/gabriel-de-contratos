@@ -15,6 +15,8 @@ import docx
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 
+from analise.agent import carregar_prompt_tipo
+
 load_dotenv()
 
 # Diretório de cache apenas do Agente 1 (hash do docx → resultado)
@@ -34,17 +36,14 @@ class ExtractedClause(BaseModel):
     )
 
 
-PROMPT_EXTRATOR = ChatPromptTemplate.from_messages([
-    ("system",
-     "Você é um extrator de contratos. Sua tarefa é extrair APENAS a PRIMEIRA cláusula completa que aparece no texto.\n"
-     "Regras:\n"
-     "1. Identifique o início da primeira cláusula (ignore preâmbulos se houver).\n"
-     "2. Identifique onde ela termina (antes do título/número da próxima cláusula).\n"
-     "3. Copie o texto todo para 'clause_full_text' sem adicionar ou modificar informações.\n"
-     "4. Em 'end_quote', copie EXATAMENTE o trecho final (última frase ou últimas 10 palavras) dessa cláusula para servir de marcador de corte.\n"
-     "5. Se não houver mais cláusulas depois desta, marque 'is_last_clause' como True.\n"),
-    ("human", "TEXTO PARA EXTRAÇÃO:\n\n{text}")
-])
+def _criar_prompt_extrator(idioma: str = "pt") -> ChatPromptTemplate:
+    """Monta o prompt do extrator a partir dos arquivos em prompts/_defaults."""
+    system_msg = carregar_prompt_tipo("_defaults", "extrator", "system", idioma)
+    user_msg = carregar_prompt_tipo("_defaults", "extrator", "user", idioma)
+    return ChatPromptTemplate.from_messages([
+        ("system", system_msg),
+        ("human", user_msg),
+    ])
 
 
 def extract_text_from_docx_bytes(docx_bytes: bytes) -> str:
@@ -69,6 +68,7 @@ def extrair_clausulas_docx(
     on_log: Optional[Callable[[str], None]] = None,
     max_clausulas: int = 200,
     chunk_size: int = 15000,
+    idioma: str = "pt",
 ) -> Dict:
     """
     Agente 1: recebe .docx (bytes), extrai cláusulas com a lógica validada (ia.py).
@@ -96,7 +96,8 @@ def extrair_clausulas_docx(
     log(f"Texto total: {len(full_text)} caracteres.")
 
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-    chain = PROMPT_EXTRATOR | llm.with_structured_output(ExtractedClause, method="json_schema")
+    prompt_extrator = _criar_prompt_extrator(idioma)
+    chain = prompt_extrator | llm.with_structured_output(ExtractedClause, method="json_schema")
 
     for i in range(max_clausulas):
         if len(remaining.strip()) < 50:

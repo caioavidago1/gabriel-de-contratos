@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Management fee above market",
+    "buscar_em": "management fee, administration fee, compensation, costs, expenses",
+    "regra_spectra": "Management fee must be competitive: 1.5% to 2.5% p.a. on commitments during investment period, 1% to 2% on NAV after. Avoid ambiguous calculation bases. Prefer pro-rata charge on drawn capital.",
+    "como_corrigir": "Establish: 'Management Fee of 2% p.a. on Commitments during Investment Period (5 years), reducing to 1.5% p.a. on NAV after. Quarterly advance payment, pro-rata on effectively drawn capital.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Performance fee without hurdle rate or inadequate catch-up",
+    "buscar_em": "performance fee, carried interest, carry, hurdle, catch-up, waterfall",
+    "regra_spectra": "Performance fee (carry) must have: (1) minimum hurdle rate (8-10% IRR or IPCA+6%); (2) 100% catch-up after hurdle until GP receives its % (typical 20%); (3) deal-by-deal distribution with clawback or European method; (4) net basis (after costs and taxes).",
+    "como_corrigir": "Define: 'Performance Fee of 20% on gains, after: (i) 8% IRR hurdle; (ii) return of capital to investors; (iii) 100% catch-up until GP reaches 20%. Deal-by-deal waterfall with clawback. Basis: net gains after taxes.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Investment period too long",
+    "buscar_em": "investment period, term, duration, investments, commitment period",
+    "regra_spectra": "Investment period must be 4-5 years. After termination, new investments prohibited (except mandatory follow-ons, defensive investments). Total fund term: 10 years + up to 2 one-year extensions (12 years maximum).",
+    "como_corrigir": "Establish: 'Investment Period: 5 years from 1st drawdown. New investments prohibited after, except: (i) follow-ons; (ii) defensive investments. Term: 10 years + up to 2 one-year extensions (75% investor approval).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Investment policy too broad or without restrictions",
+    "buscar_em": "investment policy, restrictions, limitations, prohibitions, concentration",
+    "regra_spectra": "Investment policy must have: (1) concentration limits per asset (maximum 20-25%); (2) sector concentration limits; (3) permitted geographies; (4) stages/tickets; (5) prohibitions (e.g.: international investments >20%, crypto, derivatives); (6) conflicts of interest.",
+    "como_corrigir": "Define: 'Limits: (i) maximum 25% of Commitment per investment; (ii) minimum 6 investments; (iii) Brazil >80%; (iv) sectors: technology, healthcare, education; (v) tickets R$ 5-50M; (vi) prohibited: crypto, leveraged derivatives, co-investments with GP without approval.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Manager removal without cause or very high quorum",
+    "buscar_em": "removal, dismissal, cause, without cause, for cause, meeting, vote",
+    "regra_spectra": "Investors must be able to remove manager: (1) for cause (simple majority); (2) without cause (qualified quorum 66-75%). Typical causes: fraud, serious regulatory violation, repeated breach of regulations, loss of CVM authorization.",
+    "como_corrigir": "Establish: 'Administrator Removal: (i) for cause (fraud, CVM violation, material breach): simple majority; (ii) without cause: 75% of investors. Cause includes: failure to achieve minimum performance for 3 consecutive years, loss of CVM registration.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Discretionary capital distributions",
+    "buscar_em": "distributions, redemptions, liquidity, proceeds, waterfall",
+    "regra_spectra": "Distributions must follow: (1) clear policy (distribute proceeds within 90 days); (2) priority: return of capital, hurdle, catch-up, split; (3) investors must be able to force distribution if manager retains cash >120 days without justification; (4) maximum reserve 10% for contingencies.",
+    "como_corrigir": "Establish: 'Distributions of divestment proceeds within 90 days, according to waterfall. Maximum reserve 10% for contingencies. If cash >R$ X for >120 days without scheduled investment/expense: mandatory distribution upon request of 50%+ investors.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Conflicts of interest without adequate controls",
+    "buscar_em": "conflict of interest, related party transactions, co-investment, portfolio",
+    "regra_spectra": "Conflict transactions (GP co-investments, investments in another GP fund portfolio, inter-fund transactions) must have: (1) prior disclosure; (2) investor or independent committee approval; (3) fairness opinion if material; (4) tag-along right in co-investments.",
+    "como_corrigir": "Establish: 'Conflict Transactions require: (i) disclosure to investors 15 days in advance; (ii) prior approval of Investment Committee (independent majority) or 66% investors; (iii) fairness opinion if >10% of equity; (iv) investors have pro-rata co-investment right.'"
+  }
+]

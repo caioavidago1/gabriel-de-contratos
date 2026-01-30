@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Declarações sobre passivos ocultos sem qualificação de conhecimento",
+    "buscar_em": "passivos, contingências, knowledge, conhecimento, ciência, melhor conhecimento",
+    "regra_spectra": "Declarações sobre ausência de passivos devem ser qualificadas por 'no melhor conhecimento do Vendedor' ou 'exceto conforme divulgado no Data Room', com definição clara de quem constitui 'conhecimento' (gestores-chave nomeados).",
+    "como_corrigir": "Alterar para: 'No melhor conhecimento do Vendedor (sendo: CEO, CFO e Diretor Jurídico), exceto conforme divulgado no Anexo de Divulgações, não existem passivos contingentes materiais além daqueles refletidos nas demonstrações financeiras.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Non-compete sem limitação geográfica ou temporal razoável",
+    "buscar_em": "não concorrência, non-compete, proibição, competir, concorrer, vedado",
+    "regra_spectra": "Cláusula de não concorrência deve ter: (1) prazo máximo de 3-5 anos; (2) limitação geográfica razoável (Brasil, América Latina); (3) escopo limitado ao negócio efetivamente adquirido; (4) exceções para investimentos passivos <5%.",
+    "como_corrigir": "Limitar a: 'Vendedor não competirá com o Negócio por 3 (três) anos no território brasileiro, exceto: (i) participações <5% em empresas listadas; (ii) setores claramente distintos do escopo do Negócio adquirido.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de non-solicitation ou com prazo excessivo",
+    "buscar_em": "não solicitação, non-solicitation, colaboradores, empregados, clientes, fornecedores",
+    "regra_spectra": "Non-solicitation de colaboradores deve ter prazo máximo de 12-24 meses, limitado a key employees (definidos em anexo). Non-solicitation de clientes: máximo 18-24 meses, com exceções para clientes que procurarem espontaneamente.",
+    "como_corrigir": "Definir: 'Non-solicitation de: (i) Key Employees (Anexo X): 18 meses; (ii) Clientes Materiais (top 20): 24 meses, exceto se procurarem Vendedor espontaneamente. Multa: 2x remuneração anual por empregado ou 1x receita do cliente.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Escrow insuficiente ou sem liberação parcial",
+    "buscar_em": "escrow, garantia, retenção, holdback, liberação, release",
+    "regra_spectra": "Escrow para indenizações deve: (1) ter valor de 10-20% do preço; (2) prazo alinhado à sobrevivência das declarações (18-24 meses); (3) liberação parcial periódica (50% aos 12 meses); (4) procedimento claro de saque (notice, contestação 30 dias, arbitragem).",
+    "como_corrigir": "Estabelecer: 'Escrow de 15% do Preço por 24 meses. Liberação: (i) 50% aos 12 meses se não houver claims pendentes; (ii) saldo aos 24 meses. Claims: notice ao Vendedor, 30 dias para contestar, arbitragem se não houver acordo.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Sandbagging ou Anti-sandbagging não definido",
+    "buscar_em": "conhecimento, knowledge, indenização, ciência prévia, descoberta, sandbagging",
+    "regra_spectra": "Definir claramente se é pro-sandbagging (Comprador pode indenizar mesmo sabendo) ou anti-sandbagging (conhecimento prévio elimina direito). Spectra prefere anti-sandbagging com divulgações no Data Room como 'conhecimento'.",
+    "como_corrigir": "Incluir: 'Anti-Sandbagging: Comprador não terá direito à indenização se tinha conhecimento específico da violação antes do Closing, sendo que a disponibilização de documentos no Data Room NÃO constitui conhecimento (apenas leitura efetiva comprovada).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Indenização por tributação sem grossing-up",
+    "buscar_em": "impostos, tributos, tax, withholding, retenção, grossing, líquido",
+    "regra_spectra": "Pagamentos de indenização devem ser líquidos para o beneficiário (net of tax). Se houver retenção na fonte, o pagador deve fazer grossing-up para que o beneficiário receba o valor integral líquido.",
+    "como_corrigir": "Adicionar: 'Todos os pagamentos de indenização serão acrescidos (grossed-up) de modo que, após dedução de impostos retidos na fonte, o beneficiário receba o valor integral. Comprador recolherá e fornecerá comprovantes de retenção.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Assunção de passivos sem lista de exceções",
+    "buscar_em": "assunção, assumir, passivos, liabilities, assume, assumed liabilities",
+    "regra_spectra": "Se houver assunção de passivos, deve ser definido claramente: (1) Assumed Liabilities (lista taxativa); (2) Excluded Liabilities (lista de exclusões); (3) passivos contingentes conhecidos vs desconhecidos; (4) responsabilidade residual do vendedor.",
+    "como_corrigir": "Definir: 'Assumed Liabilities: apenas (i) trade payables no curso normal; (ii) passivos trabalhistas de contratos ativos. Excluded Liabilities: (i) tributos anteriores ao Closing; (ii) contingências não divulgadas; (iii) passivos com partes relacionadas. Vendedor responsável por Excluded Liabilities.'"
+  }
+]

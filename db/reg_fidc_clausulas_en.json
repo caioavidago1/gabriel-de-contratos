@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Receivables eligibility criteria too broad",
+    "buscar_em": "eligibility criteria, eligible receivables, credits, assignment, transfer",
+    "regra_spectra": "Eligibility criteria must be restrictive: (1) maximum debtor default (<5% historical); (2) maximum receivable term (360 days); (3) concentration per debtor (<10%); (4) minimum debtor rating; (5) prohibition of related party receivables; (6) judicial receivables only if secured.",
+    "como_corrigir": "Establish: 'Eligible Receivables: (i) debtor with historical default <5%; (ii) term <360 days; (iii) maximum 10% per debtor; (iv) minimum rating B+; (v) prohibited: Assignor's related parties, judicialized receivables without real guarantee.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Insufficient subordination for senior quotas",
+    "buscar_em": "subordination, subordinated, junior quotas, mezzanine, senior, junior",
+    "regra_spectra": "Subordinated quotas must represent minimum 10-20% of equity as protection buffer. Payments must follow strict waterfall: (1) expenses/taxes; (2) senior quota yield; (3) senior amortization; (4) subordinated yield; (5) subordinated amortization. Subordinated absorbs first loss.",
+    "como_corrigir": "Establish: 'Subordinated Quotas: minimum 15% of equity. Waterfall: (i) expenses; (ii) Senior yield (CDI+4%); (iii) Senior amortization; (iv) Subordinated yield; (v) Subordinated amortization. Losses: 100% Subordinated first, then Senior pro-rata.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Receivables repurchase without limitation or penalty",
+    "buscar_em": "repurchase, put, buyback obligation, defaulted receivables",
+    "regra_spectra": "Assignment must be definitive (without assignor co-obligation). If there is obligation to repurchase defaulted receivables, must be limited: (1) only default >90 days; (2) limit of 20-30% of assigned value; (3) price: face value + discount; (4) penalty if assignor fails to repurchase (interest + fine).",
+    "como_corrigir": "Define: 'Definitive assignment. Mandatory repurchase only if: (i) default >90 days; (ii) maximum 25% of total assigned value; (iii) price: 80% of face value. If Assignor fails to repurchase within 30 days: 2% p.m. interest + guarantee enforcement.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Insufficient or difficult-to-enforce guarantees",
+    "buscar_em": "guarantees, collateral, fiduciary assignment, pledge, co-obligation, surety",
+    "regra_spectra": "Guarantees must be: (1) fiduciary assignment of receivables (Title Registry); (2) assignor or shareholders co-obligation/surety (limited); (3) linked account for collections; (4) bank surety or guarantee insurance (if possible); (5) SPE piercing if fraud. Minimum over-collateralization 120%.",
+    "como_corrigir": "Establish: 'Guarantees: (i) fiduciary assignment of Receivables (Central Assignment Registry); (ii) limited Assignor surety (30% of value); (iii) exclusive linked account; (iv) 130% over-collateralization. Irrevocable, irretractable assignment, fiduciary in nature.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Poorly defined early amortization events",
+    "buscar_em": "early amortization, liquidation events, default, triggers",
+    "regra_spectra": "Early amortization events must include: (1) default >10% of portfolio for >60 days; (2) breach of covenants; (3) deterioration of assignor rating/financial health; (4) over-collateralization breach; (5) fraud/false representations; (6) judicial recovery/bankruptcy of assignor or relevant debtors.",
+    "como_corrigir": "Define: 'Early Amortization if: (i) default >10% for >60 days; (ii) over-collateralization <110%; (iii) covenant violation for 30 days; (iv) assignor bankruptcy or debtors >20% portfolio; (v) fraud. Meeting may waive with 75% Senior approval.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of performance tests and triggers",
+    "buscar_em": "covenants, tests, performance, triggers, indicators, metrics, reports",
+    "regra_spectra": "Regulations must provide monthly tests: (1) minimum over-collateralization; (2) maximum default; (3) concentration per debtor; (4) expense coverage; (5) minimum recovery rate. Triggers must escalate: yellow (alert), orange (suspension of new assignments), red (early amortization).",
+    "como_corrigir": "Establish: 'Monthly Tests: (i) over-collateralization ≥120%; (ii) default ≤8%; (iii) top 10 debtors ≤60%. Yellow Trigger (≥1 test): alert investors. Orange (≥2 tests): suspend assignments. Red (3 consecutive months): early amortization.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Administrator compensation without interest alignment",
+    "buscar_em": "compensation, fee, administrator, servicer, performance fee, subordinated",
+    "regra_spectra": "Administrator must: (1) hold subordinated quotas (minimum 5% of total) for alignment; (2) competitive management fee (0.5-1.5% p.a. on equity); (3) performance fee after senior quotas receive minimum return; (4) servicer must have performance fee linked to recovery rate.",
+    "como_corrigir": "Establish: 'Administrator shall subscribe 10% of Subordinated Quotas. Management Fee: 1% p.a. on equity. Performance Fee: 20% of excess after Senior receives CDI+4%. Servicer: fixed fee 0.5% + 15% performance fee on recoveries >95%.'"
+  }
+]

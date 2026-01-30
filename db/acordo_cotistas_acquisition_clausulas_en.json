@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Board composition without investor majority",
+    "buscar_em": "board of directors, composition, appointment, members, seats",
+    "regra_spectra": "In control acquisitions, Spectra must have: (1) absolute board majority (minimum 3 of 5); (2) right to appoint chairman with casting vote; (3) right to replace appointees at any time; (4) installation quorum allowing meetings without minorities; (5) prohibition of alternates without approval.",
+    "como_corrigir": "Establish: 'Board: 5 members, being (i) 3 appointed by Spectra (including Chairman with casting vote); (ii) 2 by minorities. Spectra may replace its appointees at any time. Quorum: absolute majority (3). Alternates only with prior majority approval.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Reserved board matters too restricted",
+    "buscar_em": "competence, powers, board, approval, reserved matters",
+    "regra_spectra": "Board must have exclusive competence over strategic decisions: (1) annual budget and revisions >10%; (2) investments >threshold (e.g.: R$ 500k); (3) hiring/dismissal of C-level; (4) approval of material contracts (>R$ 1M or >12 months); (5) related party transactions; (6) debt policy; (7) opening/closing units.",
+    "como_corrigir": "Define: 'Exclusive Board Competence: (i) budget and revisions >10%; (ii) investments >R$ 500k; (iii) C-level hiring/dismissal; (iv) contracts >R$ 1M or >12 months; (v) related transactions >R$ 100k; (vi) debt >R$ X; (vii) opening/closing branches; (viii) dividend distribution.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Executive compensation without board approval",
+    "buscar_em": "compensation, salaries, bonus, stock options, benefits",
+    "regra_spectra": "C-level compensation must: (1) be approved by board annually; (2) have variable part tied to objective KPIs (EBITDA, revenue, targets); (3) limited bonus (e.g.: maximum 50-100% of fixed); (4) stock options with vesting and best practices; (5) prohibition of increases >20% p.a. without justification.",
+    "como_corrigir": "Establish: 'C-level Compensation: (i) approved annually by Board; (ii) variable part maximum 80% of fixed, tied to KPIs (EBITDA 50%, revenue 30%, qualitative 20%); (iii) stock options with 4-year vesting; (iv) adjustments >IPCA require justification and specific approval.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Inadequate management quota vesting",
+    "buscar_em": "vesting, acquisition, management shares, quotas, founders, cliff",
+    "regra_spectra": "Management equity must have: (1) 4-year vesting; (2) 1-year cliff (nothing vests before); (3) acceleration only in involuntary good leaver or exit; (4) bad leaver: repurchase at cost; (5) good leaver: clear valuation formula; (6) non-compete during vesting.",
+    "como_corrigir": "Define: 'Management (15% of capital): (i) 4-year vesting (25% per year); (ii) 1-year cliff; (iii) bad leaver: repurchase at cost; (iv) good leaver: valuation = average 12-month EBITDA x transaction multiple; (v) 50% acceleration if exit >1.5x Spectra investment; (vi) 2-year non-compete during vesting.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Insufficient preferential economic rights",
+    "buscar_em": "preference, liquidation, dividends, waterfall, preferential, priority",
+    "regra_spectra": "Spectra must have liquidation preference: (1) return of 1x invested capital before any distribution to others; (2) after: pro-rata participation in remaining amounts; (3) dividends: pro-rata after reaching minimum return; (4) non-cumulative (does not accumulate dividend preference); (5) convertible to ordinary if interesting.",
+    "como_corrigir": "Establish: 'Preference: (i) in liquidation or exit: Spectra receives 1x capital before any distribution; (ii) balance: distributed pro-rata among all; (iii) annual dividends: pro-rata, no preference; (iv) non-cumulative; (v) Spectra may convert to ordinary if exit implies >3x return.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of call option for minorities",
+    "buscar_em": "call option, purchase option, put, sale option, compulsory purchase",
+    "regra_spectra": "Spectra must have call option over minority quotas: (1) exercisable after 3-5 years; (2) valuation: clear formula (e.g.: 6-8x average EBITDA last 2 years); (3) payment: part cash (minimum 50%), part deferred; (4) exercise by event (IPO, sale, deadlock); (5) minority has no put (except in deadlock or breach case).",
+    "como_corrigir": "Include: 'Call Option: (i) Spectra may buy minority quotas after 5 years; (ii) price: 7x average EBITDA last 24 months; (iii) payment: 60% at closing, 40% in 18 months (with CDI interest); (iv) exercise also if IPO or third party offer >1.2x valuation. Minority has put only if deadlock >6 months.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Related party transactions without independent approval",
+    "buscar_em": "related parties, conflict of interest, transactions, contracts",
+    "regra_spectra": "Related party transactions (partners, managers, affiliated companies) must have: (1) full disclosure to board; (2) approval by independent directors or majority without conflict; (3) arms-length terms (market); (4) fairness opinion if material (>5% revenue/equity); (5) annual ratification.",
+    "como_corrigir": "Establish: 'Related Transactions: (i) prior disclosure to Board 15 days before; (ii) approval by directors without conflict; (iii) if >R$ 500k: fairness opinion; (iv) terms must be arms-length; (v) annual ratification of transactions in Meeting. Prohibited to compensate minorities or related parties without approval.'"
+  }
+]

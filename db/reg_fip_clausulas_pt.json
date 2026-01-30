@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Taxa de administração acima do mercado",
+    "buscar_em": "taxa de administração, management fee, remuneração, custos, despesas",
+    "regra_spectra": "Taxa de administração deve ser competitiva: 1,5% a 2,5% a.a. sobre compromisso durante período de investimento, 1% a 2% sobre NAV após. Evitar bases de cálculo ambíguas. Preferir cobrança pro-rata sobre capital integralizado.",
+    "como_corrigir": "Estabelecer: 'Taxa de Administração de 2% a.a. sobre Compromissos durante Período de Investimento (5 anos), reduzindo para 1,5% a.a. sobre NAV após. Pagamento trimestral antecipado, pro-rata sobre capital efetivamente integralizado.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Taxa de performance sem hurdle rate ou catch-up inadequado",
+    "buscar_em": "taxa de performance, carried interest, performance fee, hurdle, catch-up, waterfall",
+    "regra_spectra": "Taxa de performance (carry) deve ter: (1) hurdle rate mínimo (8-10% IRR ou IPCA+6%); (2) catch-up de 100% após hurdle até GP receber sua % (típico 20%); (3) distribuição deal-by-deal com clawback ou método europeu; (4) base líquida (após custos e impostos).",
+    "como_corrigir": "Definir: 'Taxa de Performance de 20% sobre ganhos, após: (i) hurdle de 8% IRR; (ii) retorno do capital aos cotistas; (iii) catch-up 100% até GP atingir 20%. Waterfall deal-by-deal com clawback. Base: ganhos líquidos após impostos.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Período de investimento muito longo",
+    "buscar_em": "período de investimento, investment period, prazo, duração, investimentos",
+    "regra_spectra": "Período de investimento deve ser 4-5 anos. Após o término, vedados novos investimentos (exceto follow-ons obrigatórios, investimentos defensivos). Prazo total do fundo: 10 anos + até 2 extensões de 1 ano (12 anos máximo).",
+    "como_corrigir": "Estabelecer: 'Período de Investimento: 5 anos da 1ª integralização. Novos investimentos vedados após, exceto: (i) follow-ons; (ii) investimentos defensivos. Prazo: 10 anos + até 2 prorrogações de 1 ano (aprovação 75% cotistas).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Política de investimento muito ampla ou sem restrições",
+    "buscar_em": "política de investimento, investment policy, restrições, limitações, vedações, concentração",
+    "regra_spectra": "Política de investimento deve ter: (1) limites de concentração por ativo (máximo 20-25%); (2) limites de concentração setorial; (3) geografias permitidas; (4) estágios/tickets; (5) vedações (ex: investimentos internacionais >20%, crypto, derivativos); (6) conflitos de interesse.",
+    "como_corrigir": "Definir: 'Limites: (i) máximo 25% do Compromisso por investimento; (ii) mínimo 6 investimentos; (iii) Brasil >80%; (iv) setores: tecnologia, saúde, educação; (v) tickets R$ 5-50M; (vi) vedado: crypto, derivativos alavancados, co-investimentos com GP sem aprovação.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Remoção do gestor sem causa ou quorum muito alto",
+    "buscar_em": "remoção, destituição, removal, causa, without cause, for cause, assembleia",
+    "regra_spectra": "Cotistas devem poder remover gestor: (1) for cause (maioria simples); (2) without cause (quorum qualificado 66-75%). Causas típicas: fraude, violação regulatória grave, descumprimento reiterado do regulamento, perda de autorização CVM.",
+    "como_corrigir": "Estabelecer: 'Remoção do Administrador: (i) for cause (fraude, violação CVM, descumprimento material): maioria simples; (ii) without cause: 75% dos cotistas. Causa inclui: não atingir performance mínima por 3 anos consecutivos, perda de registro CVM.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Distribuições de capital discricionárias",
+    "buscar_em": "distribuições, resgate, liquidez, distributions, redemptions, waterfall",
+    "regra_spectra": "Distribuições devem seguir: (1) política clara (distribuir proceeds em até 90 dias); (2) prioridade: devolução capital, hurdle, catch-up, split; (3) cotistas devem poder forçar distribuição se gestor reter caixa >120 dias sem justificativa; (4) reserva máxima 10% para contingências.",
+    "como_corrigir": "Estabelecer: 'Distribuições de proceeds de desinvestimento em até 90 dias, conforme waterfall. Reserva máxima 10% para contingências. Se caixa >R$ X por >120 dias sem investimento/despesa programada: distribuição obrigatória mediante solicitação de 50%+ cotistas.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Conflitos de interesse sem controles adequados",
+    "buscar_em": "conflito de interesse, transações relacionadas, related party, cotas, coinvestimento",
+    "regra_spectra": "Transações com conflito (co-investimentos GP, investimentos em portfólio de outro fundo GP, transações entre fundos) devem ter: (1) divulgação prévia; (2) aprovação de cotistas ou comitê independente; (3) fairness opinion se material; (4) direito de tag-along em co-investimentos.",
+    "como_corrigir": "Estabelecer: 'Transações com Conflito requerem: (i) divulgação aos cotistas com 15 dias de antecedência; (ii) aprovação prévia do Comitê de Investimentos (maioria independente) ou 66% cotistas; (iii) fairness opinion se >10% do patrimônio; (iv) cotistas têm direito de co-investir pro-rata.'"
+  }
+]

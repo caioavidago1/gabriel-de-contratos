@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Representations about hidden liabilities without knowledge qualification",
+    "buscar_em": "liabilities, contingencies, knowledge, awareness, best knowledge",
+    "regra_spectra": "Representations about absence of liabilities must be qualified by 'to the best knowledge of Seller' or 'except as disclosed in Data Room', with clear definition of who constitutes 'knowledge' (named key managers).",
+    "como_corrigir": "Change to: 'To the best knowledge of Seller (being: CEO, CFO and Legal Director), except as disclosed in Disclosure Schedules, there are no material contingent liabilities other than those reflected in the financial statements.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Non-compete without reasonable geographic or time limitation",
+    "buscar_em": "non-compete, prohibition, compete, competing, restricted, forbidden",
+    "regra_spectra": "Non-compete clause must have: (1) maximum term of 3-5 years; (2) reasonable geographic limitation (Brazil, Latin America); (3) scope limited to business actually acquired; (4) exceptions for passive investments <5%.",
+    "como_corrigir": "Limit to: 'Seller shall not compete with the Business for 3 (three) years in Brazilian territory, except: (i) holdings <5% in listed companies; (ii) sectors clearly distinct from scope of acquired Business.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absence of non-solicitation or with excessive term",
+    "buscar_em": "non-solicitation, employees, staff, customers, clients, suppliers",
+    "regra_spectra": "Non-solicitation of employees must have maximum term of 12-24 months, limited to key employees (defined in annex). Non-solicitation of customers: maximum 18-24 months, with exceptions for customers who spontaneously reach out.",
+    "como_corrigir": "Define: 'Non-solicitation of: (i) Key Employees (Annex X): 18 months; (ii) Material Customers (top 20): 24 months, except if they spontaneously reach out to Seller. Penalty: 2x annual compensation per employee or 1x customer revenue.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Insufficient escrow or without partial release",
+    "buscar_em": "escrow, guarantee, retention, holdback, release, distribution",
+    "regra_spectra": "Escrow for indemnifications must: (1) have value of 10-20% of price; (2) term aligned with survival of representations (18-24 months); (3) periodic partial release (50% at 12 months); (4) clear withdrawal procedure (notice, 30-day challenge, arbitration).",
+    "como_corrigir": "Establish: 'Escrow of 15% of Price for 24 months. Release: (i) 50% at 12 months if no pending claims; (ii) balance at 24 months. Claims: notice to Seller, 30 days to challenge, arbitration if no agreement.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Sandbagging or Anti-sandbagging not defined",
+    "buscar_em": "knowledge, indemnification, prior awareness, discovery, sandbagging, knew",
+    "regra_spectra": "Clearly define whether pro-sandbagging (Buyer can indemnify even knowing) or anti-sandbagging (prior knowledge eliminates right). Spectra prefers anti-sandbagging with Data Room disclosures as 'knowledge'.",
+    "como_corrigir": "Include: 'Anti-Sandbagging: Buyer shall have no indemnification right if it had specific knowledge of breach before Closing, provided that availability of documents in Data Room does NOT constitute knowledge (only proven actual reading does).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Tax indemnification without grossing-up",
+    "buscar_em": "taxes, withholding, retention, grossing, gross-up, net of tax",
+    "regra_spectra": "Indemnification payments must be net of tax to beneficiary. If there is withholding tax, payor must gross-up so beneficiary receives full net amount.",
+    "como_corrigir": "Add: 'All indemnification payments shall be grossed-up so that, after deduction of withholding taxes, beneficiary receives full amount. Buyer shall collect and provide withholding receipts.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Assumption of liabilities without exception list",
+    "buscar_em": "assumption, assume, liabilities, assumed liabilities, excluded liabilities",
+    "regra_spectra": "If there is assumption of liabilities, must clearly define: (1) Assumed Liabilities (exhaustive list); (2) Excluded Liabilities (exclusion list); (3) known vs unknown contingent liabilities; (4) seller's residual responsibility.",
+    "como_corrigir": "Define: 'Assumed Liabilities: only (i) trade payables in ordinary course; (ii) labor liabilities of active contracts. Excluded Liabilities: (i) taxes prior to Closing; (ii) undisclosed contingencies; (iii) liabilities with related parties. Seller responsible for Excluded Liabilities.'"
+  }
+]

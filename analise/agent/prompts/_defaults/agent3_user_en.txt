@@ -1,0 +1,7 @@
+RULE ({nome_regra}):
+{descricao_regra}
+
+CONTRACT EXCERPTS ANALYZED:
+{trechos_contrato}
+
+Does any excerpt violate the rule? Respond in the structured format.

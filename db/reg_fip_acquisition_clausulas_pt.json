@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "ativa": true,
+    "titulo": "Aprovação de transação com quorum muito baixo",
+    "buscar_em": "aprovação, transação, aquisição, investimento, assembleia, quorum, votação",
+    "regra_spectra": "Transação de aquisição (investimento principal) deve ter aprovação de cotistas: (1) quorum qualificado 75-80% para aprovar; (2) possibilidade de veto por cotista âncora se houver; (3) direito de não participar (sem diluição) se discordar; (4) business plan e valuation detalhados apresentados com 30 dias de antecedência.",
+    "como_corrigir": "Estabelecer: 'Investimento Principal requer: (i) aprovação de 75% dos cotistas em assembleia; (ii) apresentação de business plan, valuation e termos 30 dias antes; (iii) cotistas que votarem contra podem optar por não aportar sua parte pro-rata (sem diluição).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Chamadas de capital sem limitação ou prazo",
+    "buscar_em": "chamada de capital, capital call, integralização, aportes, draw down",
+    "regra_spectra": "Chamadas de capital devem ter: (1) aviso prévio mínimo de 10-15 dias úteis; (2) máximo 3-4 chamadas por ano (exceto emergências); (3) juros e multa por atraso; (4) consequências de inadimplemento (diluição, excussão de garantias); (5) vedação a chamadas para cobrir prejuízos operacionais da investida.",
+    "como_corrigir": "Definir: 'Capital Calls: (i) aviso 15 dias úteis antes; (ii) máximo 4 por ano; (iii) inadimplemento: juros 1% a.m. + multa 2% + diluição após 30 dias ou excussão de garantia. Vedadas chamadas para cobrir prejuízos operacionais (apenas investimentos, despesas do fundo).'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Governança da investida sem proteção aos cotistas",
+    "buscar_em": "governança, board, conselho, administração, veto, aprovação, investida",
+    "regra_spectra": "Governança da investida deve ter: (1) maioria do board indicada pelo fundo; (2) matérias reservadas (aprovação obrigatória do fundo): fusões, endividamento relevante, transações com partes relacionadas, venda de ativos, alteração objeto social; (3) direitos de informação irrestrito; (4) direito de substituir gestores da investida.",
+    "como_corrigir": "Estabelecer: 'Fundo terá: (i) maioria do Conselho investida; (ii) veto sobre: fusões, dívida >R$ X, transações relacionadas >R$ Y, venda ativos >10% patrimônio, mudança objeto; (iii) acesso irrestrito a informações; (iv) direito de substituir CEO/CFO com 75% board.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Exit sem mecanismos de liquidez definidos",
+    "buscar_em": "liquidez, exit, saída, IPO, venda, trade sale, put, call",
+    "regra_spectra": "Estratégia de exit deve prever: (1) prazo alvo para desinvestimento (5-7 anos); (2) mecanismos: IPO, venda estratégica, venda secundária; (3) put ao sócio remanescente após prazo; (4) direito de forçar venda (drag-along 100%) se oferta razoável; (5) tag-along 100%; (6) prioridade de liquidez ao fundo.",
+    "como_corrigir": "Definir: 'Exit alvo: 7 anos. Mecanismos: (i) IPO; (ii) venda estratégica. Após 7 anos: Fundo tem put ao sócio remanescente a valor justo (valuation independente). Fundo pode forçar venda (drag 100%) se oferta >1,2x investimento + hurdle. Tag-along 100%. Waterfall: Fundo tem prioridade 1x capital + hurdle.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Sócios operacionais com direitos desproporcionais",
+    "buscar_em": "sócios, fundadores, management, founders shares, sweat equity, vesting",
+    "regra_spectra": "Participação de sócios operacionais/management deve ter: (1) vesting de 3-4 anos; (2) cliff de 1 ano; (3) good leaver/bad leaver com repurchase; (4) subordinação econômica (fundo recebe preferência); (5) não diluição do fundo em rodadas futuras (anti-diluição total); (6) performance milestones para earn-in.",
+    "como_corrigir": "Estabelecer: 'Management: (i) 15% do capital; (ii) vesting 4 anos, cliff 1 ano; (iii) bad leaver: repurchase a custo; good leaver: valuation independente; (iv) subordinação: Fundo recebe 1x capital + 10% IRR antes; (v) anti-diluição total do Fundo; (vi) earn-in: 10% upfront, 5% se atingir EBITDA ano 3.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Despesas extraordinárias sem aprovação",
+    "buscar_em": "despesas, custos, transaction costs, broken deal, advisory, due diligence",
+    "regra_spectra": "Despesas do fundo devem ter: (1) budget anual aprovado por cotistas; (2) despesas de transação (due diligence, legal, advisory) limitadas a 3-5% do valor; (3) broken deal costs rateados; (4) vedação a double-dipping (gestor cobrar taxa E fees de advisory); (5) transparência total (relatório trimestral de custos).",
+    "como_corrigir": "Definir: 'Despesas: (i) budget anual aprovado em assembleia; (ii) despesas de transação <5% do investimento; (iii) broken deals: rateados entre todos cotistas pro-rata; (iv) vedado gestor cobrar advisory fees além da taxa de administração; (v) relatório trimestral detalhado de custos.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Ausência de direito de co-venda proporcional",
+    "buscar_em": "tag-along, co-sale, venda, transferência, drag-along",
+    "regra_spectra": "Cotistas minoritários devem ter: (1) tag-along de 100% em qualquer venda; (2) drag-along exercível pelo fundo se oferta >1,2x investimento inicial; (3) direito de preferência em vendas entre cotistas; (4) lock-up após IPO aplicável a todos igualmente; (5) vedação a transferências a competidores sem aprovação.",
+    "como_corrigir": "Estabelecer: 'Tag-along 100% para cotistas. Drag-along: Fundo pode forçar venda se oferta ≥1,2x investimento + 8% IRR. Direito de preferência: cotistas têm 30 dias em vendas secundárias. Lock-up pós-IPO: 180 dias para todos. Vedada venda a competidores sem 75% aprovação.'"
+  }
+]

@@ -1,0 +1,14 @@
+Original clause (violation detected):
+{titulo}
+
+{texto_original}
+
+Violated rule: {regra_violada}
+
+Reason for violation:
+{motivo}
+
+Relevant document context (use to maintain consistency):
+{contexto_global}
+
+Rewrite the clause above correcting the violation. Keep the mandatory response format.
