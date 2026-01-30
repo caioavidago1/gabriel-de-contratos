@@ -1,24 +1,12 @@
 """
 Comparar dois DOCX (problemas x solução) com track changes.
 Usa win32com no Windows e LibreOffice UNO no Linux.
+UNO/pyuno é importado só dentro de comparar_docx_linux() para o módulo carregar no Linux sem inicializar o runtime.
 """
 import io
 import os
 import sys
 import platform
-
-
-if platform.system() != 'Windows':
-    # Adiciona o caminho do LibreOffice ao sys.path para encontrar 'uno'
-    libreoffice_path = '/usr/lib/python3/dist-packages'
-    if libreoffice_path not in sys.path:
-        sys.path.insert(0, libreoffice_path)
-    
-    # ✅ IMPORTS UNO AQUI (FORA DAS FUNÇÕES)
-    import uno
-    from com.sun.star.beans import PropertyValue
-    from com.sun.star.connection import NoConnectException
-
 
 from typing import Optional
 from docx import Document
@@ -96,7 +84,14 @@ def comparar_docx_windows(original_path, revisado_path, saida_path):
 
 
 def comparar_docx_linux(original_path, revisado_path, saida_path):
-    """Comparação usando LibreOffice UNO (Linux)"""
+    """Comparação usando LibreOffice UNO (Linux). Imports UNO só aqui para não quebrar o carregamento do módulo."""
+    # Import UNO apenas ao usar (evita pyuno runtime not initialized no carregamento do módulo)
+    libreoffice_path = '/usr/lib/python3/dist-packages'
+    if libreoffice_path not in sys.path:
+        sys.path.insert(0, libreoffice_path)
+    import uno
+    from com.sun.star.beans import PropertyValue
+    from com.sun.star.connection import NoConnectException
 
     def criar_propriedade(nome, valor):
         """Cria uma PropertyValue para passar argumentos UNO"""
@@ -104,7 +99,7 @@ def comparar_docx_linux(original_path, revisado_path, saida_path):
         prop.Name = nome
         prop.Value = valor
         return prop
-    
+
     original_path = os.path.abspath(original_path)
     revisado_path = os.path.abspath(revisado_path)
     saida_path = os.path.abspath(saida_path)

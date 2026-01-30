@@ -758,7 +758,7 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
                 libreoffice_path = '/usr/lib/python3/dist-packages'
                 if libreoffice_path not in sys.path:
                     sys.path.insert(0, libreoffice_path)
-            from output.comparar_docx import comparar_docx
+            from output.comparar_docx import comparar_docx, gerar_doc_comparado
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
             nome_base = Path(nome_arquivo).stem
             mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -768,21 +768,39 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
             path_solucao = output_dir / f"solucao_{nome_base}_{ts}.docx"
             path_comparacao = output_dir / f"comparacao_{nome_base}_{ts}.docx"
             if st.button("Comparar documentos (problemas x solução)", key="btn_comparar_doc"):
-                with st.spinner("Salvando problemas e solução em output/docs e gerando comparação com Word..."):
+                with st.spinner("Salvando problemas e solução em output/docs e gerando comparação..."):
+                    path_problemas.write_bytes(doc_problemas)
+                    path_solucao.write_bytes(doc_solucao)
+                    comparado_bytes = None
                     try:
-                        path_problemas.write_bytes(doc_problemas)
-                        path_solucao.write_bytes(doc_solucao)
                         comparar_docx(str(path_problemas), str(path_solucao), str(path_comparacao))
                         comparado_bytes = path_comparacao.read_bytes()
+                        msg_sucesso = (
+                            "Documentos gravados em output/docs. Comparação gerada (track changes). "
+                            "Use o botão abaixo para baixar."
+                        )
+                    except Exception:
+                        # Fallback no Linux quando LibreOffice/pyuno não está disponível: documento com problemas + solução (sem track changes)
+                        fallback = gerar_doc_comparado(doc_problemas, doc_solucao)
+                        if fallback:
+                            path_comparacao.write_bytes(fallback)
+                            comparado_bytes = fallback
+                            msg_sucesso = (
+                                "Documentos gravados em output/docs. Comparação com controle de alterações não disponível "
+                                "neste servidor; foi gerado um documento com problemas + solução. Use o botão abaixo para baixar."
+                            )
+                        else:
+                            msg_sucesso = None
+                    if comparado_bytes is not None:
                         st.session_state["comparacao_doc_bytes"] = comparado_bytes
                         st.session_state["comparacao_doc_nome"] = f"comparacao_{nome_base}_{ts}.docx"
                         st.session_state["comparacao_doc_nome_base"] = nome_base
-                        st.success(
-                            f"Documentos gravados em output/docs. Comparação gerada (Word). "
-                            f"Use o botão abaixo para baixar."
+                        st.success(msg_sucesso)
+                    else:
+                        st.error(
+                            "Erro ao comparar documentos. No Windows, verifique se o Word e o pywin32 estão instalados. "
+                            "No Linux, verifique se o LibreOffice está instalado e em execução com o socket na porta 2002."
                         )
-                    except Exception as e:
-                        st.error(f"Erro ao comparar documentos: {e}. Verifique se o Word está instalado e se pywin32 está disponível.")
             if (st.session_state.get("comparacao_doc_bytes")
                     and st.session_state.get("comparacao_doc_nome_base") == nome_base):
                 st.download_button(
