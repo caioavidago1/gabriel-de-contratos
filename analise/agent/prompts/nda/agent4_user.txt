@@ -1,14 +1,18 @@
-Cláusula original (violação detectada):
+CLÁUSULA ORIGINAL (com violação detectada):
+
 {titulo}
 
 {texto_original}
 
-Regra violada: {regra_violada}
+---
+REGRA VIOLADA: {regra_violada}
 
-Motivo da violação:
+MOTIVO DA VIOLAÇÃO:
 {motivo}
 
-Contexto relevante do documento (use para manter consistência):
+---
+Contexto do documento (use para manter consistência terminológica e estrutural):
 {contexto_global}
 
-Reescreva a cláusula acima corrigindo a violação conforme as preferências da Spectra. Mantenha o formato de resposta obrigatório.
+---
+Reescreva a cláusula acima corrigindo a violação. Se o Motivo contiver "Como corrigir (orientação Spectra)", siga essa orientação literalmente. Mantenha o formato de resposta obrigatório (TEXTO REESCRITO + EXPLICAÇÃO DAS MUDANÇAS).

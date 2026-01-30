@@ -1,10 +1,10 @@
-Título: {titulo}
+Título da cláusula: {titulo}
 
 Texto da cláusula:
 {texto}
 
-Regras de Referência:
+Regras de Referência da Spectra (titulo + regra_spectra):
 {regras_referencia}
 
 ---
-Analise este trecho específico. Responda no formato estruturado obrigatório.
+Analise este trecho em relação às regras acima. Responda no formato estruturado obrigatório.

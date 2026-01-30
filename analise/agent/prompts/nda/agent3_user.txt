@@ -1,7 +1,10 @@
-REGRA ({nome_regra}):
+REGRA A VERIFICAR ({nome_regra}):
 {descricao_regra}
 
-TRECHOS DO CONTRATO ANALISADO:
+---
+TRECHOS DO CONTRATO (analise cada um em relação à regra acima):
+
 {trechos_contrato}
 
-Algum trecho infringe a regra? Responda no formato estruturado.
+---
+Algum dos 5 trechos viola a regra Spectra? Se sim, qual trecho (1-5) e qual o problema? Se não, eh_violacao=false, chunk_index=0.

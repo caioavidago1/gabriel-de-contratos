@@ -2,6 +2,9 @@ import streamlit as st
 from pathlib import Path
 import json
 import hashlib
+import uuid
+from datetime import datetime
+from typing import Optional, Dict, Any
 
 # ========= Upload =========
 def upload_docx(label: str, key: str = "upload_docx"):
@@ -18,6 +21,68 @@ def upload_docx(label: str, key: str = "upload_docx"):
 # ========= DB local =========
 DB_DIR = Path("db")
 DB_DIR.mkdir(exist_ok=True)
+
+# ========= Histórico de Análises =========
+MAX_HISTORICO = 10  # Máximo de análises no histórico
+
+def _inicializar_historico():
+    """Inicializa o histórico de análises no session_state se não existir."""
+    if "historico_analises" not in st.session_state:
+        st.session_state.historico_analises = []
+
+def _adicionar_ao_historico(
+    nome_arquivo: str,
+    tipo_contrato: str,
+    idioma: str,
+    resultado
+) -> None:
+    """
+    Adiciona uma análise ao histórico da sessão.
+    Mantém apenas as últimas MAX_HISTORICO análises.
+    
+    Args:
+        nome_arquivo: Nome do arquivo analisado
+        tipo_contrato: Tipo de contrato
+        idioma: Idioma da análise
+        resultado: Objeto ResultadoAnalise
+    """
+    _inicializar_historico()
+    
+    # Criar entrada do histórico (sem os bytes dos documentos para economizar memória)
+    entrada = {
+        "id": uuid.uuid4().hex[:8],
+        "timestamp": datetime.now().isoformat(),
+        "nome_arquivo": nome_arquivo,
+        "tipo_contrato": tipo_contrato,
+        "idioma": idioma,
+        "total_violacoes": len(resultado.violacoes),
+        "total_conformidades": len(resultado.conformidades),
+        "total_clausulas": resultado.total_clausulas,
+        "tempo_total": resultado.tempo_total,
+        "modelo_llm": resultado.modelo_llm_usado,
+        "modelo_embedding": resultado.modelo_embedding_usado,
+        "sucesso": resultado.sucesso,
+        "mensagem": resultado.mensagem,
+        # Armazenar dados essenciais para visualização (sem bytes)
+        "violacoes": resultado.violacoes,
+        "conformidades": resultado.conformidades,
+    }
+    
+    # Adicionar ao início (mais recente primeiro)
+    st.session_state.historico_analises.insert(0, entrada)
+    
+    # Manter apenas MAX_HISTORICO entradas
+    if len(st.session_state.historico_analises) > MAX_HISTORICO:
+        st.session_state.historico_analises = st.session_state.historico_analises[:MAX_HISTORICO]
+
+def _obter_historico() -> list:
+    """Retorna o histórico de análises."""
+    _inicializar_historico()
+    return st.session_state.historico_analises
+
+def _limpar_historico():
+    """Limpa todo o histórico de análises."""
+    st.session_state.historico_analises = []
 
 def carregar_clausulas(tipo: str, idioma: str = None):
     """
@@ -129,6 +194,71 @@ def sidebar_informacoes(tipo_nome: str):
             
             st.markdown("**Visualizar:**")
             st.markdown("- As regras do tipo de contrato atual aparecem na sidebar, com opção de editar (✏️) ou excluir (❌).")
+
+# ========= Sidebar - Histórico de Análises =========
+def sidebar_historico():
+    """
+    Exibe o histórico de análises realizadas na sessão atual.
+    Permite visualizar resumo de análises anteriores.
+    """
+    _inicializar_historico()
+    historico = _obter_historico()
+    
+    with st.sidebar:
+        with st.expander(f"📊 Histórico de Análises ({len(historico)})", expanded=False):
+            if not historico:
+                st.caption("Nenhuma análise realizada nesta sessão.")
+                st.caption("As análises aparecerão aqui após serem concluídas.")
+            else:
+                for i, h in enumerate(historico):
+                    # Formatar timestamp
+                    try:
+                        dt = datetime.fromisoformat(h["timestamp"])
+                        hora_formatada = dt.strftime("%H:%M")
+                    except:
+                        hora_formatada = "?"
+                    
+                    # Card visual para cada análise
+                    with st.container():
+                        col1, col2 = st.columns([4, 1])
+                        with col1:
+                            # Nome do arquivo truncado
+                            nome = h.get("nome_arquivo", "Arquivo")
+                            if len(nome) > 25:
+                                nome = nome[:22] + "..."
+                            st.markdown(f"**{nome}**")
+                            
+                            # Detalhes
+                            tipo = h.get("tipo_contrato", "")
+                            violacoes = h.get("total_violacoes", 0)
+                            conformidades = h.get("total_conformidades", 0)
+                            tempo = h.get("tempo_total", 0)
+                            
+                            # Status com cores
+                            if violacoes == 0:
+                                status_icon = "✅"
+                                status_text = "Conforme"
+                            elif violacoes <= 2:
+                                status_icon = "⚠️"
+                                status_text = f"{violacoes} problema(s)"
+                            else:
+                                status_icon = "🔴"
+                                status_text = f"{violacoes} problemas"
+                            
+                            st.caption(f"{status_icon} {status_text} | {tempo:.1f}s | {hora_formatada}")
+                        
+                        with col2:
+                            # Botão para ver detalhes
+                            if st.button("Ver", key=f"hist_ver_{h['id']}", help="Ver detalhes desta análise"):
+                                st.session_state.historico_selecionado = h
+                                st.rerun()
+                        
+                        st.divider()
+                
+                # Botão para limpar histórico
+                if st.button("Limpar Histórico", key="btn_limpar_historico", type="secondary"):
+                    _limpar_historico()
+                    st.rerun()
 
 # ========= Sidebar - Botões de Ação =========
 def sidebar_botoes(tipo_nome: str):
@@ -964,6 +1094,7 @@ def render_pagina_analise(
     sidebar_informacoes(tipo_contrato)
     sidebar_botoes(tipo_contrato)
     sidebar_lista_clausulas(tipo_contrato)
+    sidebar_historico()
 
     # Obter idioma primeiro (necessário para o editor de prompts)
     idioma = st.session_state.get('idioma_contrato', 'pt')
@@ -1036,17 +1167,28 @@ def render_pagina_analise(
                     st.warning("Configurações alteradas (idioma, modelo, threshold, etc). Clique em 'Analisar' para reprocessar.")
             
             if analisar:
-                # Callbacks para UI
+                # Callbacks para UI com progresso detalhado
                 progress_bar = st.progress(0)
                 status_text = st.empty()
+                detail_text = st.empty()  # Novo: texto de detalhe (regra atual)
                 log_container = st.expander("Logs", expanded=False)
                 with log_container:
                     log_placeholder = st.empty()
                 logs = []
                 
-                def on_progress(msg: str, valor: float):
+                def on_progress(msg: str, valor: float, detalhes: dict = None):
+                    """Callback de progresso com suporte a detalhes."""
                     progress_bar.progress(valor)
                     status_text.text(msg)
+                    # Mostrar detalhe da regra atual se disponível
+                    if detalhes and detalhes.get("regra_atual"):
+                        etapa = detalhes.get("etapa", "")
+                        if etapa == "verificacao":
+                            detail_text.caption(f"Analisando: {detalhes['regra_atual']}")
+                        elif etapa == "reescrita":
+                            detail_text.caption(f"Reescrevendo: {detalhes['regra_atual']}")
+                    else:
+                        detail_text.empty()
                 
                 def on_log(msg: str):
                     logs.append(msg)
@@ -1072,12 +1214,22 @@ def render_pagina_analise(
                 # Limpar UI de progresso
                 progress_bar.empty()
                 status_text.empty()
+                detail_text.empty()
                 
                 # Armazenar resultado no cache com a chave de configuração
                 st.session_state[cache_resultado] = resultado
                 st.session_state[cache_nome] = nome_arquivo
                 st.session_state[cache_bytes] = arquivo_bytes
                 st.session_state[cache_config_key] = config_key_atual
+                
+                # Salvar no histórico de análises se sucesso
+                if resultado.sucesso:
+                    _adicionar_ao_historico(
+                        nome_arquivo=nome_arquivo,
+                        tipo_contrato=tipo_contrato,
+                        idioma=idioma,
+                        resultado=resultado
+                    )
                 
                 # Rerun para mostrar resultado sem reprocessar
                 st.rerun()

@@ -1,0 +1,18 @@
+ORIGINAL CLAUSE (with detected violation):
+
+{titulo}
+
+{texto_original}
+
+---
+VIOLATED RULE: {regra_violada}
+
+VIOLATION REASON:
+{motivo}
+
+---
+Document context (use for terminological and structural consistency):
+{contexto_global}
+
+---
+Rewrite the clause above correcting the violation. If the Reason contains "How to correct (Spectra guidance)", follow that guidance literally. Keep the required response format (REWRITTEN TEXT + EXPLANATION OF CHANGES).

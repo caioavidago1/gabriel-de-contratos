@@ -1,0 +1,10 @@
+RULE TO VERIFY ({nome_regra}):
+{descricao_regra}
+
+---
+CONTRACT EXCERPTS (analyze each against the rule above):
+
+{trechos_contrato}
+
+---
+Does any of the 5 excerpts violate the Spectra rule? If yes, which excerpt (1-5) and what is the problem? If no, eh_violacao=false, chunk_index=0.

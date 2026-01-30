@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from typing import Optional
 from enum import Enum
 
+from .exceptions import APIKeyError, APIConnectionError, ModelNotFoundError, EmbeddingError
+
 
 # ============ MODELOS LLM ============
 
@@ -81,20 +83,43 @@ class GerenciadorModelos:
         from langchain_openai import ChatOpenAI
         from langchain_anthropic import ChatAnthropic
         
-        if modelo_config.provedor == TipoModelo.OPENAI:
-            return ChatOpenAI(
-                model=modelo_config.id,
-                temperature=temperature,
-                api_key=os.getenv("OPENAI_API_KEY")
+        try:
+            if modelo_config.provedor == TipoModelo.OPENAI:
+                api_key = os.getenv("OPENAI_API_KEY")
+                if not api_key:
+                    raise APIKeyError(
+                        "OPENAI_API_KEY não configurada",
+                        user_message="Chave de API da OpenAI não configurada."
+                    )
+                return ChatOpenAI(
+                    model=modelo_config.id,
+                    temperature=temperature,
+                    api_key=api_key
+                )
+            elif modelo_config.provedor == TipoModelo.ANTHROPIC:
+                api_key = os.getenv("ANTHROPIC_API_KEY")
+                if not api_key:
+                    raise APIKeyError(
+                        "ANTHROPIC_API_KEY não configurada",
+                        user_message="Chave de API da Anthropic não configurada."
+                    )
+                return ChatAnthropic(
+                    model=modelo_config.id,
+                    temperature=temperature,
+                    api_key=api_key
+                )
+            
+            raise ModelNotFoundError(
+                f"Provedor não suportado: {modelo_config.provedor}",
+                user_message="Provedor de IA não suportado."
             )
-        elif modelo_config.provedor == TipoModelo.ANTHROPIC:
-            return ChatAnthropic(
-                model=modelo_config.id,
-                temperature=temperature,
-                api_key=os.getenv("ANTHROPIC_API_KEY")
+        except (APIKeyError, ModelNotFoundError):
+            raise
+        except Exception as e:
+            raise APIConnectionError(
+                f"Erro ao criar LLM: {e}",
+                user_message="Erro ao conectar com o serviço de IA."
             )
-        
-        raise ValueError(f"Provedor não suportado: {modelo_config.provedor}")
 
     @classmethod
     def listar_por_provedor(cls, provedor: TipoModelo) -> list[ModeloConfig]:
@@ -234,34 +259,57 @@ class GerenciadorEmbeddings:
         import os
         from chromadb.utils import embedding_functions
         
-        if embedding_config.provedor == TipoEmbedding.OPENAI:
-            return embedding_functions.OpenAIEmbeddingFunction(
-                api_key=os.getenv("OPENAI_API_KEY"),
-                model_name=embedding_config.id
-            )
-        
-        elif embedding_config.provedor == TipoEmbedding.VOYAGE:
-            from voyageai import Client as VoyageClient
-            
-            class VoyageEmbeddingFunction:
-                def __init__(self, api_key: str, model_name: str):
-                    self.client = VoyageClient(api_key=api_key)
-                    self.model_name = model_name
-                
-                def __call__(self, input: list[str]) -> list[list[float]]:
-                    result = self.client.embed(
-                        texts=input,
-                        model=self.model_name,
-                        input_type="document"
+        try:
+            if embedding_config.provedor == TipoEmbedding.OPENAI:
+                api_key = os.getenv("OPENAI_API_KEY")
+                if not api_key:
+                    raise APIKeyError(
+                        "OPENAI_API_KEY não configurada",
+                        user_message="Chave de API da OpenAI não configurada para embeddings."
                     )
-                    return result.embeddings
+                return embedding_functions.OpenAIEmbeddingFunction(
+                    api_key=api_key,
+                    model_name=embedding_config.id
+                )
             
-            return VoyageEmbeddingFunction(
-                api_key=os.getenv("VOYAGE_API_KEY"),
-                model_name=embedding_config.id
+            elif embedding_config.provedor == TipoEmbedding.VOYAGE:
+                api_key = os.getenv("VOYAGE_API_KEY")
+                if not api_key:
+                    raise APIKeyError(
+                        "VOYAGE_API_KEY não configurada",
+                        user_message="Chave de API da Voyage não configurada."
+                    )
+                from voyageai import Client as VoyageClient
+                
+                class VoyageEmbeddingFunction:
+                    def __init__(self, api_key: str, model_name: str):
+                        self.client = VoyageClient(api_key=api_key)
+                        self.model_name = model_name
+                    
+                    def __call__(self, input: list[str]) -> list[list[float]]:
+                        result = self.client.embed(
+                            texts=input,
+                            model=self.model_name,
+                            input_type="document"
+                        )
+                        return result.embeddings
+                
+                return VoyageEmbeddingFunction(
+                    api_key=api_key,
+                    model_name=embedding_config.id
+                )
+            
+            raise ModelNotFoundError(
+                f"Provedor de embedding não suportado: {embedding_config.provedor}",
+                user_message="Provedor de embeddings não suportado."
             )
-        
-        raise ValueError(f"Provedor não suportado: {embedding_config.provedor}")
+        except (APIKeyError, ModelNotFoundError):
+            raise
+        except Exception as e:
+            raise EmbeddingError(
+                f"Erro ao criar função de embedding: {e}",
+                user_message="Erro ao inicializar serviço de embeddings."
+            )
     
     @classmethod
     def listar_por_provedor(cls, provedor: TipoEmbedding) -> list[EmbeddingConfig]:

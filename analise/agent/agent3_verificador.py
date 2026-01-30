@@ -9,6 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 
 from analise.agent import carregar_prompt_tipo
+from .exceptions import RuleVerificationError, APIConnectionError, APIRateLimitError
 
 
 class ResultadoVerificacaoRegra(BaseModel):
@@ -67,13 +68,28 @@ class AgentVerificador:
                 "descricao_regra": descricao_regra,
                 "trechos_contrato": trechos_contrato,
             })
-        except Exception:
-            return {
-                "eh_violacao": False,
-                "problema": "",
-                "chunk": None,
-                "regra": regra,
-            }
+        except Exception as e:
+            error_str = str(e).lower()
+            # Identificar tipo de erro para logging mais preciso
+            if "rate limit" in error_str or "429" in error_str:
+                raise APIRateLimitError(
+                    f"Rate limit ao verificar regra '{nome_regra}': {e}",
+                    user_message="Limite de requisições atingido. Aguarde alguns minutos."
+                )
+            elif "connection" in error_str or "timeout" in error_str:
+                raise APIConnectionError(
+                    f"Erro de conexão ao verificar regra '{nome_regra}': {e}",
+                    user_message="Erro de conexão com o serviço de IA."
+                )
+            else:
+                # Erro não crítico - retornar conformidade como fallback
+                return {
+                    "eh_violacao": False,
+                    "problema": "",
+                    "chunk": None,
+                    "regra": regra,
+                }
+        
         idx = out.chunk_index
         chunk_que_viola = top_5_chunks[idx - 1] if 1 <= idx <= len(top_5_chunks) else None
         return {
