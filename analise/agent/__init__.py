@@ -5,34 +5,23 @@ from typing import Dict, List, Optional
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 DEFAULTS_DIR = PROMPTS_DIR / "_defaults"
 
-# Agentes em uso: extrator (docx → cláusulas), agent1 (UI), agent3 (verificador), agent4 (reescritor)
-AGENTES = ["extrator", "agent1", "agent3", "agent4"]
+# Agentes em uso: extrator (docx → cláusulas), agent3 (verificador), agent4 (reescritor)
+AGENTES = ["extrator", "agent3", "agent4"]
 
 VARIAVEIS_POR_AGENTE = {
     "extrator": ["{text}"],
-    "agent1": ["{titulo}", "{texto}", "{regras_referencia}"],
     "agent3": ["{nome_regra}", "{descricao_regra}", "{trechos_contrato}"],
     "agent4": ["{titulo}", "{texto_original}", "{regra_violada}", "{motivo}", "{contexto_global}"]
 }
 
 DESCRICOES_AGENTES = {
     "extrator": "Extrator de Cláusulas",
-    "agent1": "Análise de Conformidade",
-    "agent3": "Verificação de Cláusulas",
-    "agent4": "Sugestão de Redação"
+    "agent3": "Verificador de Cláusulas",
+    "agent4": "Redator"
 }
 
 # Recomendações: o que cada prompt deve conter para o fluxo não quebrar (variáveis + formato de saída)
 RECOMENDACOES_POR_AGENTE = {
-    "agent1": {
-        "system": (
-            "Recomendado manter no System: instrução para classificar em VIOLAÇÃO ou CONFORMIDADE; "
-            "formato de resposta com 'CLASSIFICAÇÃO: VIOLAÇÃO' ou 'CLASSIFICAÇÃO: CONFORMIDADE', "
-            "e em caso de violação: 'Cláusula violada:', 'Motivo:' (lista). "
-            "A saída é usada como contexto pelo agente 4."
-        ),
-        "user": "Variáveis obrigatórias: {titulo}, {texto}, {regras_referencia}.",
-    },
     "agent3": {
         "system": (
             "Obrigatório para o pipeline: o System deve instruir a IA a responder com "
@@ -61,7 +50,7 @@ def carregar_prompt_tipo(tipo_contrato: str, agent: str, parte: str, idioma: str
     
     Args:
         tipo_contrato: "NDA", "TIPO 2", "_defaults", etc
-        agent: "extrator", "agent1", "agent3" ou "agent4"
+        agent: "extrator", "agent3" ou "agent4"
         parte: "system" ou "user"
         idioma: "pt" ou "en" (padrão: "pt")
     
@@ -101,7 +90,7 @@ def salvar_prompt_tipo(tipo_contrato: str, agent: str, parte: str, conteudo: str
     
     Args:
         tipo_contrato: "NDA", "TIPO 2", "_defaults", etc
-        agent: "extrator", "agent1", "agent3" ou "agent4"
+        agent: "extrator", "agent3" ou "agent4"
         parte: "system" ou "user"
         conteudo: Conteúdo do prompt
         idioma: "pt" ou "en" (padrão: "pt")
@@ -128,7 +117,7 @@ def validar_prompt_user(conteudo: str, agent: str = None) -> Dict:
     
     Args:
         conteudo: Conteúdo do prompt a validar
-        agent: Nome do agente (extrator, agent1, agent3, agent4). Se None, usa variáveis legadas.
+        agent: Nome do agente (extrator, agent3, agent4). Se None, usa variáveis legadas.
     
     Returns:
         {"valido": True/False, "faltando": [...]}
@@ -156,7 +145,7 @@ def restaurar_prompt_padrao(tipo_contrato: str, agent: str, parte: str, idioma: 
     
     Args:
         tipo_contrato: "NDA", "TIPO 2", "_defaults", etc
-        agent: "extrator", "agent1", "agent3" ou "agent4"
+        agent: "extrator", "agent3" ou "agent4"
         parte: "system" ou "user"
         idioma: "pt" ou "en" (padrão: "pt")
     

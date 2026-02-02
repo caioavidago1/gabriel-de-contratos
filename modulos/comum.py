@@ -3,6 +3,9 @@ from pathlib import Path
 import json
 import hashlib
 import uuid
+import re
+import traceback
+import logging
 from datetime import datetime
 from typing import Optional, Dict, Any
 import platform
@@ -149,7 +152,7 @@ def sidebar_informacoes(tipo_nome: str):
             st.markdown("**Passo a passo:**")
             st.markdown("1. Na seção **Configurações** da sidebar, clique em **'Editar prompt'**")
             st.markdown("2. No bloco de acesso, digite a **senha de administrador** e clique em **'Entrar como administrador'**")
-            st.markdown("3. O editor abre com **abas para cada tipo de análise** (agent1, agent3, agent4)")
+            st.markdown("3. O editor abre com **abas para cada tipo de análise** (agent3, agent4)")
             st.markdown("4. Edite **Mensagem System** e **Mensagem User** conforme necessário")
             st.markdown("5. Clique em **'Salvar Todos'** para aplicar ou **'Fechar'** para sair sem salvar")
             
@@ -665,6 +668,12 @@ def selecionar_modelo_ia() -> str:
 
 from analise.agent.escolha_modelo import GerenciadorEmbeddings
 from analise.agent.orquestrador import OrquestradorAnalise
+from analise.agent.agent1_extrator_docx import (
+    obter_estatisticas_cache_agent1,
+    limpar_cache_agent1,
+    CACHE_AVISO_TAMANHO_MB,
+    CACHE_AVISO_QUANTIDADE,
+)
 
 
 def selecionar_embedding_ia() -> str:
@@ -719,6 +728,18 @@ def selecionar_embedding_ia() -> str:
 
 # ========= Download do Relatório =========
 
+def _sanitizar_nome_arquivo(nome_base: str) -> str:
+    """
+    Sanitiza o nome para uso em caminhos de arquivo (evita erro no Word/COM com parênteses e caracteres especiais).
+    Remove parênteses e caracteres problemáticos; espaços viram underscore; limita tamanho.
+    """
+    s = str(nome_base).strip()
+    s = s.replace("(", "").replace(")", "")
+    s = re.sub(r"[^\w\s\-]", "", s, flags=re.UNICODE)
+    s = re.sub(r"\s+", "_", s).strip("_")
+    return s[:80] if s else "documento"
+
+
 def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_bytes: bytes = None):
     """
     Mostra os resultados da análise e botões de download (relatório, problemas.docx, solucao.docx).
@@ -762,12 +783,13 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
             from output.comparar_docx import comparar_docx, gerar_doc_comparado
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
             nome_base = Path(nome_arquivo).stem
+            nome_base_safe = _sanitizar_nome_arquivo(str(nome_base))
             mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             output_dir = Path(__file__).resolve().parent.parent / "output" / "docs"
             output_dir.mkdir(parents=True, exist_ok=True)
-            path_problemas = output_dir / f"problemas_{nome_base}_{ts}.docx"
-            path_solucao = output_dir / f"solucao_{nome_base}_{ts}.docx"
-            path_comparacao = output_dir / f"comparacao_{nome_base}_{ts}.docx"
+            path_problemas = output_dir / f"problemas_{nome_base_safe}_{ts}.docx"
+            path_solucao = output_dir / f"solucao_{nome_base_safe}_{ts}.docx"
+            path_comparacao = output_dir / f"comparacao_{nome_base_safe}_{ts}.docx"
             if st.button("Comparar documentos (problemas x solução)", key="btn_comparar_doc"):
                 with st.spinner("Salvando problemas e solução em output/docs e gerando comparação..."):
                     comparado_bytes = None
@@ -782,7 +804,8 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
                             comparado_bytes = fallback
                             msg_sucesso = (
                                 "Não foi possível gravar em output/docs (pasta em uso ou sem permissão). "
-                                "Foi gerado um documento com problemas + solução. Use o botão abaixo para baixar."
+                                "Foi gerado um documento com as seções 'Comparação: Problemas x Solução', "
+                                "'1. Documento Problemas (original)' e '2. Documento Solução (revisado)'. Use o botão abaixo para baixar."
                             )
                         else:
                             st.error("Erro ao gerar o documento de comparação.")
@@ -794,14 +817,20 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
                                 "Documentos gravados em output/docs. Comparação gerada (track changes). "
                                 "Use o botão abaixo para baixar."
                             )
-                        except Exception:
+                        except Exception as e:
                             # Fallback: documento com problemas + solução (sem track changes)
+                            logging.exception("Erro ao comparar documentos (Word/LibreOffice); usando fallback.")
+                            with st.expander("Detalhes do erro (para diagnóstico)", expanded=False):
+                                st.code(traceback.format_exc(), language="text")
+                                st.caption("Use estas informações para corrigir (ex.: caminho, Word/LibreOffice).")
                             fallback = gerar_doc_comparado(doc_problemas, doc_solucao)
                             if fallback:
                                 comparado_bytes = fallback
                                 msg_sucesso = (
-                                    "Documentos gravados em output/docs. Comparação com controle de alterações não disponível "
-                                    "neste servidor; foi gerado um documento com problemas + solução. Use o botão abaixo para baixar."
+                                    "Comparação com controle de alterações (track changes) não disponível; "
+                                    "foi gerado um documento alternativo com as seções "
+                                    "'Comparação: Problemas x Solução', '1. Documento Problemas (original)' e "
+                                    "'2. Documento Solução (revisado)'. Use o botão abaixo para baixar."
                                 )
                                 try:
                                     path_comparacao.write_bytes(fallback)
@@ -814,7 +843,7 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
                                 msg_sucesso = None
                     if comparado_bytes is not None:
                         st.session_state["comparacao_doc_bytes"] = comparado_bytes
-                        st.session_state["comparacao_doc_nome"] = f"comparacao_{nome_base}_{ts}.docx"
+                        st.session_state["comparacao_doc_nome"] = f"comparacao_{nome_base_safe}_{ts}.docx"
                         st.session_state["comparacao_doc_nome_base"] = nome_base
                         st.success(msg_sucesso)
                     else:
@@ -827,7 +856,7 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
                 st.download_button(
                     label="Baixar comparação (DOCX)",
                     data=st.session_state["comparacao_doc_bytes"],
-                    file_name=st.session_state.get("comparacao_doc_nome", f"comparacao_{nome_base}_{ts}.docx"),
+                    file_name=st.session_state.get("comparacao_doc_nome", f"comparacao_{nome_base_safe}_{ts}.docx"),
                     mime=mime,
                     key="dl_comparacao"
                 )
@@ -967,7 +996,7 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
 def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
     """
     Renderiza o editor de prompts dos agentes para o tipo de contrato e idioma.
-    Exibe abas por agente (agent1, agent3, agent4) com System e User.
+    Exibe abas por agente (agent3, agent4) com System e User.
     Extrator não é editável (formato técnico).
     Botões: Salvar Todos e Reset Todos (requerem auth admin), Fechar.
     """
@@ -1019,7 +1048,7 @@ def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
         else:
             st.caption("✅ Autenticado como administrador — você pode Salvar ou Reset.")
 
-    tabs = st.tabs([f"{agent} — {DESCRICOES_AGENTES.get(agent, agent)}" for agent in AGENTES_EDITAVEIS])
+    tabs = st.tabs([DESCRICOES_AGENTES.get(agent, agent) for agent in AGENTES_EDITAVEIS])
     for idx, agent in enumerate(AGENTES_EDITAVEIS):
         with tabs[idx]:
             rec = RECOMENDACOES_POR_AGENTE.get(agent, {})
@@ -1078,18 +1107,23 @@ def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
                         key_user = f"prompt_edit_user_{tipo_nome}_{agent}_{idioma}"
                         salvar_prompt_tipo(tipo_nome, agent, "system", st.session_state.get(key_sys, ""), idioma)
                         salvar_prompt_tipo(tipo_nome, agent, "user", st.session_state.get(key_user, ""), idioma)
+                    carregar_prompt_tipo.cache_clear()
                     st.success("✅ Prompts salvos com sucesso.")
     with col_reset:
-        if st.button("Reset Todos", key=f"btn_reset_prompts_{tipo_nome}"):
+        if st.button(
+            "Reset Todos",
+            key=f"btn_reset_prompts_{tipo_nome}",
+            help="Restaura todos os prompts (Verificador de Cláusulas e Redator) para o conteúdo padrão do tipo de contrato.",
+        ):
             if not esta_autenticado():
                 st.warning("Entre como administrador no bloco acima para poder resetar.")
             else:
-                restaurar_todos_prompts_padrao(tipo_nome)
+                restaurar_todos_prompts_padrao(tipo_nome, idioma)
+                carregar_prompt_tipo.cache_clear()
                 for agent in AGENTES_EDITAVEIS:
                     for parte in ["system", "user"]:
-                        key = f"prompt_edit_{parte}_{tipo_nome}_{agent}"
-                        if key in st.session_state:
-                            st.session_state[key] = carregar_prompt_tipo(tipo_nome, agent, parte)
+                        key = f"prompt_edit_{parte}_{tipo_nome}_{agent}_{idioma}"
+                        st.session_state[key] = carregar_prompt_tipo(tipo_nome, agent, parte, idioma)
                 st.success("✅ Prompts restaurados ao padrão.")
                 st.rerun()
     with col_fechar:
@@ -1172,7 +1206,58 @@ def render_pagina_analise(
         st.rerun()
         
     modelo_id = selecionar_modelo_ia()
-    embedding_id = selecionar_embedding_ia() 
+    embedding_id = selecionar_embedding_ia()
+
+    # Cache do extrator de cláusulas: explicação, estatísticas, aviso e limpeza
+    with st.expander("Cache do Extrator de Cláusulas", expanded=False):
+        st.markdown(
+            "O extrator de cláusulas processa o seu documento DOCX e extrai as cláusulas. Para não reprocessar o mesmo arquivo toda vez, "
+            "o sistema guarda o resultado em um **cache em disco**: se você analisar de novo o **mesmo documento** "
+            "(mesmo conteúdo), o resultado é reutilizado e a análise fica mais rápida, sem novas chamadas à API. "
+            "O cache é identificado pelo conteúdo do arquivo (hash), não pelo nome."
+        )
+        stats = obter_estatisticas_cache_agent1()
+        qtd = stats["quantidade"]
+        tamanho_bytes = stats["tamanho_bytes"]
+        if tamanho_bytes >= 1024 * 1024:
+            tamanho_str = f"{tamanho_bytes / (1024 * 1024):.1f} MB"
+        else:
+            tamanho_str = f"{tamanho_bytes / 1024:.1f} KB"
+        st.caption(f"{qtd} documentos em cache, {tamanho_str}.")
+        if (
+            tamanho_bytes > CACHE_AVISO_TAMANHO_MB * 1024 * 1024
+            or qtd > CACHE_AVISO_QUANTIDADE
+        ):
+            st.warning(
+                "O cache do Extrator de Cláusulas está grande e ocupa espaço em disco. "
+                "Use o botão abaixo para limpar se não precisar reutilizar resultados antigos."
+            )
+        confirm_key = f"confirmar_limpar_cache_agent1_{key_prefix}"
+        if st.session_state.get(confirm_key):
+            st.markdown(
+                "Tem certeza? Isso remove todos os resultados em cache. "
+                "Documentos analisados novamente serão reprocessados."
+            )
+            col_sim, col_nao = st.columns(2)
+            with col_sim:
+                if st.button("Sim, limpar", key=f"btn_limpar_confirm_{key_prefix}"):
+                    removidos = limpar_cache_agent1()
+                    if confirm_key in st.session_state:
+                        del st.session_state[confirm_key]
+                    st.success(f"Cache limpo: {removidos} documento(s) removido(s).")
+                    st.rerun()
+            with col_nao:
+                if st.button("Cancelar", key=f"btn_limpar_cancel_{key_prefix}"):
+                    if confirm_key in st.session_state:
+                        del st.session_state[confirm_key]
+                    st.rerun()
+        else:
+            if st.button(
+                "Limpar cache do Extrator de Cláusulas",
+                key=f"btn_limpar_cache_agent1_{key_prefix}",
+            ):
+                st.session_state[confirm_key] = True
+                st.rerun()
 
     arquivo = upload_docx(label_upload, key=f"upload_{key_prefix}")
     threshold = st.session_state.get('threshold_similaridade', 0.45)

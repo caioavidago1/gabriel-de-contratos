@@ -63,6 +63,48 @@ def _cache_path(cache_key: str) -> Path:
     return _CACHE_DIR / f"{cache_key}.json"
 
 
+# Limites para exibir aviso na interface quando o cache estiver grande
+CACHE_AVISO_TAMANHO_MB = 100
+CACHE_AVISO_QUANTIDADE = 200
+
+
+def obter_estatisticas_cache_agent1() -> Dict:
+    """
+    Retorna quantidade de arquivos em cache e tamanho total em bytes.
+    Se o diretório não existir, retorna {"quantidade": 0, "tamanho_bytes": 0}.
+    """
+    if not _CACHE_DIR.exists():
+        return {"quantidade": 0, "tamanho_bytes": 0}
+    quantidade = 0
+    tamanho_bytes = 0
+    for path in _CACHE_DIR.glob("*.json"):
+        if path.is_file():
+            quantidade += 1
+            try:
+                tamanho_bytes += path.stat().st_size
+            except OSError:
+                pass
+    return {"quantidade": quantidade, "tamanho_bytes": tamanho_bytes}
+
+
+def limpar_cache_agent1() -> int:
+    """
+    Remove todos os arquivos .json do cache do Agente 1.
+    Retorna o número de arquivos removidos.
+    """
+    removidos = 0
+    if not _CACHE_DIR.exists():
+        return 0
+    for path in _CACHE_DIR.glob("*.json"):
+        if path.is_file():
+            try:
+                path.unlink()
+                removidos += 1
+            except OSError:
+                pass
+    return removidos
+
+
 def extrair_clausulas_docx(
     docx_bytes: bytes,
     on_log: Optional[Callable[[str], None]] = None,
