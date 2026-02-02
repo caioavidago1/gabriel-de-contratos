@@ -138,7 +138,7 @@ def sidebar_informacoes(tipo_nome: str):
     """
     Exibe botão de informação com guias sobre edição de prompts e estrutura JSON.
     """
-    from analise.agent import AGENTES, VARIAVEIS_POR_AGENTE, DESCRICOES_AGENTES
+    from analise.agent import AGENTES, VARIAVEIS_POR_AGENTE, DESCRICOES_AGENTES, RECOMENDACOES_POR_AGENTE
     
     with st.sidebar:
         with st.expander("ℹ️ Guia: Como editar instruções e regras", expanded=False):
@@ -161,6 +161,9 @@ def sidebar_informacoes(tipo_nome: str):
                 st.markdown(f"- **{DESCRICOES_AGENTES.get(agent, agent)}**")
                 if vars_agente:
                     st.caption(f"  Variáveis obrigatórias no User: {vars_str}")
+                rec = RECOMENDACOES_POR_AGENTE.get(agent, {})
+                if rec.get("system"):
+                    st.caption(f"  📌 System: {rec['system']}")
             
             st.markdown("**Tipos de mensagem:**")
             st.markdown("- **Mensagem System**: Comportamento geral do agente")
@@ -954,6 +957,7 @@ def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
         AGENTES,
         DESCRICOES_AGENTES,
         VARIAVEIS_POR_AGENTE,
+        RECOMENDACOES_POR_AGENTE,
         carregar_prompt_tipo,
         salvar_prompt_tipo,
         validar_prompt_user,
@@ -1004,6 +1008,15 @@ def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
             vars_agente = VARIAVEIS_POR_AGENTE.get(agent, [])
             if vars_agente:
                 st.caption(f"Variáveis obrigatórias no User: {', '.join(vars_agente)}")
+            rec = RECOMENDACOES_POR_AGENTE.get(agent, {})
+            if rec:
+                with st.expander("📌 Recomendações: o que o prompt deve conter", expanded=False):
+                    if rec.get("system"):
+                        st.markdown("**Mensagem System:**")
+                        st.caption(rec["system"])
+                    if rec.get("user"):
+                        st.markdown("**Mensagem User:**")
+                        st.caption(rec["user"])
             key_sys = f"prompt_edit_system_{tipo_nome}_{agent}_{idioma}"
             key_user = f"prompt_edit_user_{tipo_nome}_{agent}_{idioma}"
             st.text_area(
@@ -1038,6 +1051,14 @@ def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
                     for e in erros:
                         st.error(e)
                 else:
+                    # Aviso se agent3 System não menciona eh_violacao/chunk_index (pipeline depende disso)
+                    key_sys_3 = f"prompt_edit_system_{tipo_nome}_agent3_{idioma}"
+                    sys_agent3 = st.session_state.get(key_sys_3, "")
+                    if sys_agent3 and ("eh_violacao" not in sys_agent3 or "chunk_index" not in sys_agent3):
+                        st.warning(
+                            "⚠️ O prompt System do **agent3** não menciona 'eh_violacao' ou 'chunk_index'. "
+                            "O pipeline espera que a IA responda nesse formato; veja as recomendações na aba agent3."
+                        )
                     for agent in AGENTES_EDITAVEIS:
                         key_sys = f"prompt_edit_system_{tipo_nome}_{agent}_{idioma}"
                         key_user = f"prompt_edit_user_{tipo_nome}_{agent}_{idioma}"

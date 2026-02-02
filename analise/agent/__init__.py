@@ -22,6 +22,36 @@ DESCRICOES_AGENTES = {
     "agent4": "Sugestão de Redação"
 }
 
+# Recomendações: o que cada prompt deve conter para o fluxo não quebrar (variáveis + formato de saída)
+RECOMENDACOES_POR_AGENTE = {
+    "agent1": {
+        "system": (
+            "Recomendado manter no System: instrução para classificar em VIOLAÇÃO ou CONFORMIDADE; "
+            "formato de resposta com 'CLASSIFICAÇÃO: VIOLAÇÃO' ou 'CLASSIFICAÇÃO: CONFORMIDADE', "
+            "e em caso de violação: 'Cláusula violada:', 'Motivo:' (lista). "
+            "A saída é usada como contexto pelo agente 4."
+        ),
+        "user": "Variáveis obrigatórias: {titulo}, {texto}, {regras_referencia}.",
+    },
+    "agent3": {
+        "system": (
+            "Obrigatório para o pipeline: o System deve instruir a IA a responder com "
+            "eh_violacao (true/false), problema (descrição objetiva; vazio se conformidade) e "
+            "chunk_index (1 a 5 = qual trecho viola; 0 = nenhum). "
+            "A saída é parseada como JSON estruturado (não remova esses conceitos)."
+        ),
+        "user": "Variáveis obrigatórias: {nome_regra}, {descricao_regra}, {trechos_contrato}.",
+    },
+    "agent4": {
+        "system": (
+            "Recomendado manter no System: instrução para responder com os rótulos exatos "
+            "'TEXTO REESCRITO:' e 'EXPLICAÇÃO DAS MUDANÇAS:' (ou em EN: 'REWRITTEN TEXT:', 'EXPLANATION OF CHANGES:'). "
+            "O código extrai o texto reescrito e a explicação por esses rótulos."
+        ),
+        "user": "Variáveis obrigatórias: {titulo}, {texto_original}, {regra_violada}, {motivo}, {contexto_global}.",
+    },
+}
+
 
 @functools.lru_cache(maxsize=None)
 def carregar_prompt_tipo(tipo_contrato: str, agent: str, parte: str, idioma: str = "pt") -> str:
