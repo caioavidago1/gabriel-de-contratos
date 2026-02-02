@@ -138,7 +138,7 @@ def sidebar_informacoes(tipo_nome: str):
     """
     Exibe botão de informação com guias sobre edição de prompts e estrutura JSON.
     """
-    from analise.agent import AGENTES, VARIAVEIS_POR_AGENTE, DESCRICOES_AGENTES, RECOMENDACOES_POR_AGENTE
+    from analise.agent import AGENTES, DESCRICOES_AGENTES, RECOMENDACOES_POR_AGENTE
     
     with st.sidebar:
         with st.expander("ℹ️ Guia: Como editar instruções e regras", expanded=False):
@@ -156,14 +156,12 @@ def sidebar_informacoes(tipo_nome: str):
             st.markdown("**Tipos de análise editáveis:**")
             agentes_editaveis_guia = [a for a in AGENTES if a != "extrator"]
             for agent in agentes_editaveis_guia:
-                vars_agente = VARIAVEIS_POR_AGENTE.get(agent, [])
-                vars_str = ", ".join([f"`{v}`" for v in vars_agente])
                 st.markdown(f"- **{DESCRICOES_AGENTES.get(agent, agent)}**")
-                if vars_agente:
-                    st.caption(f"  Variáveis obrigatórias no User: {vars_str}")
                 rec = RECOMENDACOES_POR_AGENTE.get(agent, {})
                 if rec.get("system"):
                     st.caption(f"  📌 System: {rec['system']}")
+                if rec.get("user"):
+                    st.caption(f"  📌 User: {rec['user']}")
             
             st.markdown("**Tipos de mensagem:**")
             st.markdown("- **Mensagem System**: Comportamento geral do agente")
@@ -956,7 +954,6 @@ def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
     from analise.agent import (
         AGENTES,
         DESCRICOES_AGENTES,
-        VARIAVEIS_POR_AGENTE,
         RECOMENDACOES_POR_AGENTE,
         carregar_prompt_tipo,
         salvar_prompt_tipo,
@@ -1005,9 +1002,6 @@ def render_editor_prompts(tipo_contrato: str, idioma: str = "pt"):
     tabs = st.tabs([f"{agent} — {DESCRICOES_AGENTES.get(agent, agent)}" for agent in AGENTES_EDITAVEIS])
     for idx, agent in enumerate(AGENTES_EDITAVEIS):
         with tabs[idx]:
-            vars_agente = VARIAVEIS_POR_AGENTE.get(agent, [])
-            if vars_agente:
-                st.caption(f"Variáveis obrigatórias no User: {', '.join(vars_agente)}")
             rec = RECOMENDACOES_POR_AGENTE.get(agent, {})
             if rec:
                 with st.expander("📌 Recomendações: o que o prompt deve conter", expanded=False):
