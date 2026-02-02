@@ -770,28 +770,48 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
             path_comparacao = output_dir / f"comparacao_{nome_base}_{ts}.docx"
             if st.button("Comparar documentos (problemas x solução)", key="btn_comparar_doc"):
                 with st.spinner("Salvando problemas e solução em output/docs e gerando comparação..."):
-                    path_problemas.write_bytes(doc_problemas)
-                    path_solucao.write_bytes(doc_solucao)
                     comparado_bytes = None
+                    msg_sucesso = None
                     try:
-                        comparar_docx(str(path_problemas), str(path_solucao), str(path_comparacao))
-                        comparado_bytes = path_comparacao.read_bytes()
-                        msg_sucesso = (
-                            "Documentos gravados em output/docs. Comparação gerada (track changes). "
-                            "Use o botão abaixo para baixar."
-                        )
-                    except Exception:
-                        # Fallback no Linux quando LibreOffice/pyuno não está disponível: documento com problemas + solução (sem track changes)
+                        path_problemas.write_bytes(doc_problemas)
+                        path_solucao.write_bytes(doc_solucao)
+                    except (PermissionError, OSError):
+                        # Pasta output/docs em uso (ex.: OneDrive) ou sem permissão — gera só fallback em memória para download
                         fallback = gerar_doc_comparado(doc_problemas, doc_solucao)
                         if fallback:
-                            path_comparacao.write_bytes(fallback)
                             comparado_bytes = fallback
                             msg_sucesso = (
-                                "Documentos gravados em output/docs. Comparação com controle de alterações não disponível "
-                                "neste servidor; foi gerado um documento com problemas + solução. Use o botão abaixo para baixar."
+                                "Não foi possível gravar em output/docs (pasta em uso ou sem permissão). "
+                                "Foi gerado um documento com problemas + solução. Use o botão abaixo para baixar."
                             )
                         else:
-                            msg_sucesso = None
+                            st.error("Erro ao gerar o documento de comparação.")
+                    if comparado_bytes is None:
+                        try:
+                            comparar_docx(str(path_problemas), str(path_solucao), str(path_comparacao))
+                            comparado_bytes = path_comparacao.read_bytes()
+                            msg_sucesso = (
+                                "Documentos gravados em output/docs. Comparação gerada (track changes). "
+                                "Use o botão abaixo para baixar."
+                            )
+                        except Exception:
+                            # Fallback: documento com problemas + solução (sem track changes)
+                            fallback = gerar_doc_comparado(doc_problemas, doc_solucao)
+                            if fallback:
+                                comparado_bytes = fallback
+                                msg_sucesso = (
+                                    "Documentos gravados em output/docs. Comparação com controle de alterações não disponível "
+                                    "neste servidor; foi gerado um documento com problemas + solução. Use o botão abaixo para baixar."
+                                )
+                                try:
+                                    path_comparacao.write_bytes(fallback)
+                                except (PermissionError, OSError):
+                                    st.warning(
+                                        "O arquivo de comparação não pôde ser salvo em output/docs (pasta em uso ou sem permissão). "
+                                        "Use o botão abaixo para baixar."
+                                    )
+                            else:
+                                msg_sucesso = None
                     if comparado_bytes is not None:
                         st.session_state["comparacao_doc_bytes"] = comparado_bytes
                         st.session_state["comparacao_doc_nome"] = f"comparacao_{nome_base}_{ts}.docx"
