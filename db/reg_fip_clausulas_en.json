@@ -1,51 +1,198 @@
 [
   {
     "ativa": true,
-    "titulo": "Management fee above market",
-    "buscar_em": "management fee, administration fee, compensation, costs, expenses",
-    "regra_spectra": "Management fee must be competitive: 1.5% to 2.5% p.a. on commitments during investment period, 1% to 2% on NAV after. Avoid ambiguous calculation bases. Prefer pro-rata charge on drawn capital.",
-    "como_corrigir": "Establish: 'Management Fee of 2% p.a. on Commitments during Investment Period (5 years), reducing to 1.5% p.a. on NAV after. Quarterly advance payment, pro-rata on effectively drawn capital.'"
+    "titulo": "Management fee above market standards",
+    "buscar_em": "management fee calculation, administrative fee structure, annual fees charged to fund, fee percentage on committed capital, quarterly fee payment, costs and expenses borne by investors, compensation to fund manager",
+    "regra_spectra": "Total recurring fees (management + administrative) should be competitive for early-stage venture capital: typically 1.5%-2.5% p.a. on commitments during investment period, stepping down to 1%-2% on NAV or invested capital after investment period ends. Avoid double-charging and unclear calculation bases.",
+    "como_corrigir": "Establish: 'Management Fee of up to 2% p.a. on Capital Commitments during the Investment Period (4-5 years), stepping down to up to 1.5% p.a. on NAV or invested capital (cost basis of unrealized investments) after the Investment Period. Quarterly advance payment, pro-rata on effectively drawn capital.'"
   },
   {
     "ativa": true,
-    "titulo": "Performance fee without hurdle rate or inadequate catch-up",
-    "buscar_em": "performance fee, carried interest, carry, hurdle, catch-up, waterfall",
-    "regra_spectra": "Performance fee (carry) must have: (1) minimum hurdle rate (8-10% IRR or IPCA+6%); (2) 100% catch-up after hurdle until GP receives its % (typical 20%); (3) deal-by-deal distribution with clawback or European method; (4) net basis (after costs and taxes).",
-    "como_corrigir": "Define: 'Performance Fee of 20% on gains, after: (i) 8% IRR hurdle; (ii) return of capital to investors; (iii) 100% catch-up until GP reaches 20%. Deal-by-deal waterfall with clawback. Basis: net gains after taxes.'"
+    "titulo": "Carried interest without hurdle rate or preferred return",
+    "buscar_em": "performance fee structure, carried interest allocation, carry distribution waterfall, preferred return to investors, hurdle rate requirement, catch-up provision after hurdle, clawback mechanism, distribution priority order, return of capital before carry",
+    "regra_spectra": "Carried interest (typically 20%) must include: (1) minimum hurdle rate or preferred return (8-10% IRR); (2) clear distribution waterfall (return of capital, hurdle, catch-up, then split); (3) clawback mechanism to protect LPs from excess carry distribution; (4) calculation on net basis after all fund costs.",
+    "como_corrigir": "Include: 'The Investment Adviser and Special Partner shall not be entitled to any Carried Interest until the Limited Partners have received distributions equal to their Capital Contributions plus a Preferred Return of 8% per annum, compounded annually. After hurdle, 100% catch-up until manager reaches 20% of total distributed above capital and hurdle. Include clawback clause to claw back excess carry if necessary.'"
   },
   {
     "ativa": true,
-    "titulo": "Investment period too long",
-    "buscar_em": "investment period, term, duration, investments, commitment period",
-    "regra_spectra": "Investment period must be 4-5 years. After termination, new investments prohibited (except mandatory follow-ons, defensive investments). Total fund term: 10 years + up to 2 one-year extensions (12 years maximum).",
-    "como_corrigir": "Establish: 'Investment Period: 5 years from 1st drawdown. New investments prohibited after, except: (i) follow-ons; (ii) defensive investments. Term: 10 years + up to 2 one-year extensions (75% investor approval).'"
+    "titulo": "Fee breaks and carry reductions without MFN protection",
+    "buscar_em": "selective fee waiver for certain investors, reduction of carried interest for affiliates, different terms for different limited partners, most favored nation clause, disclosure of preferential terms, fee adjustment without consent or notice",
+    "regra_spectra": "Fee or carry reductions/waivers granted to some investors without disclosure to others and without Most Favored Nation (MFN) protection creates unacceptable asymmetry between LPs.",
+    "como_corrigir": "Establish: 'Any reduction or waiver of the Carried Interest Percentage or Management Fee for any Limited Partner shall be disclosed to all Limited Partners and shall be made available to all Limited Partners on the same terms (Most Favored Nation clause).'"
   },
   {
     "ativa": true,
-    "titulo": "Investment policy too broad or without restrictions",
-    "buscar_em": "investment policy, restrictions, limitations, prohibitions, concentration",
-    "regra_spectra": "Investment policy must have: (1) concentration limits per asset (maximum 20-25%); (2) sector concentration limits; (3) permitted geographies; (4) stages/tickets; (5) prohibitions (e.g.: international investments >20%, crypto, derivatives); (6) conflicts of interest.",
-    "como_corrigir": "Define: 'Limits: (i) maximum 25% of Commitment per investment; (ii) minimum 6 investments; (iii) Brazil >80%; (iv) sectors: technology, healthcare, education; (v) tickets R$ 5-50M; (vi) prohibited: crypto, leveraged derivatives, co-investments with GP without approval.'"
+    "titulo": "No fee offset for portfolio company fees",
+    "buscar_em": "transaction fees received from portfolio companies, monitoring fees paid by investments, director fees received by manager, board fees from portfolio companies, fee offset against management fee, double-dipping on fees",
+    "regra_spectra": "Management fee should be reduced (100% offset) by any transaction fees, monitoring fees, director fees or similar fees received by the manager or affiliates from portfolio companies to avoid double-charging.",
+    "como_corrigir": "Include: 'The Management Fee shall be reduced by 100% of any transaction fees, monitoring fees, director fees or other similar fees received by the General Partner, the Investment Adviser, the Fund Lead or any of their Affiliates from any Portfolio Company.'"
   },
   {
     "ativa": true,
-    "titulo": "Manager removal without cause or very high quorum",
-    "buscar_em": "removal, dismissal, cause, without cause, for cause, meeting, vote",
-    "regra_spectra": "Investors must be able to remove manager: (1) for cause (simple majority); (2) without cause (qualified quorum 66-75%). Typical causes: fraud, serious regulatory violation, repeated breach of regulations, loss of CVM authorization.",
-    "como_corrigir": "Establish: 'Administrator Removal: (i) for cause (fraud, CVM violation, material breach): simple majority; (ii) without cause: 75% of investors. Cause includes: failure to achieve minimum performance for 3 consecutive years, loss of CVM registration.'"
+    "titulo": "Overly broad fund expense allocation",
+    "buscar_em": "fund expenses borne by limited partners, organizational expenses charged to fund, operating expenses allocation, software and administrative service costs, broad list of reimbursable expenses, expense cap or limit, disclosure requirement for expenses",
+    "regra_spectra": "Expense clause should not permit unlimited pass-through of indirect costs. Should establish clear cap on organizational expenses and require disclosure before charging any material expense to the fund.",
+    "como_corrigir": "Define: 'The Fund shall bear only costs and expenses directly related to the Fund's operations and reasonable in amount. The General Partner shall not charge any expense to the Fund without prior disclosure to the Limited Partners. Organizational expenses charged to the Fund shall not exceed [defined amount or percentage].'"
   },
   {
     "ativa": true,
-    "titulo": "Discretionary capital distributions",
-    "buscar_em": "distributions, redemptions, liquidity, proceeds, waterfall",
-    "regra_spectra": "Distributions must follow: (1) clear policy (distribute proceeds within 90 days); (2) priority: return of capital, hurdle, catch-up, split; (3) investors must be able to force distribution if manager retains cash >120 days without justification; (4) maximum reserve 10% for contingencies.",
-    "como_corrigir": "Establish: 'Distributions of divestment proceeds within 90 days, according to waterfall. Maximum reserve 10% for contingencies. If cash >R$ X for >120 days without scheduled investment/expense: mandatory distribution upon request of 50%+ investors.'"
+    "titulo": "Creation of new share classes without LP consent",
+    "buscar_em": "establishment of new classes or series, creating separate classes of interests, new class with different rights, amendment to create new classes without consent or notice, unilateral creation of share classes",
+    "regra_spectra": "Creation of new classes of interests with different rights should not be done unilaterally by GP, especially if it could affect economic rights or governance of existing classes.",
+    "como_corrigir": "Establish: 'The creation of any new Class of Interests shall require the prior written consent of a Majority-in-Interest of the Limited Partners of all existing Classes.'"
   },
   {
     "ativa": true,
-    "titulo": "Conflicts of interest without adequate controls",
-    "buscar_em": "conflict of interest, related party transactions, co-investment, portfolio",
-    "regra_spectra": "Conflict transactions (GP co-investments, investments in another GP fund portfolio, inter-fund transactions) must have: (1) prior disclosure; (2) investor or independent committee approval; (3) fairness opinion if material; (4) tag-along right in co-investments.",
-    "como_corrigir": "Establish: 'Conflict Transactions require: (i) disclosure to investors 15 days in advance; (ii) prior approval of Investment Committee (independent majority) or 66% investors; (iii) fairness opinion if >10% of equity; (iv) investors have pro-rata co-investment right.'"
+    "titulo": "Admission of new classes with better terms",
+    "buscar_em": "new limited partners admitted with different terms, new classes with more favorable conditions, admission without consent of existing investors, preferential treatment for new investors, terms more advantageous than existing limited partners",
+    "regra_spectra": "Manager should not create new classes with more favorable terms without transparency and without offering alignment rights (MFN) or requiring consent when there is material impact on existing LPs.",
+    "como_corrigir": "Include: 'The admission of new Limited Partners in new Classes with more favorable economic or governance terms requires: (i) prior disclosure to existing LPs; and (ii) consent of Majority-in-Interest or automatic extension of the same terms (MFN) to existing LPs who meet the applicable eligibility criteria.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Classes and voting rights not pre-defined",
+    "buscar_em": "multiple classes with undefined rights, discretion to determine class privileges, rights and privileges as manager determines, classes not specified in agreement, voting rights subject to manager discretion",
+    "regra_spectra": "Classes, economic rights and voting rights should be pre-defined in the agreement, avoiding broad discretionary powers for the GP to create structures that distort governance.",
+    "como_corrigir": "Require that types of Classes and their basic rights must be specified in the main agreement and exhibits, and that material changes or creation of Classes with additional privileges depend on approval of Majority-in-Interest of existing LPs."
+  },
+  {
+    "ativa": true,
+    "titulo": "Lack of minimum voting rights for Limited Partners",
+    "buscar_em": "limited partners have no voting rights, investors cannot vote on fund matters, no participation in management or control, waiver of voting rights, limited partners excluded from decisions, no approval rights for material changes",
+    "regra_spectra": "Even in structures with centralized management, LPs should have voting rights on structural matters: material amendments to agreement, term extensions, GP removal, strategy changes, and material conflicts of interest.",
+    "como_corrigir": "Define: 'The Limited Partners shall have the right to vote on the following matters, with each matter requiring the affirmative vote of a Majority-in-Interest of the Limited Partners: (a) any amendment that materially and adversely affects Limited Partners' rights or obligations; (b) extension of the Fund term beyond what is already provided; (c) removal of the General Partner for Cause; (d) material change to the investment strategy or objectives; (e) conflict-of-interest transactions; (f) dissolution of the Fund prior to scheduled termination date.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Artificial voting cap at 9.99%",
+    "buscar_em": "voting rights capped at certain percentage, limitation on voting power per investor, general partner deemed to be limited partner for voting purposes, dilution of voting rights, artificial cap on investor vote, voting limitation mechanism",
+    "regra_spectra": "Artificially capping voting rights at 9.99% and using GP as 'fictitious LP' to dilute votes distorts governance and prevents investors from exercising influence proportional to their commitment.",
+    "como_corrigir": "Replace with: 'Each Limited Partner shall have voting rights proportional to its Capital Commitment, without any artificial cap or limitation. The General Partner shall not be deemed to be a Limited Partner solely for purposes of diluting voting rights.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "100% upfront commitment requirement for smaller investors",
+    "buscar_em": "initial drawdown of entire commitment, upfront contribution of full capital, one hundred percent initial capital call, threshold for full upfront payment, small investors required to fund entirely at closing",
+    "regra_spectra": "Requiring 100% upfront funding based only on an arbitrary threshold may be excessively onerous for smaller investors. Should be objective, pre-disclosed and justified.",
+    "como_corrigir": "Make threshold objective and pre-disclosed in agreement; or prefer standard proportional capital call regime for all LPs regardless of commitment size, maintaining cash management flexibility."
+  },
+  {
+    "ativa": true,
+    "titulo": "No voluntary exit mechanism for Limited Partners",
+    "buscar_em": "no right to demand return of capital, cannot revoke unfunded commitment, no withdrawal right, prohibition on voluntary redemption, locked in until dissolution, no exit before fund term",
+    "regra_spectra": "Even in closed-end structures, consider providing restricted exit mechanism or assisted transfer for specific situations (regulatory restrictions, change in LP circumstances), subject to objective conditions.",
+    "como_corrigir": "Consider: 'A Limited Partner may request withdrawal from the Fund upon 90 days' written notice to the General Partner, subject to: (i) approval of the General Partner (not to be unreasonably withheld); (ii) Fund liquidity; (iii) payment of all amounts owed to the Fund; and (iv) compliance with transfer restrictions and applicable law.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Overly discretionary remedies for LP default",
+    "buscar_em": "defaulting partner remedies, forfeiture of capital account, mandatory sale at discount, general partner sole discretion on penalties, consequences of failing to fund capital call, severe penalties without objective criteria",
+    "regra_spectra": "Remedies against defaulting LP are necessary, but absolute discretion of GP to apply severe discounts and penalties without objective criteria can create excessive asymmetry.",
+    "como_corrigir": "Limit 'sole discretion' by establishing: (i) pre-defined maximum discount ranges; (ii) requirement for prior notice and opportunity to cure; (iii) possibility of review by Majority-in-Interest of other LPs in extreme cases; (iv) proportionality to actual damage caused to Fund."
+  },
+  {
+    "ativa": true,
+    "titulo": "Pro-rata rights and follow-on conflicts",
+    "buscar_em": "pro-rata rights in subsequent rounds, follow-on investment opportunities, assignment of rights to third parties, transferring investment rights to other vehicles, waiver of claims related to pro-rata rights, allocation of follow-on investments",
+    "regra_spectra": "Pro-rata and follow-on rights should be offered first to the fund itself. Adviser should not be able to assign these rights to third parties (including other vehicles managed by same adviser) without first offering to the fund on same terms, nor have blanket waiver of liability.",
+    "como_corrigir": "Establish: 'The Fund shall have the first right to exercise any Pro-Rata Rights or Follow-On Investment Offers up to its pro-rata share. The Investment Adviser shall not assign or transfer such rights to any third party (including other funds managed by the Investment Adviser) without first offering such rights to the Fund on the same terms. Remove any waiver of LP rights or remedies related to Investment Adviser's exercise of these rights.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Complete elimination of fiduciary duties",
+    "buscar_em": "general partner owes no fiduciary duties, waiver of duty of care and loyalty, elimination of fiduciary obligations, no fiduciary relationship, limited partners waive fiduciary duties, affirmatively eliminated fiduciary duties",
+    "regra_spectra": "Even with liability limitation structure permitted by law, completely eliminating fiduciary duties is problematic. At minimum, there should be duty of good faith, basic loyalty and reasonable care standard.",
+    "como_corrigir": "Replace with: 'The General Partner shall not be liable for ordinary mistakes in judgment made in good faith, but shall owe duties of good faith and fair dealing to the Fund and the Limited Partners. The General Partner shall be liable for bad faith, intentional misconduct, willful misfeasance, recklessness or gross negligence.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Fund Lead conflicts and co-investment without controls",
+    "buscar_em": "fund lead investing in portfolio companies, co-investment by affiliates on better terms, preferential rights in subsequent rounds, dilution protection not available to fund, liquidation preferences superior to fund, conflict transactions without approval",
+    "regra_spectra": "When Fund Lead or affiliates make co-investments in portfolio companies, there must be: (i) complete prior disclosure; (ii) prohibition of better economic or governance terms than Fund, or at minimum automatic MFN; (iii) LP approval for materially conflicted transactions.",
+    "como_corrigir": "Include: 'The General Partner shall disclose to the Limited Partners any material conflict of interest involving the Fund Lead Parties prior to entering into any transaction, including any co-investment in Portfolio Companies. The Fund Lead Parties shall not invest on more favorable economic or governance terms than the Fund without offering automatic MFN to the Fund. Conflicted transactions above a materiality threshold shall require approval by a Majority-in-Interest of the Limited Partners.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Overly broad exculpation and indemnification",
+    "buscar_em": "indemnification of manager and affiliates, no liability for mistakes in judgment, indemnification for negligence, losses caused by third parties indemnified, fullest extent permitted by law, advance of expenses for indemnified parties, unlimited indemnification",
+    "regra_spectra": "Exculpation/indemnification clauses should not shield manager from ordinary negligence, self-dealing or unapproved conflicts of interest, nor permit unlimited indemnification without LP protections.",
+    "como_corrigir": "Adjust to: (i) exclude protection for bad faith, intentional misconduct, recklessness, gross negligence, self-dealing or unapproved conflicts; (ii) require prior approval of Majority-in-Interest of LPs for settlements above defined threshold; (iii) establish reasonable indemnification cap; (iv) require Indemnified Party to repay advances if finally found liable."
+  },
+  {
+    "ativa": true,
+    "titulo": "Transfer without release of original LP",
+    "buscar_em": "transferring limited partner remains liable, obligations continue after transfer, substituted limited partner admission, transferor not released from obligations, continued liability after assignment",
+    "regra_spectra": "After admission of a Substituted Limited Partner, the transferring investor should be released from future obligations related to that transferred interest, remaining responsible only for obligations already due and unpaid.",
+    "como_corrigir": "Include: 'Upon the admission of a Substituted Limited Partner, the transferring Limited Partner shall be released from all future obligations under this Agreement with respect to the transferred Interest, except for obligations already due and unpaid as of the effective date of the transfer.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Overly broad and discretionary compulsory redemption",
+    "buscar_em": "forced sale of limited partner interest, compulsory withdrawal of investor, general partner may force redemption, mandatory sale at terms determined by manager, discretionary removal of limited partner",
+    "regra_spectra": "Power to force sale or withdrawal of LP should only exist for objective and limited causes: material default, proven illegality, material breach of agreement. Should not be based on broad discretionary criteria of GP.",
+    "como_corrigir": "Reduce to: 'The General Partner may only force the sale or withdrawal of a Limited Partner's Interest for cause, which shall be limited to: (i) material breach of this Agreement by the Limited Partner that remains uncured after notice and opportunity to cure; (ii) failure to fund required Capital Contributions after notice; or (iii) a determination by legal counsel that such Limited Partner's continued ownership would cause the Fund to violate applicable law or lose regulatory status.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Broad power to amend agreement without consent",
+    "buscar_em": "amendment without consent of limited partners, general partner may amend agreement unilaterally, create new classes without consent, extend fund term without approval, changes to agreement without investor vote",
+    "regra_spectra": "Material amendments to LPA (economic rights, governance, fund term, creation of new classes) should not be made unilaterally. Only technical, administrative adjustments and those required by law may dispense with LP consent.",
+    "como_corrigir": "Restrict to: 'The General Partner may, without the consent of the Limited Partners, amend this Agreement solely to: (i) cure any ambiguity, correct typographical or clerical errors; (ii) admit additional Limited Partners or Substituted Limited Partners strictly in accordance with the terms already provided; (iii) make changes required by applicable law; or (iv) make non-material administrative changes. Any other amendment, including but not limited to changes affecting economic rights, voting rights, term extension or creation of new Classes, shall require prior written consent of a Majority-in-Interest of the Limited Partners.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Overly broad power of attorney",
+    "buscar_em": "power of attorney granted to general partner, attorney-in-fact with full power, authority to sign and execute on behalf of limited partner, broad agency powers, power of substitution, authority to bind limited partners",
+    "regra_spectra": "Power of attorney should be limited to administrative and ministerial acts necessary to implement agreement (routine document signatures, certificates, filings). Should not be used to create new material obligations or amend LP rights.",
+    "como_corrigir": "Limit to: 'The power of attorney granted herein shall be limited to administrative and ministerial matters reasonably necessary to implement and give effect to the terms of this Agreement, including execution of documents required for Fund formation, tax filings, and routine administrative matters. Such power shall not be used to amend this Agreement, modify economic or voting rights of Limited Partners, or bind any Limited Partner to any new material obligations without its express prior written consent.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Single arbitrator and rigid location",
+    "buscar_em": "arbitration by single arbitrator, arbitration location fixed in specific city, dispute resolution in one location only, one arbitrator to resolve disputes, no flexibility on arbitration venue",
+    "regra_spectra": "For complex fund disputes, preferable to have: (i) panel of three experienced arbitrators; (ii) flexibility of location by mutual agreement when it reduces costs or facilitates process.",
+    "como_corrigir": "Adjust: 'Arbitration Location means [specified city], or at a location mutually agreed upon by the parties. Disputes shall be resolved by a panel of three arbitrators with substantial experience in investment fund and partnership disputes, appointed in accordance with [arbitration institution] rules.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Absolute class action waiver",
+    "buscar_em": "waiver of class action rights, prohibition on representative proceedings, cannot bring claims as class representative, no consolidation of claims, individual capacity only, class-wide relief not permitted",
+    "regra_spectra": "Absolute waivers of class actions or representative proceedings may be excessively protective of manager in cases of systemic misconduct affecting multiple LPs identically.",
+    "como_corrigir": "Remove class action waiver clause or at least limit it, permitting class actions in cases of fraud, systematic material breach or gross misconduct that affects all LPs uniformly."
+  },
+  {
+    "ativa": true,
+    "titulo": "Side letters without MFN or transparency",
+    "buscar_em": "side letters with individual limited partners, supplementing or altering agreement terms, establishing different rights for some investors, side arrangements without disclosure, preferential terms in separate agreements",
+    "regra_spectra": "Side letters granting additional rights or better terms to some LPs without disclosure to others and without MFN clause creates unacceptable asymmetry.",
+    "como_corrigir": "Include: 'Any side letter or other writing that establishes additional rights or modifies terms for any Limited Partner shall: (i) be disclosed to all Limited Partners; and (ii) include a Most Favored Nation (MFN) clause ensuring that any materially better economic or governance terms granted to one Limited Partner shall be automatically made available to all other Limited Partners who meet the same eligibility criteria.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Manager can withhold information using vague criteria",
+    "buscar_em": "general partner may withhold information, not required to provide information to limited partners, can deny access to information, best interests of fund justifies non-disclosure, discretion to keep information confidential",
+    "regra_spectra": "GP should not be able to withhold material information from LPs using vague criteria like 'best interests of Fund'. Withholding should only occur due to confidentiality imposed by third parties or specific law.",
+    "como_corrigir": "Replace with: 'The General Partner shall provide Limited Partners with all information reasonably requested by such Limited Partners related to the Fund's investments, operations and financial condition, subject only to: (i) confidentiality restrictions expressly imposed by Portfolio Companies in written agreements; or (ii) specific prohibitions under applicable law. General Partner cannot withhold information using subjective 'best interest' criteria.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Manager can disclose LP information without consent",
+    "buscar_em": "disclosure of confidential information without notice, release of limited partner information, sharing investor details with third parties, disclosure without consent in good faith, confidential information shared at manager discretion",
+    "regra_spectra": "GP should not be able to disclose LPs' confidential information to third parties without prior consent, even if claiming good faith or fund benefit.",
+    "como_corrigir": "Include carve-out: 'Notwithstanding the foregoing, the General Partner shall not disclose any Limited Partner's confidential information (including identity, commitment amount, or other non-public information specific to such Limited Partner) to any third party without the prior written consent of such Limited Partner, except as specifically required by applicable law or regulatory authority.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Platform terms of service can change unilaterally",
+    "buscar_em": "terms of service may be amended unilaterally, platform provider can modify terms without notice, service agreement changed at sole discretion, terms of service amendments without consent",
+    "regra_spectra": "Allowing platform terms of service to be changed unilaterally without consent can materially affect LP rights regarding essential fund services.",
+    "como_corrigir": "Include: 'Any material changes to [Platform Provider]'s Terms of Service that adversely affect the rights or obligations of the Limited Partners (including changes to fees, service levels, data access or confidentiality) shall require the prior written consent of a Majority-in-Interest of the Limited Partners.'"
+  },
+  {
+    "ativa": true,
+    "titulo": "Recommendations involving conflicts without independent approval",
+    "buscar_em": "investment recommendations with conflicts of interest, corporate action voting where advisor has conflict, recommendations when manager has adverse interest, conflicted transactions without independent review",
+    "regra_spectra": "When investment recommendations or corporate action votes involve conflict of interest of Fund Lead or Adviser, there should be independent approval (LPAC or independent committee) before executing the recommendation.",
+    "como_corrigir": "Adjust: 'In the event that an investment recommendation or corporate action vote involves a material conflict of interest (including situations where the Fund Lead, Sub-Adviser or Investment Adviser has a direct or indirect economic interest adverse to the Fund), the manager shall obtain the approval of the LPAC (LP Advisory Committee) or, if no LPAC exists, a Majority-in-Interest of the Limited Partners before acting on such recommendation.'"
   }
 ]
