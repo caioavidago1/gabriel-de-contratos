@@ -1,17 +1,16 @@
 """
-Módulo de autenticação da plataforma.
-- Autenticação geral (APP_PASSWORD): obrigatória ao acessar a plataforma
-- Autenticação de administrador (ADMIN_PASSWORD): obrigatória para editar cláusulas e prompts
+Módulo de autenticação da plataforma Gabriel - Análise de Contratos.
+
+- **APP_PASSWORD**: senha de acesso geral; se definida, exige login antes de qualquer conteúdo.
+- **ADMIN_PASSWORD**: senha de administrador; obrigatória para editar cláusulas e prompts.
 """
 import streamlit as st
 import os
 from dotenv import load_dotenv
 import hashlib
 
-# Carregar variáveis de ambiente
 load_dotenv()
 
-# Chaves para armazenar estado de autenticação no session_state
 SESSION_KEY_AUTH = "admin_authenticated"
 SESSION_KEY_APP_AUTH = "app_authenticated"
 
@@ -48,15 +47,10 @@ def verificar_senha(senha_digitada: str, senha_correta: str) -> bool:
     Returns:
         True se a senha estiver correta, False caso contrário
     """
-    # Se não houver senha configurada, permitir acesso
     if not senha_correta:
         return True
-    
-    # Comparação segura usando hash
     hash_digitado = hashlib.sha256(senha_digitada.encode()).hexdigest()
     hash_correto = hashlib.sha256(senha_correta.encode()).hexdigest()
-    
-    # Comparação constante-time
     return hash_digitado == hash_correto
 
 
@@ -65,11 +59,8 @@ def verificar_senha(senha_digitada: str, senha_correta: str) -> bool:
 def esta_autenticado() -> bool:
     """
     Verifica se o usuário está autenticado como administrador.
-    
-    Returns:
-        True se autenticado, False caso contrário
+    Retorna True se não houver ADMIN_PASSWORD configurada.
     """
-    # Se não houver senha configurada, permitir acesso
     if not obter_senha_admin():
         return True
     
@@ -104,11 +95,8 @@ def desautenticar():
 def esta_autenticado_app() -> bool:
     """
     Verifica se o usuário está autenticado para usar a aplicação.
-    
-    Returns:
-        True se autenticado, False caso contrário
+    Retorna True se não houver APP_PASSWORD configurada.
     """
-    # Se não houver senha configurada, permitir acesso
     if not obter_senha_app():
         return True
     
@@ -140,16 +128,11 @@ def tela_login_inicial():
     Returns:
         True se o usuário está autenticado, False caso contrário
     """
-    # Se não houver senha configurada, permitir acesso
     if not obter_senha_app():
         return True
-    
-    # Se já estiver autenticado, permitir acesso
     if esta_autenticado_app():
         return True
-    
-    # Mostrar tela de login
-    # Centralizar o conteúdo
+
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:

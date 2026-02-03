@@ -1,3 +1,8 @@
+"""
+Módulo comum da plataforma Gabriel - Análise de Contratos.
+Upload, histórico, cláusulas (CRUD/JSON), sidebar (informações, histórico, cláusulas, prompts),
+seleção de modelo/embedding, orquestração e exibição de resultados.
+"""
 import streamlit as st
 from pathlib import Path
 import json
@@ -26,6 +31,27 @@ def upload_docx(label: str, key: str = "upload_docx"):
 # ========= DB local =========
 DB_DIR = Path("db")
 DB_DIR.mkdir(exist_ok=True)
+
+# ========= Limpeza output/docs =========
+MAX_ARQUIVOS_DOCS = 30
+
+def limpar_docs_excedentes(docs_dir: Path, max_arquivos: int = MAX_ARQUIVOS_DOCS) -> None:
+    """
+    Mantém no máximo max_arquivos na pasta docs_dir, removendo os arquivos mais antigos (por data de modificação).
+    """
+    if not docs_dir.is_dir():
+        return
+    arquivos = [(f, f.stat().st_mtime) for f in docs_dir.iterdir() if f.is_file()]
+    if len(arquivos) <= max_arquivos:
+        return
+    arquivos.sort(key=lambda x: x[1])
+    excedentes = len(arquivos) - max_arquivos
+    for f, _ in arquivos[:excedentes]:
+        try:
+            f.unlink()
+            logging.debug("Removido arquivo antigo em docs: %s", f.name)
+        except OSError as e:
+            logging.warning("Não foi possível remover %s: %s", f, e)
 
 # ========= Histórico de Análises =========
 MAX_HISTORICO = 10  # Máximo de análises no histórico
@@ -787,6 +813,7 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
             mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             output_dir = Path(__file__).resolve().parent.parent / "output" / "docs"
             output_dir.mkdir(parents=True, exist_ok=True)
+            limpar_docs_excedentes(output_dir)
             path_problemas = output_dir / f"problemas_{nome_base_safe}_{ts}.docx"
             path_solucao = output_dir / f"solucao_{nome_base_safe}_{ts}.docx"
             path_comparacao = output_dir / f"comparacao_{nome_base_safe}_{ts}.docx"
@@ -851,6 +878,7 @@ def mostrar_resultado_analise(resultado, nome_arquivo: str, arquivo_original_byt
                             "Erro ao comparar documentos. No Windows, verifique se o Word e o pywin32 estão instalados. "
                             "No Linux, verifique se o LibreOffice está instalado e em execução com o socket na porta 2002."
                         )
+                    limpar_docs_excedentes(output_dir)
             if (st.session_state.get("comparacao_doc_bytes")
                     and st.session_state.get("comparacao_doc_nome_base") == nome_base):
                 st.download_button(

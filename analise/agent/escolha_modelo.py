@@ -1,6 +1,7 @@
 """
-Gerenciadores de modelos LLM e Embeddings.
-Centraliza configuração e criação de instâncias.
+Gerenciadores de modelos LLM e de embeddings da plataforma.
+Centraliza configuração, listagem e criação de instâncias (LangChain, ChromaDB).
+Provedores: OpenAI, Anthropic (LLM); OpenAI (embeddings).
 """
 from dataclasses import dataclass
 from typing import Optional
@@ -154,7 +155,6 @@ class GerenciadorModelos:
 class TipoEmbedding(Enum):
     """Tipos de modelos de embedding disponíveis."""
     OPENAI = "openai"
-    VOYAGE = "voyage"
 
 
 @dataclass
@@ -198,54 +198,6 @@ class GerenciadorEmbeddings:
             especializado_legal=False,
             suporta_portugues=True
         ),
-        
-        # Voyage AI - Série 4 (Janeiro 2026)
-        "voyage-4": EmbeddingConfig(
-            id="voyage-4",
-            nome="Voyage 4",
-            provedor=TipoEmbedding.VOYAGE,
-            descricao="Generalista de última geração (Jan 2026)",
-            dimensoes=1024,
-            max_tokens=32000,
-            qualidade="excelente",
-            especializado_legal=False,
-            suporta_portugues=True
-        ),
-        "voyage-4-large": EmbeddingConfig(
-            id="voyage-4-large",
-            nome="Voyage 4 Large",
-            provedor=TipoEmbedding.VOYAGE,
-            descricao="Máxima precisão de recuperação",
-            dimensoes=1536,
-            max_tokens=32000,
-            qualidade="excelente",
-            especializado_legal=False,
-            suporta_portugues=True
-        ),
-        "voyage-4-lite": EmbeddingConfig(
-            id="voyage-4-lite",
-            nome="Voyage 4 Lite",
-            provedor=TipoEmbedding.VOYAGE,
-            descricao="Otimizado para latência e custo",
-            dimensoes=512,
-            max_tokens=32000,
-            qualidade="alta",
-            especializado_legal=False,
-            suporta_portugues=True
-        ),
-        
-        # Legado - ainda disponível
-        "voyage-law-2": EmbeddingConfig(
-            id="voyage-law-2",
-            nome="Voyage Law 2",
-            provedor=TipoEmbedding.VOYAGE,
-            descricao="Especializado em textos jurídicos",
-            dimensoes=1024,
-            max_tokens=16000,
-            qualidade="excelente",
-            especializado_legal=True,
-            suporta_portugues=True
-        ),
     }
     
     @classmethod
@@ -268,33 +220,6 @@ class GerenciadorEmbeddings:
                         user_message="Chave de API da OpenAI não configurada para embeddings."
                     )
                 return embedding_functions.OpenAIEmbeddingFunction(
-                    api_key=api_key,
-                    model_name=embedding_config.id
-                )
-            
-            elif embedding_config.provedor == TipoEmbedding.VOYAGE:
-                api_key = os.getenv("VOYAGE_API_KEY")
-                if not api_key:
-                    raise APIKeyError(
-                        "VOYAGE_API_KEY não configurada",
-                        user_message="Chave de API da Voyage não configurada."
-                    )
-                from voyageai import Client as VoyageClient
-                
-                class VoyageEmbeddingFunction:
-                    def __init__(self, api_key: str, model_name: str):
-                        self.client = VoyageClient(api_key=api_key)
-                        self.model_name = model_name
-                    
-                    def __call__(self, input: list[str]) -> list[list[float]]:
-                        result = self.client.embed(
-                            texts=input,
-                            model=self.model_name,
-                            input_type="document"
-                        )
-                        return result.embeddings
-                
-                return VoyageEmbeddingFunction(
                     api_key=api_key,
                     model_name=embedding_config.id
                 )
@@ -325,8 +250,7 @@ class GerenciadorEmbeddings:
         import os
         
         env_vars = {
-            TipoEmbedding.OPENAI: "OPENAI_API_KEY",
-            TipoEmbedding.VOYAGE: "VOYAGE_API_KEY"
+            TipoEmbedding.OPENAI: "OPENAI_API_KEY"
         }
         
         var_name = env_vars.get(embedding_config.provedor)

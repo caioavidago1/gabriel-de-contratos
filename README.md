@@ -205,7 +205,7 @@ Se o código estiver em um repositório Git, você precisará do Git instalado:
 
 ### 3. Conta de e-mail para criar contas nos serviços de API
 
-Você precisará criar contas em 3 serviços diferentes para obter as chaves de API (veja seção [Como Obter as Chaves de API](#como-obter-as-chaves-de-api)).
+Você precisará criar contas em 1 ou 2 serviços diferentes para obter as chaves de API (veja seção [Como Obter as Chaves de API](#como-obter-as-chaves-de-api)).
 
 ---
 
@@ -299,17 +299,15 @@ Você deve ver uma lista com muitas bibliotecas instaladas (streamlit, openai, c
 
 A plataforma precisa de **chaves de API** para funcionar. Essas chaves são como "senhas" que permitem o sistema acessar serviços de inteligência artificial.
 
-Você precisa de **3 chaves obrigatórias** e **1 opcional**:
+Você precisa de **1 chave obrigatória** e **1 opcional**:
 
-### ✅ Chaves Obrigatórias:
+### ✅ Chave Obrigatória:
 
-1. **OPENAI_API_KEY** - Para análise de texto e alguns embeddings
-2. **ANTHROPIC_API_KEY** - Para análise de texto (Claude)
-3. **LLAMA_CLOUD_API_KEY** - Para extrair texto de documentos Word
+1. **OPENAI_API_KEY** - Para análise de texto e embeddings
 
-### ⚙️ Chave Opcional:
+### 🔶 Chave Opcional:
 
-4. **VOYAGE_API_KEY** - Para embeddings avançados (pode usar OpenAI como alternativa)
+1. **ANTHROPIC_API_KEY** - Para análise de texto (Claude)
 
 ---
 
@@ -339,7 +337,7 @@ Você precisa de **3 chaves obrigatórias** e **1 opcional**:
 
 ---
 
-### 🟣 Como Obter a ANTHROPIC_API_KEY
+### 🟣 Como Obter a ANTHROPIC_API_KEY (Opcional)
 
 **O que é:** Chave da Anthropic (criadora do Claude) para usar modelos Claude.
 
@@ -361,55 +359,6 @@ Você precisa de **3 chaves obrigatórias** e **1 opcional**:
    - **IMPORTANTE**: Copie a chave imediatamente! Ela começa com `sk-ant-` e você não poderá vê-la novamente.
    - Cole em um arquivo de texto temporário
 5. **Formato da chave**: `sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
-
----
-
-### 🟢 Como Obter a LLAMA_CLOUD_API_KEY
-
-**O que é:** Chave do LlamaIndex para extrair texto de documentos Word (.docx).
-
-**Passo a passo:**
-
-1. **Acesse**: https://cloud.llamaindex.ai/
-2. **Faça login** ou **crie uma conta**:
-   - Clique em "Sign up" se não tiver conta
-   - Use seu e-mail ou faça login com Google/GitHub
-   - Confirme o e-mail se necessário
-3. **Acessar API Keys**:
-   - Após fazer login, você será redirecionado para o dashboard
-   - No menu lateral, clique em "API Keys" ou procure por "Settings" → "API Keys"
-4. **Criar a chave**:
-   - Clique em "Create API Key" ou botão similar
-   - Dê um nome (ex: "Gabriel Contratos")
-   - **IMPORTANTE**: Copie a chave imediatamente! Ela começa com `llx-` e você não poderá vê-la novamente.
-   - Cole em um arquivo de texto temporário
-5. **Formato da chave**: `llx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
-
----
-
-### 🟡 Como Obter a VOYAGE_API_KEY (Opcional)
-
-**O que é:** Chave da Voyage AI para embeddings especializados. Se você não tiver esta chave, o sistema usará embeddings da OpenAI como alternativa.
-
-**Passo a passo:**
-
-1. **Acesse**: https://www.voyageai.com/
-2. **Faça login** ou **crie uma conta**:
-   - Clique em "Sign up" ou "Get Started"
-   - Use seu e-mail
-   - Confirme o e-mail
-3. **Acessar API Keys**:
-   - Após fazer login, vá em "Dashboard" ou "API Keys"
-4. **Criar a chave**:
-   - Clique em "Create API Key" ou botão similar
-   - Dê um nome (ex: "Gabriel Contratos")
-   - **IMPORTANTE**: Copie a chave imediatamente! Ela começa com `pa-` e você não poderá vê-la novamente.
-   - Cole em um arquivo de texto temporário
-5. **Formato da chave**: `pa-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
-
-**Custos:**
-- Voyage AI geralmente oferece créditos gratuitos para começar
-- Verifique os preços no site
 
 ---
 
@@ -437,15 +386,18 @@ Abra o arquivo `.env` no Bloco de Notas (ou editor de texto) e adicione as segui
 ```env
 # Chaves de API obrigatórias
 OPENAI_API_KEY=sk-proj-sua-chave-aqui
+# Chaves de API opcionais (pode deixar vazio se não tiver)
 ANTHROPIC_API_KEY=sk-ant-api03-sua-chave-aqui
-LLAMA_CLOUD_API_KEY=llx-sua-chave-aqui
-
-# Chave opcional (pode deixar vazio se não tiver)
-VOYAGE_API_KEY=pa-sua-chave-aqui
 
 # Autenticação (opcional): se definidas, exige login para acessar a app e/ou editar cláusulas
 # APP_PASSWORD=senha_para_acessar_a_plataforma
 # ADMIN_PASSWORD=senha_para_editar_clausulas_e_prompts
+
+# LangSmith - Observabilidade (opcional)
+# LANGCHAIN_TRACING_V2=false
+# LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
+# LANGCHAIN_API_KEY=sua_langsmith_api_key_aqui
+# LANGCHAIN_PROJECT=gabriel-contratos
 ```
 
 **IMPORTANTE:**
@@ -461,8 +413,6 @@ VOYAGE_API_KEY=pa-sua-chave-aqui
 ```env
 OPENAI_API_KEY=sk-proj-abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
 ANTHROPIC_API_KEY=sk-ant-api03-abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
-LLAMA_CLOUD_API_KEY=llx-abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
-VOYAGE_API_KEY=pa-abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
 ```
 
 ### Passo 3: Salvar o arquivo
@@ -598,7 +548,7 @@ Ao abrir a plataforma (após login, se `APP_PASSWORD` estiver configurado), voc�
 Na barra lateral esquerda (em cada página de análise), você pode:
 
 - **Gerenciar cláusulas de referência**: Adicionar, editar ou remover regras (requer `ADMIN_PASSWORD` se configurado)
-- **Editar prompts**: Modificar prompts por tipo e idioma (extrator, agent3, agent4)
+- **Editar prompts**: Modificar prompts por tipo e idioma (agent3, agent4). O extrator usa `_defaults`.
 - **Selecionar modelo de IA**: Escolher modelo LLM e modelo de embedding
 - **Atualizar Base de Regras**: Reindexar o ChromaDB quando alterar cláusulas de referência
 
@@ -622,11 +572,13 @@ Se precisar adicionar um novo tipo de contrato, consulte a seção técnica [Com
 
 ### Limpar Cache de Documentos Parseados
 
-O cache de análise fica no session_state (Streamlit). Use o botão "Nova Análise" na página de análise para reprocessar.
+Há dois caches:
 
-### Backup do Banco de Dados
-
-O banco de dados ChromaDB fica em `chroma_db/chroma.sqlite3`. Faça backup deste arquivo periodicamente se você tiver muitas cláusulas indexadas.
+1. **Cache da análise (session_state)**: reaproveita o resultado enquanto o arquivo e as configurações não mudarem.
+   - Para limpar, use o botão **"Nova Análise"** na página de análise.
+2. **Cache do Extrator de Cláusulas (disco)**: evita reprocessar o mesmo DOCX (hash do arquivo).
+   - Para limpar, abra o expander **"Cache do Extrator de Cláusulas"** e clique em **"Limpar cache"**.
+   - Os arquivos ficam em `.cache/agent1/`.
 
 ### Verificar Uso de API Keys
 
@@ -634,7 +586,6 @@ Monitore o uso das APIs nos dashboards:
 
 - **OpenAI**: https://platform.openai.com/usage
 - **Anthropic**: https://console.anthropic.com/settings/usage
-- **LlamaIndex**: https://cloud.llamaindex.ai/ (verifique no dashboard)
 
 ---
 
@@ -751,7 +702,7 @@ Esta seção é para referência técnica. Você não precisa entender isso para
 
 - **Entrada**: Autenticação opcional (`APP_PASSWORD` no `.env`), seleção de **idioma** (pt/en) na home e **tipo de contrato**, upload de `.docx`.
 - **Pipeline**: Orquestrador (`analise/agent/orquestrador.py`) coordena: **Agent 1** (extrator DOCX) → **Agent 2** (matcher ChromaDB) → **Agent 3** (verificador, em paralelo) → **Agent 4** (reescritor, em paralelo) → geração de **3 DOCX** (problemas, solução, explicação) em `output/docs/`.
-- **Prompts**: Por tipo de contrato e idioma em `analise/agent/prompts/{tipo}/` (extrator, agent3, agent4; fallback em `_defaults/`).
+- **Prompts**: `agent3` e `agent4` por tipo/idioma em `analise/agent/prompts/{tipo}/` (fallback em `_defaults/`). O **extrator** usa apenas `_defaults/` por enquanto.
 - **Exceções**: `analise/agent/exceptions.py` (APIKeyError, DocumentEmptyError, DatabaseNotIndexedError, etc.) com mensagens amigáveis.
 - **Config**: `config.toml` (Streamlit: tema, porta, upload size). Variáveis sensíveis no `.env` (API keys, `APP_PASSWORD`, `ADMIN_PASSWORD`).
 
@@ -878,7 +829,7 @@ gabriel-de-contratos/
 │   │   ├── escolha_modelo.py   # Gerenciador de modelos LLM e Embedding
 │   │   ├── exceptions.py       # Exceções com user_message (APIKeyError, etc.)
 │   │   ├── __init__.py         # Prompts: carregar_prompt_tipo, AGENTES, idioma
-│   │   └── prompts/            # Por tipo e idioma (extrator, agent3, agent4)
+│   │   └── prompts/            # Por tipo/idioma (agent3, agent4). Extrator só em _defaults
 │   │       ├── _defaults/      # Fallback
 │   │       ├── nda/
 │   │       └── ... (spa_cotas, reg_fip, etc.)
@@ -907,7 +858,7 @@ gabriel-de-contratos/
 3. **Upload**: Na página do tipo (ex.: `t1_nda`), upload do `.docx`; `comum.render_pagina_analise` chama o orquestrador.
 4. **Orquestrador**:
    - Valida embedding e base de conhecimento (regras em `db/`, ChromaDB sincronizado).
-   - **Agent 1**: Extrai cláusulas do DOCX (LLM + prompts por tipo/idioma).
+   - **Agent 1**: Extrai cláusulas do DOCX (LLM + prompts `_defaults`).
    - **Agent 2**: Para cada regra ativa, busca no ChromaDB os chunks do documento com similaridade ≥ threshold; monta (regra, top 5 chunks).
    - **Agent 3**: Para cada (regra, top 5 chunks), verifica se há violação (LLM); execução **em paralelo** (ThreadPoolExecutor, até 4 workers).
    - **Agent 4**: Para cada violação validada, gera sugestão de reescrita (LLM); execução **em paralelo**.
@@ -960,12 +911,10 @@ def render():
 
 #### Passo 3: (Opcional) Criar prompts específicos
 
-Os agentes **extrator**, **agent3** (Verificador) e **agent4** (Reescritor) usam prompts por tipo e idioma. Arquivos no formato `{agent}_{system|user}_{pt|en}.txt`.
+Os agentes **agent3** (Verificador) e **agent4** (Reescritor) usam prompts por tipo e idioma. O **extrator** usa apenas os prompts `_defaults`. Arquivos no formato `{agent}_{system|user}_{pt|en}.txt`.
 
 ```
 analise/agent/prompts/novo_tipo/
-├── extrator_system_pt.txt
-├── extrator_user_pt.txt
 ├── agent3_system_pt.txt
 ├── agent3_user_pt.txt
 ├── agent4_system_pt.txt
@@ -1034,4 +983,4 @@ Para acessar o servidor de produção, você precisa do arquivo de chave privada
 
 ---
 
-**Última atualização**: 30 de janeiro de 2026
+**Última atualização**: 03 de fevereiro de 2026

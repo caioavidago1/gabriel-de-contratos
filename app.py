@@ -1,22 +1,24 @@
-# Desabilitar uvloop para evitar conflito com nest_asyncio
-# Deve estar no início do arquivo, antes de qualquer import que use asyncio
+"""
+Aplicação principal Gabriel - Análise de Contratos.
+Streamlit: home (seleção de tipo/idioma), autenticação e roteamento para páginas de análise.
+"""
+# --- Event loop: desabilitar uvloop para compatibilidade com nest_asyncio ---
+# Manter no início do arquivo, antes de qualquer import que use asyncio.
 import sys
 import logging
 import asyncio
 
-# Se uvloop estiver instalado, forçar uso do event loop padrão
 try:
-    if 'uvloop' in sys.modules or hasattr(asyncio, '_uvloop_policy'):
-        # Resetar para política padrão
+    if "uvloop" in sys.modules or hasattr(asyncio, "_uvloop_policy"):
         asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
-        print("[APP] uvloop detectado, usando event loop padrão para compatibilidade")
+        print("[APP] uvloop detectado; usando event loop padrão para compatibilidade.")
 except Exception as e:
     print(f"[APP] Aviso ao configurar event loop: {e}")
 
 import streamlit as st
 
-# Suprimir aviso "missing ScriptRunContext" quando orquestrador usa ThreadPoolExecutor
-# (callbacks on_progress/on_log são chamados de worker threads sem contexto Streamlit)
+# --- Log: suprimir aviso "missing ScriptRunContext" ---
+# O orquestrador usa ThreadPoolExecutor; callbacks on_progress/on_log rodam em worker threads sem contexto Streamlit.
 class _FiltroScriptRunContext(logging.Filter):
     def filter(self, record):
         return "missing ScriptRunContext" not in (record.getMessage() or "")
@@ -25,7 +27,6 @@ _filtro_src = _FiltroScriptRunContext()
 for h in logging.root.handlers:
     h.addFilter(_filtro_src)
 logging.root.addFilter(_filtro_src)
-# Streamlit usa loggers próprios; aplicar filtro em todos os loggers conhecidos
 for name in ("streamlit", "streamlit.runtime", "streamlit.runtime.scriptrunner_utils.script_run_context"):
     log = logging.getLogger(name)
     for h in log.handlers:
@@ -44,38 +45,26 @@ from modulos.t10_reg_fip_acquisition import render as render_reg_fip_acquisition
 from modulos.t11_acordo_cotistas_acquisition import render as render_acordo_cotistas_acquisition
 from modulos.auth import tela_login_inicial, obter_senha_app, esta_autenticado_app
 
-# Verificar se precisa de autenticação geral
+# --- Autenticação e configuração da página ---
 precisa_login = obter_senha_app()
 esta_autenticado = esta_autenticado_app() if precisa_login else True
 
-# Configurar página baseado no estado de autenticação
 if precisa_login and not esta_autenticado:
-    # Se precisa de login e não está autenticado, configurar página para tela de login
-    st.set_page_config(
-        page_title="Acesso",
-        page_icon="🔐",
-        layout="centered",
-    )
+    st.set_page_config(page_title="Acesso", page_icon="🔐", layout="centered")
 else:
-    # Se não precisa de login ou já está autenticado, configurar página normal
-    st.set_page_config(
-        page_title="Gabriel - Análise de Contratos",
-        page_icon="📄",
-        layout="wide",
-    )
+    st.set_page_config(page_title="Gabriel - Análise de Contratos", page_icon="📄", layout="wide")
 
-# Verificar autenticação geral da aplicação
 if not tela_login_inicial():
-    st.stop()  # Parar execução se não estiver autenticado
+    st.stop()
 
 if "pagina" not in st.session_state:
     st.session_state.pagina = "home"
 if "tipo_documento" not in st.session_state:
     st.session_state.tipo_documento = None
 if "idioma_contrato" not in st.session_state:
-    st.session_state.idioma_contrato = "pt"  # Padrão: português
+    st.session_state.idioma_contrato = "pt"
 
-# Home Page
+# --- Página inicial ---
 if st.session_state.pagina == "home":
     st.title("Gabriel - Análise de Contratos")
     
@@ -88,10 +77,8 @@ if st.session_state.pagina == "home":
         key="select_idioma_home"
     )
     st.session_state.idioma_contrato = idioma_selecionado
-    
     st.write("Selecione o tipo de documento para iniciar a análise:")
 
-    # Contratos Gerais
     st.write("Contratos Gerais")
     col1, col2 = st.columns(2)
 
@@ -107,7 +94,6 @@ if st.session_state.pagina == "home":
             st.session_state.pagina = "analise"
             st.rerun()
 
-    # SPAs
     st.write("SPAs (Share Purchase Agreements)")
     col1, col2, col3 = st.columns(3)
 
@@ -129,7 +115,6 @@ if st.session_state.pagina == "home":
             st.session_state.pagina = "analise"
             st.rerun()
 
-    # Regulamentos de Fundos (Primários)
     st.write("Regulamentos de Fundos (Primários)")
     col1, col2 = st.columns(2)
 
@@ -145,7 +130,6 @@ if st.session_state.pagina == "home":
             st.session_state.pagina = "analise"
             st.rerun()
 
-    # Search Funds - Search Phase
     st.write("Search Funds - Search Phase")
     col1, col2 = st.columns(2)
 
@@ -161,7 +145,6 @@ if st.session_state.pagina == "home":
             st.session_state.pagina = "analise"
             st.rerun()
 
-    # Search Funds - Acquisition Phase
     st.write("Search Funds - Acquisition Phase")
     col1, col2 = st.columns(2)
 
@@ -177,7 +160,7 @@ if st.session_state.pagina == "home":
             st.session_state.pagina = "analise"
             st.rerun()
 
-# Pages
+# --- Páginas de análise (roteamento por tipo de documento) ---
 elif st.session_state.pagina == "analise":
     if st.session_state.tipo_documento == "NDA":
         render_nda()

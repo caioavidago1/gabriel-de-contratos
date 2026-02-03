@@ -14,10 +14,6 @@ langchain-anthropic
 # Embeddings e vetores
 chromadb
 openai
-voyageai
-distro
 
 # Validação
 pydantic
-
-redlines

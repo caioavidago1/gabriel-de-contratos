@@ -345,6 +345,7 @@ class OrquestradorAnalise:
             doc_problemas_bytes = gerar_problemas_docx(violacoes_validadas)
             doc_solucao_bytes = gerar_solucao_docx(violacoes_validadas)
             doc_explicacao_bytes = gerar_doc_comparado(doc_problemas_bytes, doc_solucao_bytes)
+            from modulos.comum import limpar_docs_excedentes
             output_dir = Path("output") / "docs"
             output_dir.mkdir(parents=True, exist_ok=True)
             nome_base = Path(nome_arquivo).stem
@@ -353,6 +354,7 @@ class OrquestradorAnalise:
             (output_dir / f"solucao_{nome_base}_{ts}.docx").write_bytes(doc_solucao_bytes)
             if doc_explicacao_bytes:
                 (output_dir / f"explicacao_{nome_base}_{ts}.docx").write_bytes(doc_explicacao_bytes)
+            limpar_docs_excedentes(output_dir)
 
             # Finalizar
             self._progress(on_progress, "Finalizando", 0.98)
