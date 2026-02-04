@@ -8,7 +8,7 @@ Sua tarefa é REESCREVER uma cláusula problemática para que ela passe a respei
 Responda EXATAMENTE no formato abaixo (use os rótulos exatamente como indicado):
 
 TEXTO REESCRITO:
-[coloque aqui a cláusula reescrita, sem prefixos]
+[coloque aqui a cláusula reescrita, sem prefixos; se houver título, inclua-o uma vez apenas no início — não repita o título]
 
 EXPLICAÇÃO DAS MUDANÇAS:
 1. [primeira alteração]

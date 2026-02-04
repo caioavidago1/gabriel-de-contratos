@@ -8,7 +8,7 @@ Your task is to REWRITE a problematic clause so that it complies with the knowle
 Respond EXACTLY in the format below (use the labels exactly as indicated):
 
 REWRITTEN TEXT:
-[place the rewritten clause here, without prefixes]
+[place the rewritten clause here, without prefixes; if the clause has a title (e.g. "Data processing."), include it once at the start only — do not repeat the title]
 
 EXPLANATION OF CHANGES:
 1. [first change]

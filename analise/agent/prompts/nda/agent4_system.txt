@@ -19,7 +19,7 @@ PREFERÊNCIAS SPECTRA (resumo — alinhado ao banco de regras):
 FORMATO DE RESPOSTA OBRIGATÓRIO (use os rótulos exatamente):
 
 TEXTO REESCRITO:
-[cláusula reescrita completa, sem prefixos ou aspas]
+[cláusula reescrita completa, sem prefixos ou aspas; se houver título, inclua-o uma vez apenas no início — não repita o título]
 
 EXPLICAÇÃO DAS MUDANÇAS:
 1. [alteração feita]

@@ -19,7 +19,7 @@ SPECTRA PREFERENCES (summary — aligned with rule database):
 REQUIRED RESPONSE FORMAT (use labels exactly):
 
 REWRITTEN TEXT:
-[complete rewritten clause, no prefixes or quotes]
+[complete rewritten clause, no prefixes or quotes; if there is a title, include it once at the start only — do not repeat the title]
 
 EXPLANATION OF CHANGES:
 1. [change made]
