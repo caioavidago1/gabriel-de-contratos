@@ -48,23 +48,23 @@ class GerenciadorModelos:
             max_tokens=128000
         ),
         
-        # Anthropic - Modelos Claude 4.5 (2026)
-        "claude-opus-4.5": ModeloConfig(
-            id="claude-opus-4.5",
+        # Anthropic - Modelos Claude 4.5 (IDs oficiais: hífen 4-5, não ponto 4.5)
+        "claude-opus-4-5": ModeloConfig(
+            id="claude-opus-4-5",
             nome="Claude Opus 4.5",
             provedor=TipoModelo.ANTHROPIC,
             descricao="Modelo mais poderoso da Anthropic",
             max_tokens=200000
         ),
-        "claude-sonnet-4.5": ModeloConfig(
-            id="claude-sonnet-4.5",
+        "claude-sonnet-4-5": ModeloConfig(
+            id="claude-sonnet-4-5",
             nome="Claude Sonnet 4.5",
             provedor=TipoModelo.ANTHROPIC,
             descricao="Balanceamento ideal entre performance e custo",
             max_tokens=200000
         ),
-        "claude-haiku-4.5": ModeloConfig(
-            id="claude-haiku-4.5",
+        "claude-haiku-4-5": ModeloConfig(
+            id="claude-haiku-4-5",
             nome="Claude Haiku 4.5",
             provedor=TipoModelo.ANTHROPIC,
             descricao="Mais rápido e econômico da família Claude",
